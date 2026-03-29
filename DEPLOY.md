@@ -21,6 +21,15 @@
 1. 打开 [Netlify Drop](https://app.netlify.com/drop) 或 Netlify 控制台 **Add new site → Deploy manually**。
 2. 将本文件夹（含上述三个文件）拖入，即可获得 `https://xxx.netlify.app`。
 
-## 上线后自检
+## 上线后自检（HTTPS）
 
-用 **HTTPS** 打开站点，检查首页、头像、点击 **CV** 弹窗能否加载 PDF。
+部署完成后，将下面命令里的 `https://你的站点` 换成真实地址（GitHub Pages / Netlify 提供的 **https** 链接）：
+
+```bash
+BASE="https://你的站点"   # 末尾不要多余斜杠，若站点在子路径则含路径前缀
+curl -sI "$BASE/" | head -1
+curl -sI "$BASE/Sijian_TIAN_CV_ds.pdf" | head -1
+curl -sI "$BASE/avatar.png" | head -1
+```
+
+期望均为 `HTTP/2 200`（或 `HTTP/1.1 200`）。再在浏览器中打开同一 **HTTPS** 地址，点击 **CV**，确认 PDF 在弹窗内可预览。
