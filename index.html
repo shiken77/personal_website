@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sijian Tian</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #fdf6ee;
+  --bg2:      #fef9f4;
+  --bg3:      #fff5e8;
+  --orange:   #f97316;
+  --orange2:  #fb923c;
+  --pink:     #f9a8d4;
+  --pink2:    #f472b6;
+  --blue:     #93c5fd;
+  --blue2:    #60a5fa;
+  --text:     #2c1a0e;
+  --text2:    #6b3f20;
+  --text3:    #a0795a;
+  --border:   #f0d8c0;
+  --serif: 'Chalkboard SE', Georgia, serif;
+  --sans:  'Chalkboard SE', sans-serif;
+  --mono:  'Chalkboard SE', monospace;
+}
+
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); overflow-x: hidden; cursor: none; }
+
+/* ── CURSOR ── */
+.cur { width:10px;height:10px;background:var(--orange);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s; }
+.cur-ring { width:28px;height:28px;border:1.5px solid var(--orange2);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .1s; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:200;
+  background: rgba(253,246,238,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--border);
+  padding: 0 6vw;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.nav-logo {
+  font-family: var(--serif); font-style:italic; font-size:1.15rem;
+  color: var(--orange); text-decoration:none; font-weight:600;
+}
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a {
+  font-family: var(--mono); font-size:10.5px; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--text2); text-decoration:none;
+  padding-bottom:2px; border-bottom:1.5px solid transparent;
+  transition: all .2s;
+}
+.nav-links a:hover { color:var(--orange); border-bottom-color:var(--orange); }
+
+/* ── PAGE SYSTEM ── */
+.page { display:none; min-height:100vh; padding-top:64px; }
+.page.active { display:block; }
+
+/* ── SECTION DIVIDER ── */
+.sec-divider {
+  display:flex; align-items:center; gap:16px;
+  padding: 48px 6vw 32px;
+}
+.sec-divider-line { flex:1; height:2px; background: var(--border); }
+.sec-divider-label {
+  font-family:var(--mono); font-size:10px; letter-spacing:3px;
+  text-transform:uppercase; color:var(--text3); white-space:nowrap;
+}
+.sec-divider-dot {
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;
+}
+
+/* ── HOME PAGE ── */
+.home-hero {
+  min-height: calc(100vh - 64px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 60px 6vw 80px;
+  gap: 60px;
+  border-bottom: 2px solid var(--border);
+}
+
+.home-left { }
+
+.home-greeting {
+  font-family:var(--mono); font-size:11px; letter-spacing:3px;
+  text-transform:uppercase; color:var(--text3);
+  margin-bottom:20px;
+  display:flex; align-items:center; gap:12px;
+}
+.home-greeting::before { content:''; width:28px;height:1.5px;background:var(--orange); }
+
+.home-name {
+  font-family: var(--serif); font-size: clamp(2.8rem,5vw,4.5rem);
+  line-height:1.08; margin-bottom:12px; letter-spacing:-1px;
+}
+.home-name em { font-style:italic; color:var(--orange); }
+
+.home-role {
+  font-family:var(--serif); font-style:italic;
+  font-size:clamp(1rem,1.8vw,1.35rem);
+  color:var(--text2); margin-bottom:32px; line-height:1.5;
+}
+
+.home-bio {
+  font-size:14.5px; line-height:1.85; color:var(--text2);
+  max-width:480px; margin-bottom:40px;
+}
+
+.home-chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:40px; }
+.chip {
+  padding:5px 14px; border-radius:100px;
+  font-family:var(--mono); font-size:10px; letter-spacing:1px;
+  border:1.5px solid; cursor:none;
+}
+.chip-orange { border-color:var(--orange); color:var(--orange); background:rgba(249,115,22,.06); }
+.chip-pink   { border-color:var(--pink2); color:var(--pink2); background:rgba(244,114,182,.06); }
+.chip-blue   { border-color:var(--blue2); color:var(--blue2); background:rgba(96,165,250,.06); }
+
+.home-ctas { display:flex; gap:14px; flex-wrap:wrap; }
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 26px; border-radius:3px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:1.5px;
+  text-transform:uppercase; text-decoration:none; transition:all .2s; cursor:none;
+}
+.btn-solid { background:var(--orange); color:#fff; }
+.btn-solid:hover { background:#ea6c0a; box-shadow:0 6px 24px rgba(249,115,22,.25); transform:translateY(-2px); }
+.btn-outline { border:1.5px solid var(--border); color:var(--text2); }
+.btn-outline:hover { border-color:var(--orange); color:var(--orange); transform:translateY(-2px); }
+
+/* avatar */
+.home-right {
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px;
+}
+.avatar-wrap {
+  position:relative; width:280px; height:280px;
+}
+.avatar-bg-ring {
+  position:absolute; inset:-16px;
+  border-radius:50%;
+  border:2px dashed var(--pink);
+  animation:spin 20s linear infinite;
+}
+.avatar-bg-ring2 {
+  position:absolute; inset:-32px;
+  border-radius:50%;
+  border:1.5px dashed var(--blue);
+  animation:spin 30s linear infinite reverse;
+}
+.avatar-img {
+  width:280px; height:280px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid var(--bg);
+  box-shadow: 0 12px 48px rgba(249,115,22,.2), 0 4px 16px rgba(244,114,182,.15);
+}
+.home-stats {
+  display:flex; gap:24px;
+}
+.home-stat { text-align:center; }
+.home-stat-val {
+  font-family:var(--serif); font-style:italic;
+  font-size:1.8rem; color:var(--orange); display:block; line-height:1;
+}
+.home-stat-label {
+  font-family:var(--mono); font-size:9px; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--text3); margin-top:4px;
+}
+
+/* home info strips */
+.home-strips {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border-top:2px solid var(--border);
+}
+.home-strip {
+  padding:32px 6vw;
+  border-right:2px solid var(--border);
+}
+.home-strip:last-child { border-right:none; }
+.strip-icon { font-size:1.5rem; margin-bottom:10px; }
+.strip-title { font-family:var(--serif); font-size:1rem; font-weight:600; margin-bottom:6px; }
+.strip-body { font-size:13px; color:var(--text2); line-height:1.65; }
+
+/* ── RESEARCH PAGE ── */
+.research-tabs {
+  display:flex; gap:0;
+  padding:0 6vw;
+  border-bottom:2px solid var(--border);
+  margin-top:40px;
+}
+.rtab {
+  padding:14px 28px; font-family:var(--mono);
+  font-size:11px; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--text3); border-bottom:3px solid transparent;
+  cursor:none; transition:all .2s; border:none; background:none;
+  margin-bottom:-2px;
+}
+.rtab.active { color:var(--orange); border-bottom-color:var(--orange); }
+.rtab:hover { color:var(--text); }
+
+.research-panel { display:none; }
+.research-panel.active { display:block; }
+
+/* Blog Panel System */
+.blog-panel { display:none; }
+.blog-panel.active { display:block; }
+
+/* Softer styling for “PhD Life” blog cards */
+#blog-life .blog-card {
+  background: linear-gradient(to bottom right, var(--bg2), #fff);
+  border-radius: 8px; /* slightly softer corners */
+}
+
+
+/* PhD research items */
+.research-intro {
+  padding:48px 6vw 32px;
+  max-width:700px;
+}
+.research-intro p { font-size:14.5px; line-height:1.8; color:var(--text2); }
+
+.phd-phases {
+  padding:0 6vw 80px;
+  display:flex; flex-direction:column; gap:0;
+  border-top:2px solid var(--border);
+}
+
+.phase-item {
+  display:grid;
+  grid-template-columns:72px 1fr auto;
+  gap:32px;
+  align-items:start;
+  padding:40px 0;
+  border-bottom:2px solid var(--border);
+  position:relative;
+}
+.phase-item:last-child { border-bottom:none; }
+
+.phase-num {
+  font-family:var(--serif); font-style:italic;
+  font-size:3.5rem; color:var(--border); line-height:1;
+  user-select:none;
+}
+
+.phase-body {}
+.phase-tag {
+  font-family:var(--mono); font-size:10px; letter-spacing:2px;
+  text-transform:uppercase; margin-bottom:10px; display:block;
+}
+.phase-tag.t-blue { color:var(--blue2); }
+.phase-tag.t-orange { color:var(--orange); }
+.phase-tag.t-pink { color:var(--pink2); }
+.phase-tag.t-amber { color:#f59e0b; }
+
+.phase-title {
+  font-family:var(--serif); font-size:1.35rem;
+  line-height:1.25; margin-bottom:12px;
+}
+.phase-desc {
+  font-size:13.5px; line-height:1.75; color:var(--text2);
+  max-width:580px; margin-bottom:18px;
+}
+.phase-pills { display:flex; gap:8px; flex-wrap:wrap; }
+.pill {
+  font-family:var(--mono); font-size:10px; letter-spacing:.5px;
+  padding:4px 12px; border:1.5px solid var(--border);
+  color:var(--text3); border-radius:2px;
+}
+.pill.hl { border-color:var(--orange); color:var(--orange); background:rgba(249,115,22,.05); }
+.pill.hl-pink { border-color:var(--pink2); color:var(--pink2); background:rgba(244,114,182,.05); }
+.pill.hl-blue { border-color:var(--blue2); color:var(--blue2); background:rgba(96,165,250,.05); }
+
+.phase-status {
+  font-family:var(--mono); font-size:9.5px; letter-spacing:1.5px;
+  text-transform:uppercase; padding:5px 12px; border-radius:2px;
+  white-space:nowrap; align-self:flex-start; margin-top:6px;
+}
+.s-done { background:rgba(0,0,0,.04); color:var(--text3); border:1px solid var(--border); }
+.s-review { background:rgba(249,115,22,.07); color:var(--orange); border:1px solid rgba(249,115,22,.25); }
+.s-progress { background:rgba(96,165,250,.07); color:var(--blue2); border:1px solid rgba(96,165,250,.25); }
+
+/* PDF embed */
+.pdf-embed-wrap {
+  padding: 48px 6vw 80px;
+}
+.pdf-embed {
+  width: 100%;
+  height: calc(100vh - 260px);
+  min-height: 600px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg2);
+}
+
+/* CV modal (local PDF preview) */
+.cv-modal {
+  position: fixed; inset: 0; z-index: 5000;
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.cv-modal.is-open { display: flex; }
+.cv-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(44, 26, 14, 0.5);
+  backdrop-filter: blur(6px);
+}
+.cv-modal-panel {
+  position: relative; z-index: 1;
+  width: min(960px, 100%);
+  height: min(92vh, 920px);
+  background: var(--bg2);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,.18);
+}
+.cv-modal-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 2px solid var(--border);
+  flex-shrink: 0;
+  background: var(--bg);
+}
+.cv-modal-title { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: var(--text2); }
+.cv-modal-close {
+  border: none; background: none; cursor: none;
+  font-size: 1.6rem; line-height: 1; color: var(--text3);
+  padding: 4px 12px; border-radius: 4px;
+  font-family: var(--sans);
+  transition: color .2s, background .2s;
+}
+.cv-modal-close:hover { color: var(--orange); background: rgba(249,115,22,.08); }
+.cv-modal-iframe {
+  flex: 1; width: 100%; min-height: 0;
+  border: none; background: var(--bg3);
+}
+
+/* Architecture grid */
+.arch-grid {
+  padding:48px 6vw 80px;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:2px;
+}
+.arch-card {
+  background:var(--bg2);
+  padding:40px;
+  border:1px solid var(--border);
+  transition:background .2s;
+}
+.arch-card:hover { background:var(--bg3); }
+.arch-card-type {
+  font-family:var(--mono); font-size:10px; letter-spacing:2px;
+  text-transform:uppercase; margin-bottom:14px;
+}
+.arch-card-title {
+  font-family:var(--serif); font-size:1.2rem; line-height:1.3;
+  margin-bottom:10px;
+}
+.arch-card-desc {
+  font-size:13px; color:var(--text2); line-height:1.7; margin-bottom:16px;
+}
+.arch-card-meta {
+  font-family:var(--mono); font-size:10px; color:var(--text3);
+  display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+}
+.arch-badge {
+  padding:2px 8px; border-radius:2px; font-size:9.5px; letter-spacing:.5px;
+}
+.arch-badge-pink { background:rgba(244,114,182,.1); border:1px solid rgba(244,114,182,.3); color:var(--pink2); }
+.arch-badge-blue { background:rgba(96,165,250,.1); border:1px solid rgba(96,165,250,.3); color:var(--blue2); }
+
+/* ── PROJECTS PAGE ── */
+.projects-grid {
+  padding:48px 6vw 80px;
+  display:flex; flex-direction:column;
+  gap:0;
+}
+.proj-card {
+  background:var(--bg2); padding:36px 44px;
+  border:1px solid var(--border);
+  text-decoration:none; color:inherit;
+  display:grid; grid-template-columns:auto 1fr auto;
+  gap:24px 40px; align-items:center;
+  position:relative;
+  transition:background .2s;
+}
+.proj-card:hover { background:var(--bg3); }
+.proj-card.wide { grid-template-columns:auto 1fr auto; }
+.proj-arrow {
+  font-size:1.1rem; color:var(--text3);
+  transition:all .2s; flex-shrink:0;
+}
+.proj-card:hover .proj-arrow { color:var(--orange); transform:translate(3px,-3px); }
+.proj-type { font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; }
+.proj-title { font-family:var(--serif); font-size:1.5rem; line-height:1.2; margin-bottom:12px; }
+.proj-desc { font-size:13.5px; line-height:1.7; color:var(--text2); margin-bottom:24px; }
+.proj-stack { display:flex; gap:7px; flex-wrap:wrap; }
+.stag {
+  font-family:var(--mono); font-size:10px; padding:3px 10px;
+  border:1px solid var(--border); color:var(--text3); border-radius:2px;
+}
+.proj-visual {
+  background:var(--bg3); border:1px solid var(--border); border-radius:4px;
+  height:180px; display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:2px;
+}
+
+/* ── PUBLICATIONS PAGE ── */
+.pub-list { padding:48px 6vw 80px; }
+.pub-item {
+  display:grid; grid-template-columns:48px 1fr;
+  gap:24px; padding:32px 0;
+  border-bottom:2px solid var(--border); align-items:start;
+}
+.pub-item:last-child { border-bottom:none; }
+.pub-idx { font-family:var(--mono); font-size:11px; color:var(--text3); padding-top:3px; }
+.pub-title { font-size:15px; font-weight:600; line-height:1.5; margin-bottom:6px; }
+.pub-authors { font-size:13px; color:var(--text2); margin-bottom:7px; line-height:1.5; }
+.pub-authors strong { color:var(--text); font-weight:700; }
+.pub-venue {
+  font-family:var(--mono); font-size:11px; color:var(--text3);
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+}
+.pub-badge {
+  padding:2px 8px; border-radius:2px; font-size:9.5px; letter-spacing:.5px;
+}
+.pb-journal { background:rgba(249,115,22,.08); border:1px solid rgba(249,115,22,.25); color:var(--orange); }
+.pb-conf { background:rgba(244,114,182,.08); border:1px solid rgba(244,114,182,.25); color:var(--pink2); }
+
+/* ── BLOG PAGE ── */
+.blog-grid {
+  padding:48px 6vw 80px;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
+}
+.blog-card {
+  background:var(--bg2); padding:36px;
+  border:1px solid var(--border); transition:background .2s;
+}
+.blog-card:hover { background:var(--bg3); }
+.blog-date { font-family:var(--mono); font-size:10px; letter-spacing:1.5px; color:var(--text3); margin-bottom:14px; }
+.blog-title { font-family:var(--serif); font-size:1.1rem; line-height:1.35; margin-bottom:10px; }
+.blog-excerpt { font-size:13px; line-height:1.65; color:var(--text2); margin-bottom:20px; }
+.blog-read {
+  font-family:var(--mono); font-size:10px; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--orange); text-decoration:none;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.blog-card:hover .blog-read::after { content:' →'; }
+
+/* ── CONTACT PAGE ── */
+.contact-layout {
+  padding:48px 6vw 80px;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;
+}
+.contact-intro { font-size:14.5px; line-height:1.8; color:var(--text2); margin-bottom:40px; max-width:420px; }
+.contact-links { display:flex; flex-direction:column; gap:0; border:2px solid var(--border); border-radius:4px; overflow:hidden; }
+.clink {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 24px; text-decoration:none; color:inherit;
+  border-bottom:1px solid var(--border); transition:background .2s;
+}
+.clink:last-child { border-bottom:none; }
+.clink:hover { background:var(--bg3); }
+.clink-left { display:flex; align-items:center; gap:14px; }
+.clink-icon {
+  width:34px;height:34px; border:1.5px solid var(--border);
+  border-radius:3px; display:flex;align-items:center;justify-content:center;
+  font-size:15px;
+}
+.clink-key { font-family:var(--mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text3); }
+.clink-val { font-size:13px; color:var(--text); margin-top:1px; }
+.clink-xhs .clink-left { align-items:flex-start; }
+.clink-xhs .clink-icon { margin-top:2px; }
+.clink-arrow { color:var(--text3); transition:all .2s; }
+.xhs-slogan {
+  font-size:13.5px; line-height:1.7; color:var(--text2);
+  margin-top:14px; max-width:420px;
+}
+.xhs-slogan-en {
+  display:block; margin-top:6px;
+  font-family:var(--mono); font-size:11px; letter-spacing:0.04em;
+  color:var(--text3);
+}
+.clink .xhs-slogan { margin-top:10px; font-size:12.5px; max-width:300px; }
+.clink .xhs-slogan-en { margin-top:5px; font-size:10.5px; }
+.clink:hover .clink-arrow { color:var(--orange); transform:translateX(4px); }
+
+.contact-right {}
+.contact-card {
+  background:var(--bg2); border:2px solid var(--border); border-radius:4px; padding:44px;
+}
+.contact-loc-title { font-family:var(--serif); font-style:italic; font-size:2rem; line-height:1.2; margin-bottom:10px; }
+.contact-loc-sub { font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--text3); margin-bottom:32px; }
+.cv-btn {
+  display:inline-flex; align-items:center; gap:9px;
+  padding:14px 24px; border:1.5px solid var(--orange);
+  color:var(--orange); font-family:var(--mono); font-size:10.5px;
+  letter-spacing:1.5px; text-transform:uppercase; text-decoration:none;
+  border-radius:3px; transition:all .2s; cursor:none;
+}
+.cv-btn:hover { background:var(--orange); color:#fff; box-shadow:0 6px 24px rgba(249,115,22,.2); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  padding:56px 6vw 0;
+  border-bottom:2px solid var(--border);
+  padding-bottom:40px;
+}
+.page-header-eyebrow {
+  font-family:var(--mono); font-size:10px; letter-spacing:3px;
+  text-transform:uppercase; color:var(--text3); margin-bottom:12px;
+  display:flex; align-items:center; gap:10px;
+}
+.page-header-eyebrow::before { content:''; width:24px;height:1.5px;background:var(--orange); }
+.page-header-title {
+  font-family:var(--serif); font-size:clamp(2rem,4vw,3rem);
+  line-height:1.1; letter-spacing:-.5px;
+}
+.page-header-title em { font-style:italic; color:var(--orange); }
+
+/* ── FOOTER ── */
+footer {
+  border-top:2px solid var(--border);
+  padding:28px 6vw;
+  display:flex; justify-content:space-between; align-items:center;
+  background:var(--bg2);
+}
+.footer-l { font-family:var(--mono); font-size:10px; letter-spacing:1px; color:var(--text3); }
+.footer-r { font-family:var(--mono); font-size:10px; color:var(--text3); }
+
+/* ── ANIMATIONS ── */
+@keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+.reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .home-hero { grid-template-columns:1fr; padding:40px 6vw 60px; }
+  .home-right { display:none; }
+  .home-strips { grid-template-columns:1fr; }
+  .home-strip { border-right:none; border-bottom:2px solid var(--border); }
+  .home-strip:last-child { border-bottom:none; }
+  .arch-grid, .blog-grid, .contact-layout { grid-template-columns:1fr; }
+  .proj-card { grid-template-columns:1fr; }
+  .phase-item { grid-template-columns:1fr; }
+  .phase-num { display:none; }
+  nav { padding:0 4vw; }
+  .nav-links { gap:16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="cur-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo" onclick="showPage('home')">Sijian ✦</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')">Home</a></li>
+    <li><a href="#" onclick="showPage('research')">Research</a></li>
+    <li><a href="#" onclick="showPage('projects')">Projects</a></li>
+    <li><a href="#" onclick="showPage('publications')">Publications</a></li>
+    <li><a href="#" onclick="showPage('blog')">Blog</a></li>
+    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════ HOME ════════════════════ -->
+<div class="page active" id="page-home">
+  <section class="home-hero">
+    <div class="home-left">
+      <div class="home-greeting">Urban Data Scientist · PhD Candidate</div>
+      <h1 class="home-name">Sijian<em>Tian</em></h1>
+      <div class="home-role">a researcher<br></div>
+      <p class="home-bio">
+        PhD candidate at the University of Tokyo, Sekimoto Lab.<br>
+        
+        My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.<br>
+        
+        Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.<br>
+        
+        If you're interested in cities, data, or AI products — or just have a weird idea you want to talk through — feel free to reach out.<br>  
+      </p>
+      <div class="home-chips">
+        <span class="chip chip-orange">Causal Inference</span>
+        <span class="chip chip-orange">Causal Machine Learning</span>
+        <span class="chip chip-orange">Time series forecasting</span>
+        <span class="chip chip-pink"> AI Full Stack Engineer</span>
+        <span class="chip chip-pink">Behavior informatics (analysis, forecast, simulation)</span>
+      </div>
+      <div class="home-ctas">
+        <a href="#" class="btn btn-solid" onclick="showPage('research')">View Research →</a>
+        <a href="#" class="btn btn-outline" onclick="showPage('contact')">Get in Touch</a>
+        <a href="#" class="btn btn-outline" onclick="openCvModal(); return false;">CV</a>
+      </div>
+    </div>
+
+    <div class="home-right">
+      <div class="avatar-wrap">
+        <div class="avatar-bg-ring2"></div>
+        <div class="avatar-bg-ring"></div>
+        <img src="avatar.png" alt="Sijian Tian" class="avatar-img">
+      </div>
+      <div class="home-stats">
+        <div class="home-stat">
+          <span class="home-stat-val">Peace & Love</span>
+          <span class="home-stat-label"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="home-strips">
+    <div class="home-strip">
+      <div class="strip-icon">🏙️</div>
+      <div class="strip-title">Urban Digital Twin</div>
+      <div class="strip-body">People flow & Behavior Change Simulation & Policy Simulation</div>
+    </div>
+    <div class="home-strip">
+      <div class="strip-icon">✏️</div>
+      <div class="strip-title">Architecture & Urban Design</div>
+      <div class="strip-body">Architectural history, public space, and socio-technical systems</div>
+    </div>
+    <div class="home-strip">
+      <div class="strip-icon">⚡</div>
+      <div class="strip-title">AI Product Builder</div>
+      <div class="strip-body">Full-Stack Engineer</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ RESEARCH ════════════════════ -->
+<div class="page" id="page-research">
+  <div class="page-header">
+    <div class="page-header-eyebrow">Research</div>
+    <h1 class="page-header-title"><em>PhD</em> research introduction</h1>
+  </div>
+
+  <div class="research-intro reveal">
+    <p>By integrating a causal inference layer into an Agent-Based Model, my research aims to enhance activity sequence models within urban digital twin platforms — simulating counterfactual changes in discretionary activity behavior in response to shifts in urban facilities.</p>
+  </div>
+
+  <div class="pdf-embed-wrap">
+    <iframe src="https://drive.google.com/file/d/14XP61-LsprYD7lorgc5oUllRMwqzOYeH/preview" class="pdf-embed" allow="autoplay"></iframe>
+  </div>
+</div>
+
+<!-- ════════════════════ PROJECTS ════════════════════ -->
+<div class="page" id="page-projects">
+  <div class="page-header">
+    <div class="page-header-eyebrow">Projects</div>
+    <h1 class="page-header-title">Things I've <em>built</em></h1>
+  </div>
+  <div class="projects-grid">
+    <a href="https://shiken77.github.io/lifecho/chat" target="_blank" class="proj-card">
+      <div class="proj-type" style="color:var(--orange)">AI Product · Full-Stack</div>
+      <div>
+        <div class="proj-title">Lifecho</div>
+        <div class="proj-desc">An AI companion that transforms your daily life into a multimedia learning journal — powered by Google Gemini 3.</div>
+        <div class="proj-stack">
+          <span class="stag">FastAPI</span>
+          <span class="stag">Next.js</span>
+          <span class="stag">Gemini 3</span>
+          <span class="stag">Cloud SQL</span>
+          <span class="stag">GitHub Actions</span>
+        </div>
+      </div>
+      <span class="proj-arrow">↗</span>
+    </a>
+
+    <div class="proj-card">
+      <div class="proj-type" style="color:var(--blue2)">Research Tool</div>
+      <div>
+        <div class="proj-title">Urban Digital Twin Sub-Module</div>
+        <div class="proj-desc">Interactive scenario visualization for urban planners. Simulate facility changes and watch predicted behavioral responses update in real time.</div>
+        <div class="proj-stack">
+          <span class="stag">Python</span>
+          <span class="stag">Markov Chain</span>
+          <span class="stag">PSM</span>
+          <span class="stag">Visualization</span>
+        </div>
+      </div>
+      <span class="proj-arrow" style="visibility:hidden">↗</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════ PUBLICATIONS ════════════════════ -->
+<div class="page" id="page-publications">
+  <div class="page-header">
+    <div class="page-header-eyebrow">Publications & Conferences</div>
+    <h1 class="page-header-title">Writing that <em>measures</em> the city</h1>
+  </div>
+  <div class="pub-list">
+    <div class="pub-item reveal">
+      <div class="pub-idx">01</div>
+      <div>
+        <div class="pub-title">Revisiting Daily Activity Participation: Temporal Dynamic Accessibility and Spatial Interactions Among Anchors</div>
+        <div class="pub-authors"><strong>Sijian Tian</strong>, Yuya Shibuya, Sekimoto Yoshihide · 2025</div>
+        <div class="pub-venue"><span class="pub-badge pb-conf">Conference · Oral</span> CUPUM 2025 at UCL, London</div>
+      </div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-idx">02</div>
+      <div>
+        <div class="pub-title">Time-Inequality: How the Built Environment Moderates the Mother's Out-of-Home Activity</div>
+        <div class="pub-authors"><strong>Sijian Tian</strong>, Yuya Shibuya, Sekimoto Yoshihide · 2025</div>
+        <div class="pub-venue"><span class="pub-badge pb-conf">Conference · Oral (JP)</span> CSIS 2025, Kashiwa, Tokyo</div>
+      </div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-idx">03</div>
+      <div>
+        <div class="pub-title">Beyond Willpower: Structural Constraints and Inequality in Mobility-Related CO₂ Emissions</div>
+        <div class="pub-authors">Yuzi Zhang, Kanata Takahashi, <strong>Sijian Tian</strong>, Hibiki Sumioku, Yuya Shibuya · 2025</div>
+        <div class="pub-venue"><span class="pub-badge pb-conf">Conference</span> Netmob 2026</div>
+      </div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-idx">04</div>
+      <div>
+        <div class="pub-title">通向永恒之路：路易斯·康作品中的拱形母题来源及其设计演化</div>
+        <div class="pub-authors"><strong>田思俭</strong>, 杨涛· 2025</div>
+        <div class="pub-venue"><span class="pub-badge pb-journal">Journal </span> 建筑学报</div>
+      </div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-idx">05</div>
+      <div>
+        <div class="pub-title">实体空间的终结还是新机遇？——智能手机时代下的公共空间研究动态综述</div>
+        <div class="pub-authors"><strong>田思俭</strong>, 杨涛, 李鑫, 崔阳 · 2024</div>
+        <div class="pub-venue"><span class="pub-badge pb-journal">Journal </span> 世界建筑</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ BLOG ════════════════════ -->
+<div class="page" id="page-blog">
+  <div class="page-header">
+    <div class="page-header-eyebrow">Blog </div>
+    <h1 class="page-header-title">Notes on cities, <br> and <em>uncertainty</em></h1>
+  </div>
+
+  <div class="research-tabs">
+    <button class="rtab active" onclick="switchBlogTab('causal')">⌘ Causal Inference</button>
+    <button class="rtab" onclick="switchBlogTab('life')">☕ PhD life corner</button>
+  </div>
+
+  <div class="blog-panel active" id="blog-causal">
+    <div class="research-intro reveal">
+      <p>Technical notes on causal inference, machine learning, and urban data science.</p>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card reveal">
+        <div class="blog-date">2026-03-20 · Technical</div>
+        <div class="blog-title">Why Correlation Fails Urban Planning</div>
+        <div class="blog-excerpt">Most urban studies only measure correlation. Yet cities are shaped by interventions—building, closing, rerouting. That is why causal inference changes the game.</div>
+        <a href="#" class="blog-read">Read Article</a>
+      </div>
+      <div class="blog-card reveal">
+        <div class="blog-date">Google Doc</div>
+        <div class="blog-title">PhD survival guide</div>
+        <div class="blog-excerpt">From theory → econometrics → LLMs (live updates)</div>
+        <a href="https://docs.google.com/document/d/1HqM3ysDKL8AZoTtImrgQ5gjqsKU1z0N2BOJOj33qUD8/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="blog-read">Read Article</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="blog-panel" id="blog-life">
+    <div class="research-intro reveal">
+      <p>Fragments of life in Japan—stress, loneliness, sparks of inspiration, and searching for meaning on the academic path.</p>
+      <p style="margin-top:16px;">
+        <a href="https://www.xiaohongshu.com/user/profile/5ae7bf074eacab221d93dcab" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:1.5px solid var(--pink2);color:var(--pink2);border-radius:3px;font-family:var(--mono);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all .2s;cursor:none;" onmouseover="this.style.background='var(--pink2)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--pink2)'">✦ Rednote (Xiaohongshu) · Coconut Planet’s first PhD →</a>
+      </p>
+      <p class="xhs-slogan">没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span></p>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card reveal" style="border-left: 4px solid var(--pink);">
+        <div class="blog-date">2026-02-14 · Insight</div>
+        <div class="blog-title">On Building AI Products as a PhD Student</div>
+        <div class="blog-excerpt">The gap between research and product is less about technology than about whom you solve problems for. Shifting that lens made me rethink my dissertation.</div>
+        <a href="https://devpost.com/software/lifecho?ref_content=my-projects-tab&ref_feature=my_projects" target="_blank" rel="noopener noreferrer" class="blog-read">View Post</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ CONTACT ════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="page-header">
+    <div class="page-header-eyebrow">Contact</div>
+    <h1 class="page-header-title">Let's talk about<br><em>cities & data</em></h1>
+  </div>
+  <div class="contact-layout">
+    <div>
+      <p class="contact-intro">Open to research collaborations, and AI products.</p>
+      <div class="contact-links">
+        <a href="mailto:tian-sijian386@g.ecc.u-tokyo.ac.jp" class="clink">
+          <div class="clink-left">
+            <div class="clink-icon">✉</div>
+            <div>
+              <div class="clink-key">Email</div>
+              <div class="clink-val">tian-sijian386@g.ecc.u-tokyo.ac.jp</div>
+            </div>
+          </div>
+          <span class="clink-arrow">→</span>
+        </a>
+        <a href="https://github.com/shiken77" target="_blank" class="clink">
+          <div class="clink-left">
+            <div class="clink-icon">⌥</div>
+            <div>
+              <div class="clink-key">GitHub</div>
+              <div class="clink-val">github.com/shiken77</div>
+            </div>
+          </div>
+          <span class="clink-arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/in/sijian-tian-99aab2300/" target="_blank" class="clink">
+          <div class="clink-left">
+            <div class="clink-icon">in</div>
+            <div>
+              <div class="clink-key">LinkedIn</div>
+              <div class="clink-val">linkedin.com/in/sijian-tian</div>
+            </div>
+          </div>
+          <span class="clink-arrow">→</span>
+        </a>
+        <a href="https://www.xiaohongshu.com/user/profile/5ae7bf074eacab221d93dcab" target="_blank" class="clink clink-xhs">
+          <div class="clink-left">
+            <div class="clink-icon">✦</div>
+            <div>
+              <div class="clink-key">Rednote / Xiaohongshu</div>
+              <div class="clink-val">Coconut Planet’s first PhD</div>
+              <p class="xhs-slogan">没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span></p>
+            </div>
+          </div>
+          <span class="clink-arrow">→</span>
+        </a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="contact-card">
+        <div class="contact-loc-title">Tokyo,<br>Japan</div>
+        <div class="contact-loc-sub">University of Tokyo · Sekimoto Lab</div>
+        <a href="#" class="cv-btn" onclick="openCvModal(); return false;">↓ View CV</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CV preview modal (Sijian_TIAN_CV_ds.pdf) -->
+<div id="cv-modal" class="cv-modal" role="dialog" aria-modal="true" aria-label="CV preview">
+  <div class="cv-modal-backdrop" onclick="closeCvModal()"></div>
+  <div class="cv-modal-panel">
+    <div class="cv-modal-bar">
+      <span class="cv-modal-title">Sijian Tian — CV (Data Science)</span>
+      <button type="button" class="cv-modal-close" onclick="closeCvModal()" aria-label="Close">×</button>
+    </div>
+    <iframe id="cv-modal-iframe" class="cv-modal-iframe" title="CV PDF" src="about:blank"></iframe>
+  </div>
+</div>
+
+<!-- FOOTER (shown on all pages) -->
+<footer id="site-footer">
+  <div class="footer-l">© 2025 Shiken Tian</div>
+</footer>
+
+<script>
+const CV_PDF_SRC = 'Sijian_TIAN_CV_ds.pdf';
+
+function openCvModal() {
+  const modal = document.getElementById('cv-modal');
+  const iframe = document.getElementById('cv-modal-iframe');
+  if (iframe.getAttribute('src') === 'about:blank') iframe.src = CV_PDF_SRC;
+  modal.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCvModal() {
+  document.getElementById('cv-modal').classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') closeCvModal();
+});
+
+// ── PAGE NAVIGATION ──
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  window.scrollTo(0,0);
+  triggerReveals();
+}
+
+// ── RESEARCH TABS ──
+function switchTab(tab) {
+  document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.research-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+  triggerReveals();
+}
+
+// ── SCROLL REVEAL ──
+function triggerReveals() {
+  setTimeout(() => {
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e,i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(r => { r.classList.remove('visible'); observer.observe(r); });
+  }, 50);
+}
+triggerReveals();
+
+// ── CURSOR ──
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+(function tick(){
+  rx += (mx-rx)*0.1; ry += (my-ry)*0.1;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(tick);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cur.style.transform='translate(-50%,-50%) scale(2.2)'; ring.style.borderColor='var(--pink2)'; ring.style.transform='translate(-50%,-50%) scale(1.4)'; });
+  el.addEventListener('mouseleave',()=>{ cur.style.transform='translate(-50%,-50%) scale(1)'; ring.style.borderColor='var(--orange2)'; ring.style.transform='translate(-50%,-50%) scale(1)'; });
+});
+
+// nav active state
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  a.addEventListener('click', function(e){
+    e.preventDefault();
+    document.querySelectorAll('.nav-links a').forEach(x=>x.style.color='');
+    this.style.color='var(--orange)';
+  });
+});
+
+// ── BLOG TABS NAVIGATION ──
+function switchBlogTab(tab) {
+  const clickedBtn = event.currentTarget;
+  const parent = clickedBtn.parentElement;
+
+  parent.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+  clickedBtn.classList.add('active');
+
+  document.querySelectorAll('.blog-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('blog-' + tab).classList.add('active');
+
+  triggerReveals();
+}
+</script>
+</body>
+</html>

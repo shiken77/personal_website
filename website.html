@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sijian Tian | Urban Data Scientist & AI Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/* 保持你原本的 CSS 变量和全局样式 */
+:root {
+  --bg:       #fdf6ee; --bg2: #fef9f4; --bg3: #fff5e8;
+  --orange:   #f97316; --orange2: #fb923c;
+  --pink:     #f9a8d4; --pink2: #f472b6;
+  --blue:     #93c5fd; --blue2: #60a5fa;
+  --text:     #2c1a0e; --text2: #6b3f20; --text3: #a0795a;
+  --border:   #f0d8c0;
+  --serif: 'Lora', Georgia, serif;
+  --sans:  'Syne', sans-serif;
+  --mono:  'JetBrains Mono', monospace;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); overflow-x: hidden; cursor: none; }
+
+/* CURSOR & NAV */
+.cur { width:10px;height:10px;background:var(--orange);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s; }
+.cur-ring { width:28px;height:28px;border:1.5px solid var(--orange2);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .1s; }
+nav { position: fixed; top:0; left:0; right:0; z-index:200; background: rgba(253,246,238,0.92); backdrop-filter: blur(12px); border-bottom: 2px solid var(--border); padding: 0 6vw; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.nav-logo { font-family: var(--serif); font-style:italic; font-size:1.15rem; color: var(--orange); text-decoration:none; font-weight:600; }
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a { font-family: var(--mono); font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text2); text-decoration:none; transition: all .2s; }
+.nav-links a:hover { color:var(--orange); }
+
+/* PAGE SYSTEM */
+.page { display:none; min-height:100vh; padding-top:64px; animation: fadeUp 0.5s ease forwards; }
+.page.active { display:block; }
+
+/* PAGE HEADER */
+.page-header { padding:56px 6vw 40px; border-bottom:2px solid var(--border); }
+.page-header-eyebrow { font-family:var(--mono); font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--text3); margin-bottom:12px; display:flex; align-items:center; gap:10px; }
+.page-header-eyebrow::before { content:''; width:24px;height:1.5px;background:var(--orange); }
+.page-header-title { font-family:var(--serif); font-size:clamp(2rem,4vw,3rem); line-height:1.1; }
+.page-header-title em { font-style:italic; color:var(--orange); }
+
+/* ELEMENTS */
+.home-hero { min-height: calc(100vh - 64px); display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 60px 6vw 80px; gap: 60px; }
+.home-name { font-family: var(--serif); font-size: clamp(2.8rem,5vw,4.5rem); line-height:1.08; margin-bottom:12px; }
+.home-bio { font-size:14.5px; line-height:1.85; color:var(--text2); max-width:480px; margin-bottom:40px; }
+.btn { display:inline-flex; align-items:center; gap:8px; padding:12px 26px; border-radius:3px; font-family:var(--mono); font-size:10.5px; text-transform:uppercase; text-decoration:none; transition:all .2s; cursor:none; }
+.btn-solid { background:var(--orange); color:#fff; }
+.btn-outline { border:1.5px solid var(--border); color:var(--text2); }
+
+/* RESEARCH & PROJECTS GRID */
+.research-tabs { display:flex; gap:0; padding:0 6vw; border-bottom:2px solid var(--border); margin-top:40px; }
+.rtab { padding:14px 28px; font-family:var(--mono); font-size:11px; color:var(--text3); border-bottom:3px solid transparent; cursor:none; background:none; border:none; }
+.rtab.active { color:var(--orange); border-bottom-color:var(--orange); }
+.research-panel { display:none; padding-bottom:80px; }
+.research-panel.active { display:block; }
+.pdf-preview-container { width: 90%; margin: 20px auto; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+
+/* ARCH CARD & PROJ CARD */
+.arch-grid, .projects-grid { padding:48px 6vw; display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+.arch-card, .proj-card { background:var(--bg2); padding:40px; border:1px solid var(--border); transition:all .2s; text-decoration:none; color:inherit; }
+.arch-card:hover, .proj-card:hover { background:var(--bg3); }
+.proj-card.wide { grid-column: span 2; display:grid; grid-template-columns: 1fr 1fr; gap:30px; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from{opacity:0;transform:translateY(15px)} to{opacity:1;transform:translateY(0)} }
+.reveal { opacity:0; transform:translateY(18px); transition:all .6s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media(max-width:900px){ .home-hero, .arch-grid, .projects-grid, .proj-card.wide { grid-template-columns:1fr; } .home-right { display:none; } }
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="cur-ring"></div>
+
+<nav>
+  <a href="#" class="nav-logo" onclick="showPage('home')">Sijian ✦</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')">Home</a></li>
+    <li><a href="#" onclick="showPage('research')">Research</a></li>
+    <li><a href="#" onclick="showPage('projects')">Projects</a></li>
+    <li><a href="#" onclick="showPage('publications')">Publications</a></li>
+    <li><a href="#" onclick="showPage('blog')">Blog</a></li>
+    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page active" id="page-home">
+  <section class="home-hero">
+    <div class="home-left">
+      <div class="page-header-eyebrow">Urban Data Scientist · PhD Candidate</div>
+      <h1 class="home-name">Sijian<br><em>Tian</em></h1>
+      <p class="home-bio">
+        MEXT Scholar at the <strong>University of Tokyo (Sekimoto Lab)</strong>. 
+        I specialize in <em>Mechanism-based Modeling</em> and <em>Causal Simulation</em> of human behavior. 
+        My work leverages massive GPS trajectories to understand how urban policy shapes the way we move.
+      </p>
+      <div class="home-ctas">
+        <a href="#" class="btn btn-solid" onclick="showPage('research')">Research Portfolio →</a>
+        <a href="#" class="btn btn-outline" onclick="showPage('contact')">Get in Touch</a>
+      </div>
+    </div>
+    <div class="home-right" style="text-align:center;">
+       <div style="width:280px; height:280px; background:var(--border); border-radius:50%; margin:0 auto; display:flex; align-items:center; justify-content:center; border:4px solid #fff; box-shadow:0 20px 40px rgba(0,0,0,0.05);">
+         <span style="font-family:var(--serif); font-size:4rem; color:var(--text3);">ST</span>
+       </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="page-research">
+  <div class="page-header">
+    <div class="page-header-eyebrow">Research</div>
+    <h1 class="page-header-title">Measuring the <em>Unseen</em></h1>
+  </div>
+
+  <div class="research-tabs">
+    <button class="rtab active" onclick="switchResearchTab(event, 'mobility')">⌘ Urban Mobility</button>
+    <button class="rtab" onclick="switchResearchTab(event, 'arch')">✏️ Architecture</button>
+  </div>
+
+  <div class="research-panel active" id="res-mobility">
+    <div style="padding:48px 6vw 32px; max-width:800px;" class="reveal">
+      <h2 style="font-family:var(--serif); margin-bottom:15px;">Mechanism-based Modeling of Human Behavior</h2>
+      <p style="line-height:1.8; color:var(--text2);">
+        通过将因果推断层集成到基于智能体的模型 (Agent-Based Model) 中，我的研究旨在模拟城市设施变化下的反事实非规律性移动行为。
+        目前正利用 860 亿条 GPS 记录，探索结构性约束如何调节不同人群（尤其是育儿女性）的活动空间。
+      </p>
+    </div>
+    <div class="pdf-preview-container reveal">
+      <iframe src="https://drive.google.com/file/d/14XP61-LsprYD7lorgc5oUllRMwqzOYeH/preview" width="100%" height="700px"></iframe>
+    </div>
+  </div>
+
+  <div class="research-panel" id="res-arch">
+    <div class="arch-grid">
+      <div class="arch-card reveal">
+        <div style="font-family:var(--mono); font-size:10px; color:var(--pink2); margin-bottom:10px;">JOURNAL ARTICLE</div>
+        <h3 style="font-family:var(--serif); margin-bottom:10px;">通向永恒之路：路易斯·康作品中的拱形母题来源及其设计演化</h3>
+        <p style="font-size:13px; color:var(--text3);">建筑学报 · 2022</p>
+      </div>
+      <div class="arch-card reveal">
+        <div style="font-family:var(--mono); font-size:10px; color:var(--blue2); margin-bottom:10px;">REVIEW PAPER</div>
+        <h3 style="font-family:var(--serif); margin-bottom:10px;">实体空间的终结还是新机遇？——智能手机时代下的公共空间研究动态综述</h3>
+        <p style="font-size:13px; color:var(--text3);">世界建筑 · 2022</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-projects">
+  <div class="page-header">
+    <div class="page-header-eyebrow">Projects</div>
+    <h1 class="page-header-title">Building <em>Solutions</em></h1>
+  </div>
+  <div class="projects-grid">
+    <a href="#" class="proj-card wide reveal">
+      <div>
+        <div style="font-family:var(--mono); font-size:10px; color:var(--orange); margin-bottom:10px;">AI FULL-STACK</div>
+        <h3 style="font-family:var(--serif); font-size:1.8rem; margin-bottom:15px;">Lifecho</h3>
+        <p style="font-size:14px; line-height:1.6; margin-bottom:20px;">
+          An AI companion app developed for the <strong>Google Gemini Hackathon 2025</strong>. 
+          It turns daily life records into multimedia learning journals using LLM-based causal reflection.
+        </p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <span style="font-size:10px; border:1px solid var(--border); padding:2px 8px;">Next.js</span>
+          <span style="font-size:10px; border:1px solid var(--border); padding:2px 8px;">FastAPI</span>
+          <span style="font-size:10px; border:1px solid var(--border); padding:2px 8px;">Gemini 1.5 Pro</span>
+        </div>
+      </div>
+      <div style="background:var(--bg3); display:flex; align-items:center; justify-content:center; border:1px solid var(--border); min-height:200px;">
+        [ LIFECHO PREVIEW ]
+      </div>
+    </a>
+    
+    <div class="proj-card reveal">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--blue2); margin-bottom:10px;">SOCIAL MEDIA</div>
+      <h3 style="font-family:var(--serif); margin-bottom:10px;">Rednote / 小红书 Content Creator</h3>
+      <p style="font-size:13px;">分享跨学科科研、AI 工具与东京博士生活。1,900+ 关注者，单条视频最高 11w+ 播放。</p>
+    </div>
+
+    <div class="proj-card reveal">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--pink2); margin-bottom:10px;">VIBE CODING</div>
+      <h3 style="font-family:var(--serif); margin-bottom:10px;">缝合生活 / 缝合 APP</h3>
+      <p style="font-size:13px;">一系列基于个人痛点开发的效率工具与 Web Apps。</p>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-publications">
+  <div class="page-header">
+    <div class="page-header-eyebrow">Academic Output</div>
+    <h1 class="page-header-title">Selected <em>Writings</em></h1>
+  </div>
+  <div style="padding:48px 6vw;">
+    <ul style="list-style:none;">
+      <li style="padding:24px 0; border-bottom:1.5px solid var(--border);" class="reveal">
+        <div style="font-family:var(--mono); font-size:10px; margin-bottom:8px;">CUPUM 2025 · LONDON</div>
+        <strong>S. Tian</strong>, Y. Shibuya, Y. Sekimoto. "Revisiting Daily Activity Participation: Temporal Dynamic Accessibility and Spatial Interactions Among Anchors."
+      </li>
+      <li style="padding:24px 0; border-bottom:1.5px solid var(--border);" class="reveal">
+        <div style="font-family:var(--mono); font-size:10px; margin-bottom:8px;">NATURE CITIES (Under Review)</div>
+        <strong>S. Tian</strong>, et al. "Time-Inequality: How the Built Environment Moderates the Mother's Out-of-Home Activity."
+      </li>
+      <li style="padding:24px 0; border-bottom:1.5px solid var(--border);" class="reveal">
+        <div style="font-family:var(--mono); font-size:10px; margin-bottom:8px;">NETMOB 2026</div>
+        Y. Zhang, K. Takahashi, <strong>S. Tian</strong>, et al. "Structural Constraints and Inequality in Mobility-Related CO2 Emissions."
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="page" id="page-blog">
+  <div class="page-header">
+    <div class="page-header-eyebrow">Blog / 随笔</div>
+    <h1 class="page-header-title">Notes on <em>Uncertainty</em></h1>
+  </div>
+  <div class="projects-grid">
+    <div class="proj-card reveal">
+       <div style="font-family:var(--mono); font-size:10px; margin-bottom:10px;">2026-03-20 · TECHNICAL</div>
+       <h3 style="font-family:var(--serif);">Why Correlation Fails Urban Planning</h3>
+       <p style="font-size:13px; margin-top:10px;">为什么相关性不足以支撑城市干预？我们需要因果推断来解答“如果……会怎样”。</p>
+    </div>
+    <div class="proj-card reveal">
+       <div style="font-family:var(--mono); font-size:10px; margin-bottom:10px;">2026-03-15 · LIFE</div>
+       <h3 style="font-family:var(--serif);">深夜实验室的台灯</h3>
+       <p style="font-size:13px; margin-top:10px;">PhD 的本质是学会与“不确定性”共存。在东京的第四年，一些关于意义的思考。</p>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-contact">
+  <div class="page-header">
+    <div class="page-header-eyebrow">Contact</div>
+    <h1 class="page-header-title">Let's <em>Connect</em></h1>
+  </div>
+  <div style="padding:48px 6vw; display:grid; grid-template-columns:1fr 1fr; gap:60px;">
+    <div>
+      <p style="line-height:1.8; margin-bottom:30px;">Open to research collaborations, technical discussions on Causal ML, and product feedback on Lifecho.</p>
+      <div style="display:flex; flex-direction:column; gap:15px;">
+        <a href="mailto:tian-sijian386@g.ecc.u-tokyo.ac.jp" style="text-decoration:none; color:var(--orange); font-family:var(--mono); font-size:14px;">✉ Email</a>
+        <a href="https://github.com/shiken77" style="text-decoration:none; color:var(--text); font-family:var(--mono); font-size:14px;">⌥ GitHub</a>
+        <a href="#" style="text-decoration:none; color:var(--text); font-family:var(--mono); font-size:14px;">✦ Rednote / 小红书</a>
+      </div>
+    </div>
+    <div style="background:var(--bg2); border:1px solid var(--border); padding:40px;">
+      <h3 style="font-family:var(--serif); margin-bottom:10px;">Tokyo, Japan</h3>
+      <p style="font-size:13px; color:var(--text3); line-height:1.6;">The University of Tokyo<br>Department of Civil Engineering<br>Sekimoto Lab</p>
+    </div>
+  </div>
+</div>
+
+<footer style="padding:40px 6vw; border-top:2px solid var(--border); display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--text3);">
+  <span>© 2026 SIJIAN TIAN</span>
+  <span>DESIGNED FOR URBAN INTELLIGENCE</span>
+</footer>
+
+<script>
+// ── PAGE NAVIGATION ──
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  window.scrollTo(0,0);
+  triggerReveals();
+}
+
+// ── RESEARCH TABS ──
+function switchResearchTab(e, tabId) {
+  const parent = e.target.parentElement;
+  parent.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+  e.target.classList.add('active');
+
+  document.querySelectorAll('.research-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('res-' + tabId).classList.add('active');
+  triggerReveals();
+}
+
+// ── SCROLL REVEAL ──
+function triggerReveals() {
+  setTimeout(() => {
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e,i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => { r.classList.remove('visible'); observer.observe(r); });
+  }, 100);
+}
+triggerReveals();
+
+// ── CURSOR ──
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+(function tick(){
+  rx += (mx-rx)*0.1; ry += (my-ry)*0.1;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(tick);
+})();
+
+// nav highlight logic
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  a.addEventListener('click', function(){
+    document.querySelectorAll('.nav-links a').forEach(x=>x.style.color='');
+    this.style.color='var(--orange)';
+  });
+});
+</script>
+</body>
+</html>
