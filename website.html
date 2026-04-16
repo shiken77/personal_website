@@ -46,6 +46,10 @@ nav { position: fixed; top:0; left:0; right:0; z-index:200; background: rgba(253
 /* ELEMENTS */
 .home-hero { min-height: calc(100vh - 64px); display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 60px 6vw 80px; gap: 60px; }
 .home-name { font-family: var(--serif); font-size: clamp(2.8rem,5vw,4.5rem); line-height:1.08; margin-bottom:12px; }
+.home-name em { font-style:italic; color:var(--orange); }
+.home-name .name-line { display:block; }
+.loc-line { display:block; }
+.loc-line + .loc-line { margin-top:0.35em; }
 .home-bio { font-size:14.5px; line-height:1.85; color:var(--text2); max-width:480px; margin-bottom:40px; }
 .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 26px; border-radius:3px; font-family:var(--mono); font-size:10.5px; text-transform:uppercase; text-decoration:none; transition:all .2s; cursor:none; }
 .btn-solid { background:var(--orange); color:#fff; }
@@ -94,7 +98,7 @@ nav { position: fixed; top:0; left:0; right:0; z-index:200; background: rgba(253
   <section class="home-hero">
     <div class="home-left">
       <div class="page-header-eyebrow">Urban Data Scientist · PhD Candidate</div>
-      <h1 class="home-name">Sijian<br><em>Tian</em></h1>
+      <h1 class="home-name"><span class="name-line">Sijian</span><em class="name-line">Tian</em></h1>
       <p class="home-bio">
         MEXT Scholar at the <strong>University of Tokyo (Sekimoto Lab)</strong>. 
         I specialize in <em>Mechanism-based Modeling</em> and <em>Causal Simulation</em> of human behavior. 
@@ -250,7 +254,7 @@ nav { position: fixed; top:0; left:0; right:0; z-index:200; background: rgba(253
     </div>
     <div style="background:var(--bg2); border:1px solid var(--border); padding:40px;">
       <h3 style="font-family:var(--serif); margin-bottom:10px;">Tokyo, Japan</h3>
-      <p style="font-size:13px; color:var(--text3); line-height:1.6;">The University of Tokyo<br>Department of Civil Engineering<br>Sekimoto Lab</p>
+      <p style="font-size:13px; color:var(--text3); line-height:1.6;"><span class="loc-line">The University of Tokyo</span><span class="loc-line">Department of Civil Engineering</span><span class="loc-line">Sekimoto Lab</span></p>
     </div>
   </div>
 </div>
