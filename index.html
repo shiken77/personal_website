@@ -4,7 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sijian Tian</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<script>
+(function () {
+  try {
+    var q = new URLSearchParams(window.location.search).get('lang');
+    var s = localStorage.getItem('siteLang');
+    var l = (q === 'ja' || q === 'en' || q === 'zh') ? q : (s === 'ja' || s === 'en' || s === 'zh' ? s : (navigator.language && navigator.language.indexOf('ja') === 0 ? 'ja' : (navigator.language && navigator.language.indexOf('zh') === 0 ? 'zh' : 'en')));
+    document.documentElement.lang = l === 'ja' ? 'ja' : l === 'zh' ? 'zh-Hans' : 'en';
+  } catch (e) {}
+})();
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:       #fdf6ee;
@@ -24,6 +34,36 @@
   --sans:  'Chalkboard SE', sans-serif;
   --mono:  'Chalkboard SE', monospace;
 }
+
+html[lang="ja"] {
+  --sans: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+  --serif: 'Noto Sans JP', 'Hiragino Sans', Georgia, serif;
+  --mono: 'JetBrains Mono', 'Noto Sans JP', monospace;
+}
+html[lang="ja"] body { line-height: 1.75; }
+html[lang="ja"] .home-bio,
+html[lang="ja"] .research-intro p,
+html[lang="ja"] .proj-desc,
+html[lang="ja"] .blog-excerpt,
+html[lang="ja"] .contact-intro { font-size: 14px; }
+html[lang="ja"] .nav-links a { text-transform: none; letter-spacing: 0.08em; font-size: 11px; }
+html[lang="ja"] .btn { text-transform: none; letter-spacing: 0.06em; }
+html[lang="ja"] .lang-switch button { text-transform: none; }
+
+html[lang="zh-Hans"] {
+  --sans: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --serif: 'Noto Sans SC', 'PingFang SC', Georgia, serif;
+  --mono: 'JetBrains Mono', 'Noto Sans SC', monospace;
+}
+html[lang="zh-Hans"] body { line-height: 1.8; }
+html[lang="zh-Hans"] .home-bio,
+html[lang="zh-Hans"] .research-intro p,
+html[lang="zh-Hans"] .proj-desc,
+html[lang="zh-Hans"] .blog-excerpt,
+html[lang="zh-Hans"] .contact-intro { font-size: 14px; }
+html[lang="zh-Hans"] .nav-links a { text-transform: none; letter-spacing: 0.06em; font-size: 11px; }
+html[lang="zh-Hans"] .btn { text-transform: none; letter-spacing: 0.06em; }
+html[lang="zh-Hans"] .lang-switch button { text-transform: none; }
 
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -56,6 +96,50 @@ nav {
   transition: all .2s;
 }
 .nav-links a:hover { color:var(--orange); border-bottom-color:var(--orange); }
+
+.nav-cluster {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+.nav-end {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+}
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.lang-switch button {
+  cursor: none;
+  border: none;
+  background: transparent;
+  color: var(--text3);
+  padding: 6px 10px;
+  border-radius: 3px;
+  font: inherit;
+  text-transform: uppercase;
+  transition: color .2s, background .2s;
+}
+.lang-switch button:hover { color: var(--orange); }
+.lang-switch button.active {
+  color: var(--orange);
+  background: rgba(249, 115, 22, 0.1);
+}
+.lang-switch .lang-sep {
+  color: var(--border);
+  font-size: 9px;
+  user-select: none;
+}
 
 /* ── PAGE SYSTEM ── */
 .page { display:none; min-height:100vh; padding-top:64px; }
@@ -554,8 +638,9 @@ footer {
   .proj-card { grid-template-columns:1fr; }
   .phase-item { grid-template-columns:1fr; }
   .phase-num { display:none; }
-  nav { padding:0 4vw; }
-  .nav-links { gap:16px; }
+  nav { padding:0 4vw; flex-wrap: wrap; height: auto; min-height: 64px; row-gap: 10px; }
+  .nav-cluster { width: 100%; margin-left: 0; justify-content: space-between; gap: 16px; }
+  .nav-links { gap:12px; flex-wrap: wrap; }
 }
 </style>
 </head>
@@ -567,25 +652,34 @@ footer {
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo" onclick="showPage('home')">Sijian ✦</a>
-  <ul class="nav-links">
-    <li><a href="#" onclick="showPage('home')">Home</a></li>
-    <li><a href="#" onclick="showPage('research')">Research</a></li>
-    <li><a href="#" onclick="showPage('projects')">Projects</a></li>
-    <li><a href="#" onclick="showPage('publications')">Publications</a></li>
-    <li><a href="#" onclick="showPage('blog')">Blog</a></li>
-    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
-  </ul>
+  <div class="nav-cluster">
+    <ul class="nav-links">
+      <li><a href="#" data-i18n="nav.home" onclick="showPage('home')">Home</a></li>
+      <li><a href="#" data-i18n="nav.research" onclick="showPage('research')">Research</a></li>
+      <li><a href="#" data-i18n="nav.projects" onclick="showPage('projects')">Projects</a></li>
+      <li><a href="#" data-i18n="nav.publications" onclick="showPage('publications')">Publications</a></li>
+      <li><a href="#" data-i18n="nav.blog" onclick="showPage('blog')">Blog</a></li>
+      <li><a href="#" data-i18n="nav.contact" onclick="showPage('contact')">Contact</a></li>
+    </ul>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">|</span>
+      <button type="button" class="lang-btn" data-set-lang="ja" aria-pressed="false">日本語</button>
+      <span class="lang-sep" aria-hidden="true">|</span>
+      <button type="button" class="lang-btn" data-set-lang="zh" aria-pressed="false">中文</button>
+    </div>
+  </div>
 </nav>
 
 <!-- ════════════════════ HOME ════════════════════ -->
 <div class="page active" id="page-home">
   <section class="home-hero">
     <div class="home-left">
-      <div class="home-greeting">Urban Data Scientist · PhD Candidate</div>
+      <div class="home-greeting" data-i18n="home.greeting">Urban Data Scientist · PhD Candidate</div>
       <h1 class="home-name">Sijian<em>Tian</em></h1>
-      <div class="home-role">a researcher<br></div>
-      <p class="home-bio">
-        PhD candidate at the University of Tokyo, Sekimoto Lab.<br>
+      <div class="home-role" data-i18n="home.role">a researcher<br></div>
+      <p class="home-bio" data-i18n-html="home.bio">
+        PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Sekimoto Lab.<br>
         
         My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.<br>
         
@@ -594,16 +688,16 @@ footer {
         If you're interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.<br>  
       </p>
       <div class="home-chips">
-        <span class="chip chip-orange">Causal Inference</span>
-        <span class="chip chip-orange">Causal Machine Learning</span>
-        <span class="chip chip-orange">Time series forecasting</span>
-        <span class="chip chip-pink"> AI Full Stack Engineer</span>
-        <span class="chip chip-pink">Behavior informatics (analysis, forecast, simulation)</span>
+        <span class="chip chip-orange" data-i18n="home.chip1">Causal Inference</span>
+        <span class="chip chip-orange" data-i18n="home.chip2">Causal Machine Learning</span>
+        <span class="chip chip-orange" data-i18n="home.chip3">Time series forecasting</span>
+        <span class="chip chip-pink" data-i18n="home.chip4">AI Full Stack Engineer</span>
+        <span class="chip chip-pink" data-i18n="home.chip5">Behavior informatics (analysis, forecast, simulation)</span>
       </div>
       <div class="home-ctas">
-        <a href="#" class="btn btn-solid" onclick="showPage('research')">View Research →</a>
-        <a href="#" class="btn btn-outline" onclick="showPage('contact')">Get in Touch</a>
-        <a href="#" class="btn btn-outline" onclick="openCvModal(); return false;">CV</a>
+        <a href="#" class="btn btn-solid" data-i18n="home.cta1" onclick="showPage('research')">View Research →</a>
+        <a href="#" class="btn btn-outline" data-i18n="home.cta2" onclick="showPage('contact')">Get in Touch</a>
+        <a href="#" class="btn btn-outline" data-i18n="home.cta3" onclick="openCvModal(); return false;">CV</a>
       </div>
     </div>
 
@@ -611,11 +705,11 @@ footer {
       <div class="avatar-wrap">
         <div class="avatar-bg-ring2"></div>
         <div class="avatar-bg-ring"></div>
-        <img src="avatar.png" alt="Sijian Tian" class="avatar-img">
+        <img src="avatar.png" alt="Sijian Tian" class="avatar-img" data-i18n-alt="img.avatar_alt">
       </div>
       <div class="home-stats">
         <div class="home-stat">
-          <span class="home-stat-val">Peace & Love</span>
+          <span class="home-stat-val" data-i18n="home.stat">Peace & Love</span>
           <span class="home-stat-label"></span>
         </div>
       </div>
@@ -625,18 +719,18 @@ footer {
   <div class="home-strips">
     <div class="home-strip">
       <div class="strip-icon">🏙️</div>
-      <div class="strip-title">Urban Digital Twin</div>
-      <div class="strip-body">People flow & Behavior Change Simulation & Policy Simulation</div>
+      <div class="strip-title" data-i18n="home.strip1_title">Urban Digital Twin</div>
+      <div class="strip-body" data-i18n="home.strip1_body">People flow & Behavior Change Simulation & Policy Simulation</div>
     </div>
     <div class="home-strip">
       <div class="strip-icon">✏️</div>
-      <div class="strip-title">Architecture & Urban Design</div>
-      <div class="strip-body">Architectural history, public space, and socio-technical systems</div>
+      <div class="strip-title" data-i18n="home.strip2_title">Architecture & Urban Design</div>
+      <div class="strip-body" data-i18n="home.strip2_body">Architectural history, public space, and socio-technical systems</div>
     </div>
     <div class="home-strip">
       <div class="strip-icon">⚡</div>
-      <div class="strip-title">AI Product Builder</div>
-      <div class="strip-body">Full-Stack Engineer</div>
+      <div class="strip-title" data-i18n="home.strip3_title">AI Product Builder</div>
+      <div class="strip-body" data-i18n="home.strip3_body">Full-Stack Engineer</div>
     </div>
   </div>
 </div>
@@ -644,12 +738,12 @@ footer {
 <!-- ════════════════════ RESEARCH ════════════════════ -->
 <div class="page" id="page-research">
   <div class="page-header">
-    <div class="page-header-eyebrow">Research</div>
-    <h1 class="page-header-title"><em>PhD</em> research introduction</h1>
+    <div class="page-header-eyebrow" data-i18n="research.eyebrow">Research</div>
+    <h1 class="page-header-title" data-i18n-html="research.title"><em>PhD</em> research introduction</h1>
   </div>
 
   <div class="research-intro reveal">
-    <p>By integrating a causal inference layer into an Agent-Based Model, my research aims to enhance activity sequence models within urban digital twin platforms — simulating counterfactual changes in discretionary activity behavior in response to shifts in urban facilities.</p>
+    <p data-i18n="research.intro">By integrating a causal inference layer into an Agent-Based Model, my research aims to enhance activity sequence models within urban digital twin platforms — simulating counterfactual changes in discretionary activity behavior in response to shifts in urban facilities.</p>
   </div>
 
   <div class="pdf-embed-wrap">
@@ -660,15 +754,15 @@ footer {
 <!-- ════════════════════ PROJECTS ════════════════════ -->
 <div class="page" id="page-projects">
   <div class="page-header">
-    <div class="page-header-eyebrow">Projects</div>
-    <h1 class="page-header-title">Things I've <em>built</em></h1>
+    <div class="page-header-eyebrow" data-i18n="projects.eyebrow">Projects</div>
+    <h1 class="page-header-title" data-i18n-html="projects.title">Things I've <em>built</em></h1>
   </div>
   <div class="projects-grid">
     <a href="https://shiken77.github.io/lifecho/chat" target="_blank" class="proj-card">
-      <div class="proj-type" style="color:var(--orange)">AI Product · Full-Stack</div>
+      <div class="proj-type" style="color:var(--orange)" data-i18n="projects.p1_type">AI Product · Full-Stack</div>
       <div>
         <div class="proj-title">Lifecho</div>
-        <div class="proj-desc">An AI companion that transforms your daily life into a multimedia learning journal — powered by Google Gemini 3.</div>
+        <div class="proj-desc" data-i18n="projects.p1_desc">An AI companion that transforms your daily life into a multimedia learning journal — powered by Google Gemini 3.</div>
         <div class="proj-stack">
           <span class="stag">FastAPI</span>
           <span class="stag">Next.js</span>
@@ -681,10 +775,10 @@ footer {
     </a>
 
     <div class="proj-card">
-      <div class="proj-type" style="color:var(--blue2)">Research Tool</div>
+      <div class="proj-type" style="color:var(--blue2)" data-i18n="projects.p2_type">Research Tool</div>
       <div>
-        <div class="proj-title">Urban Digital Twin Sub-Module</div>
-        <div class="proj-desc">Interactive scenario visualization for urban planners. Simulate facility changes and watch predicted behavioral responses update in real time.</div>
+        <div class="proj-title" data-i18n="projects.p2_name">Urban Digital Twin Sub-Module</div>
+        <div class="proj-desc" data-i18n="projects.p2_desc">Interactive scenario visualization for urban planners. Simulate facility changes and watch predicted behavioral responses update in real time.</div>
         <div class="proj-stack">
           <span class="stag">Python</span>
           <span class="stag">Markov Chain</span>
@@ -701,8 +795,8 @@ footer {
 <!-- ════════════════════ PUBLICATIONS ════════════════════ -->
 <div class="page" id="page-publications">
   <div class="page-header">
-    <div class="page-header-eyebrow">Publications & Conferences</div>
-    <h1 class="page-header-title">Writing that <em>measures</em> the city</h1>
+    <div class="page-header-eyebrow" data-i18n="pub.eyebrow">Publications & Conferences</div>
+    <h1 class="page-header-title" data-i18n-html="pub.title">Writing that <em>measures</em> the city</h1>
   </div>
   <div class="pub-list">
     <div class="pub-item reveal">
@@ -710,7 +804,7 @@ footer {
       <div>
         <div class="pub-title">Revisiting Daily Activity Participation: Temporal Dynamic Accessibility and Spatial Interactions Among Anchors</div>
         <div class="pub-authors"><strong>Sijian Tian</strong>, Yuya Shibuya, Sekimoto Yoshihide · 2025</div>
-        <div class="pub-venue"><span class="pub-badge pb-conf">Conference · Oral</span> CUPUM 2025 at UCL, London</div>
+        <div class="pub-venue"><span class="pub-badge pb-conf" data-i18n="pub.badge_conf_oral">Conference · Oral</span> CUPUM 2025 at UCL, London</div>
       </div>
     </div>
     <div class="pub-item reveal">
@@ -718,7 +812,7 @@ footer {
       <div>
         <div class="pub-title">Time-Inequality: How the Built Environment Moderates the Mother's Out-of-Home Activity</div>
         <div class="pub-authors"><strong>Sijian Tian</strong>, Yuya Shibuya, Sekimoto Yoshihide · 2025</div>
-        <div class="pub-venue"><span class="pub-badge pb-conf">Conference · Oral (JP)</span> CSIS 2025, Kashiwa, Tokyo</div>
+        <div class="pub-venue"><span class="pub-badge pb-conf" data-i18n="pub.badge_conf_oral_jp">Conference · Oral (JP)</span> CSIS 2025, Kashiwa, Tokyo</div>
       </div>
     </div>
     <div class="pub-item reveal">
@@ -726,7 +820,7 @@ footer {
       <div>
         <div class="pub-title">Beyond Willpower: Structural Constraints and Inequality in Mobility-Related CO₂ Emissions</div>
         <div class="pub-authors">Yuzi Zhang, Kanata Takahashi, <strong>Sijian Tian</strong>, Hibiki Sumioku, Yuya Shibuya · 2025</div>
-        <div class="pub-venue"><span class="pub-badge pb-conf">Conference</span> Netmob 2026</div>
+        <div class="pub-venue"><span class="pub-badge pb-conf" data-i18n="pub.badge_conf">Conference</span> Netmob 2026</div>
       </div>
     </div>
     <div class="pub-item reveal">
@@ -734,7 +828,7 @@ footer {
       <div>
         <div class="pub-title">通向永恒之路：路易斯·康作品中的拱形母题来源及其设计演化</div>
         <div class="pub-authors"><strong>田思俭</strong>, 杨涛· 2025</div>
-        <div class="pub-venue"><span class="pub-badge pb-journal">Journal </span> 建筑学报</div>
+        <div class="pub-venue"><span class="pub-badge pb-journal" data-i18n="pub.badge_journal">Journal </span> 建筑学报</div>
       </div>
     </div>
     <div class="pub-item reveal">
@@ -742,7 +836,7 @@ footer {
       <div>
         <div class="pub-title">实体空间的终结还是新机遇？——智能手机时代下的公共空间研究动态综述</div>
         <div class="pub-authors"><strong>田思俭</strong>, 杨涛, 李鑫, 崔阳 · 2024</div>
-        <div class="pub-venue"><span class="pub-badge pb-journal">Journal </span> 世界建筑</div>
+        <div class="pub-venue"><span class="pub-badge pb-journal" data-i18n="pub.badge_journal">Journal </span> 世界建筑</div>
       </div>
     </div>
   </div>
@@ -751,49 +845,49 @@ footer {
 <!-- ════════════════════ BLOG ════════════════════ -->
 <div class="page" id="page-blog">
   <div class="page-header">
-    <div class="page-header-eyebrow">Blog </div>
-    <h1 class="page-header-title">Notes on cities, <br> and <em>uncertainty</em></h1>
+    <div class="page-header-eyebrow" data-i18n="blog.eyebrow">Blog </div>
+    <h1 class="page-header-title" data-i18n-html="blog.title">Notes on cities, <br> and <em>uncertainty</em></h1>
   </div>
 
   <div class="research-tabs">
-    <button class="rtab active" onclick="switchBlogTab('causal')">⌘ Causal Inference</button>
-    <button class="rtab" onclick="switchBlogTab('life')">☕ PhD life corner</button>
+    <button type="button" class="rtab active" data-i18n="blog.tab_causal" onclick="switchBlogTab('causal')">⌘ Causal Inference</button>
+    <button type="button" class="rtab" data-i18n="blog.tab_life" onclick="switchBlogTab('life')">☕ PhD life corner</button>
   </div>
 
   <div class="blog-panel active" id="blog-causal">
     <div class="research-intro reveal">
-      <p>Technical notes on causal inference, machine learning, and urban data science.</p>
+      <p data-i18n="blog.causal_intro">Technical notes on causal inference, machine learning, and urban data science.</p>
     </div>
     <div class="blog-grid">
       <div class="blog-card reveal">
-        <div class="blog-date">2026-03-20 · Technical</div>
-        <div class="blog-title">Why Correlation Fails Urban Planning</div>
-        <div class="blog-excerpt">Most urban studies only measure correlation. Yet cities are shaped by interventions—building, closing, rerouting. That is why causal inference changes the game.</div>
-        <a href="#" class="blog-read">Read Article</a>
+        <div class="blog-date" data-i18n="blog.c1_date">2026-03-20 · Technical</div>
+        <div class="blog-title" data-i18n="blog.c1_title">Why Correlation Fails Urban Planning</div>
+        <div class="blog-excerpt" data-i18n="blog.c1_excerpt">Most urban studies only measure correlation. Yet cities are shaped by interventions—building, closing, rerouting. That is why causal inference changes the game.</div>
+        <a href="#" class="blog-read" data-i18n="blog.read_article">Read Article</a>
       </div>
       <div class="blog-card reveal">
-        <div class="blog-date">Google Doc</div>
-        <div class="blog-title">PhD survival guide</div>
-        <div class="blog-excerpt">From theory → econometrics → LLMs (live updates)</div>
-        <a href="https://docs.google.com/document/d/1HqM3ysDKL8AZoTtImrgQ5gjqsKU1z0N2BOJOj33qUD8/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="blog-read">Read Article</a>
+        <div class="blog-date" data-i18n="blog.c2_date">Google Doc</div>
+        <div class="blog-title" data-i18n="blog.c2_title">PhD survival guide</div>
+        <div class="blog-excerpt" data-i18n="blog.c2_excerpt">From theory → econometrics → LLMs (live updates)</div>
+        <a href="https://docs.google.com/document/d/1HqM3ysDKL8AZoTtImrgQ5gjqsKU1z0N2BOJOj33qUD8/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="blog-read" data-i18n="blog.read_article">Read Article</a>
       </div>
     </div>
   </div>
 
   <div class="blog-panel" id="blog-life">
     <div class="research-intro reveal">
-      <p>Fragments of life in Japan—stress, loneliness, sparks of inspiration, and searching for meaning on the academic path.</p>
+      <p data-i18n="blog.life_intro">Fragments of life in Japan—stress, loneliness, sparks of inspiration, and searching for meaning on the academic path.</p>
       <p style="margin-top:16px;">
-        <a href="https://www.xiaohongshu.com/user/profile/5ae7bf074eacab221d93dcab" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:1.5px solid var(--pink2);color:var(--pink2);border-radius:3px;font-family:var(--mono);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all .2s;cursor:none;" onmouseover="this.style.background='var(--pink2)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--pink2)'">✦ Rednote (Xiaohongshu) · Coconut Planet’s first PhD →</a>
+        <a href="https://www.xiaohongshu.com/user/profile/5ae7bf074eacab221d93dcab" target="_blank" data-i18n="blog.life_link" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:1.5px solid var(--pink2);color:var(--pink2);border-radius:3px;font-family:var(--mono);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all .2s;cursor:none;" onmouseover="this.style.background='var(--pink2)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--pink2)'">✦ Rednote (Xiaohongshu) · Coconut Planet’s first PhD →</a>
       </p>
-      <p class="xhs-slogan">没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span></p>
+      <p class="xhs-slogan" data-i18n-html="blog.xhs_slogan">没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span></p>
     </div>
     <div class="blog-grid">
       <div class="blog-card reveal" style="border-left: 4px solid var(--pink);">
-        <div class="blog-date">2026-02-14 · Insight</div>
-        <div class="blog-title">On Building AI Products as a PhD Student</div>
-        <div class="blog-excerpt">The gap between research and product is less about technology than about whom you solve problems for. Shifting that lens made me rethink my dissertation.</div>
-        <a href="https://devpost.com/software/lifecho?ref_content=my-projects-tab&ref_feature=my_projects" target="_blank" rel="noopener noreferrer" class="blog-read">View Post</a>
+        <div class="blog-date" data-i18n="blog.l1_date">2026-02-14 · Insight</div>
+        <div class="blog-title" data-i18n="blog.l1_title">On Building AI Products as a PhD Student</div>
+        <div class="blog-excerpt" data-i18n="blog.l1_excerpt">The gap between research and product is less about technology than about whom you solve problems for. Shifting that lens made me rethink my dissertation.</div>
+        <a href="https://devpost.com/software/lifecho?ref_content=my-projects-tab&ref_feature=my_projects" target="_blank" rel="noopener noreferrer" class="blog-read" data-i18n="blog.view_post">View Post</a>
       </div>
     </div>
   </div>
@@ -802,18 +896,18 @@ footer {
 <!-- ════════════════════ CONTACT ════════════════════ -->
 <div class="page" id="page-contact">
   <div class="page-header">
-    <div class="page-header-eyebrow">Contact</div>
-    <h1 class="page-header-title">Let's talk about<br><em>cities & data</em></h1>
+    <div class="page-header-eyebrow" data-i18n="contact.eyebrow">Contact</div>
+    <h1 class="page-header-title" data-i18n-html="contact.title">Let's talk about<br><em>cities & data</em></h1>
   </div>
   <div class="contact-layout">
     <div>
-      <p class="contact-intro">Open to research collaborations, and AI products.</p>
+      <p class="contact-intro" data-i18n="contact.intro">Open to research collaborations, and AI products.</p>
       <div class="contact-links">
         <a href="mailto:tian-sijian386@g.ecc.u-tokyo.ac.jp" class="clink">
           <div class="clink-left">
             <div class="clink-icon">✉</div>
             <div>
-              <div class="clink-key">Email</div>
+              <div class="clink-key" data-i18n="contact.key_email">Email</div>
               <div class="clink-val">tian-sijian386@g.ecc.u-tokyo.ac.jp</div>
             </div>
           </div>
@@ -823,7 +917,7 @@ footer {
           <div class="clink-left">
             <div class="clink-icon">⌥</div>
             <div>
-              <div class="clink-key">GitHub</div>
+              <div class="clink-key" data-i18n="contact.key_github">GitHub</div>
               <div class="clink-val">github.com/shiken77</div>
             </div>
           </div>
@@ -833,7 +927,7 @@ footer {
           <div class="clink-left">
             <div class="clink-icon">in</div>
             <div>
-              <div class="clink-key">LinkedIn</div>
+              <div class="clink-key" data-i18n="contact.key_linkedin">LinkedIn</div>
               <div class="clink-val">linkedin.com/in/sijian-tian</div>
             </div>
           </div>
@@ -843,9 +937,9 @@ footer {
           <div class="clink-left">
             <div class="clink-icon">✦</div>
             <div>
-              <div class="clink-key">Rednote / Xiaohongshu</div>
-              <div class="clink-val">Coconut Planet’s first PhD</div>
-              <p class="xhs-slogan">没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span></p>
+              <div class="clink-key" data-i18n="contact.key_rednote">Rednote / Xiaohongshu</div>
+              <div class="clink-val" data-i18n="contact.val_rednote">Coconut Planet’s first PhD</div>
+              <p class="xhs-slogan" data-i18n-html="contact.xhs_slogan">没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span></p>
             </div>
           </div>
           <span class="clink-arrow">→</span>
@@ -854,33 +948,341 @@ footer {
     </div>
     <div class="contact-right">
       <div class="contact-card">
-        <div class="contact-loc-title">Tokyo,<br>Japan</div>
-        <div class="contact-loc-sub">University of Tokyo · Sekimoto Lab</div>
-        <a href="#" class="cv-btn" onclick="openCvModal(); return false;">↓ View CV</a>
+        <div class="contact-loc-title" data-i18n-html="contact.loc_title">Tokyo,<br>Japan</div>
+        <div class="contact-loc-sub" data-i18n="contact.loc_sub">Graduate School of Engineering · Civil Engineering · Sekimoto Lab</div>
+        <a href="#" class="cv-btn" data-i18n="contact.view_cv" onclick="openCvModal(); return false;">↓ View CV</a>
       </div>
     </div>
   </div>
 </div>
 
 <!-- CV preview modal (Google Drive) -->
-<div id="cv-modal" class="cv-modal" role="dialog" aria-modal="true" aria-label="CV preview">
+<div id="cv-modal" class="cv-modal" role="dialog" aria-modal="true" data-i18n-aria-label="cv.aria_modal" aria-label="CV preview">
   <div class="cv-modal-backdrop" onclick="closeCvModal()"></div>
   <div class="cv-modal-panel">
     <div class="cv-modal-bar">
-      <span class="cv-modal-title">Sijian Tian — CV (Data Science)</span>
-      <button type="button" class="cv-modal-close" onclick="closeCvModal()" aria-label="Close">×</button>
+      <span class="cv-modal-title" data-i18n="cv.modal_title">Sijian Tian — CV (Data Science)</span>
+      <button type="button" class="cv-modal-close" onclick="closeCvModal()" data-i18n-aria-label="cv.aria_close" aria-label="Close">×</button>
     </div>
-    <iframe id="cv-modal-iframe" class="cv-modal-iframe" title="CV PDF" src="about:blank"></iframe>
+    <iframe id="cv-modal-iframe" class="cv-modal-iframe" data-i18n-title="cv.iframe_title" title="CV PDF" src="about:blank"></iframe>
   </div>
 </div>
 
 <!-- FOOTER (shown on all pages) -->
 <footer id="site-footer">
-  <div class="footer-l">© 2025 Shiken Tian</div>
+  <div class="footer-l" data-i18n="meta.footer">© 2025 Shiken Tian</div>
 </footer>
 
 <script>
 const CV_PDF_SRC = 'https://drive.google.com/file/d/1KfaadlNOl4pmioPsEOLISDdXJSgwgJPA/preview';
+
+const STRINGS = {
+  en: {
+    'meta.title': 'Sijian Tian',
+    'meta.footer': '© 2025 Shiken Tian',
+    'nav.home': 'Home',
+    'nav.research': 'Research',
+    'nav.projects': 'Projects',
+    'nav.publications': 'Publications',
+    'nav.blog': 'Blog',
+    'nav.contact': 'Contact',
+    'img.avatar_alt': 'Sijian Tian',
+    'home.greeting': 'Urban Data Scientist · PhD Candidate',
+    'home.role': 'a researcher<br>',
+    'home.bio': 'PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Sekimoto Lab.<br><br>My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.<br><br>Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.<br><br>If you\'re interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.<br>',
+    'home.chip1': 'Causal Inference',
+    'home.chip2': 'Causal Machine Learning',
+    'home.chip3': 'Time series forecasting',
+    'home.chip4': 'AI Full Stack Engineer',
+    'home.chip5': 'Behavior informatics (analysis, forecast, simulation)',
+    'home.cta1': 'View Research →',
+    'home.cta2': 'Get in Touch',
+    'home.cta3': 'CV',
+    'home.stat': 'Peace & Love',
+    'home.strip1_title': 'Urban Digital Twin',
+    'home.strip1_body': 'People flow & Behavior Change Simulation & Policy Simulation',
+    'home.strip2_title': 'Architecture & Urban Design',
+    'home.strip2_body': 'Architectural history, public space, and socio-technical systems',
+    'home.strip3_title': 'AI Product Builder',
+    'home.strip3_body': 'Full-Stack Engineer',
+    'research.eyebrow': 'Research',
+    'research.title': '<em>PhD</em> research introduction',
+    'research.intro': 'By integrating a causal inference layer into an Agent-Based Model, my research aims to enhance activity sequence models within urban digital twin platforms — simulating counterfactual changes in discretionary activity behavior in response to shifts in urban facilities.',
+    'projects.eyebrow': 'Projects',
+    'projects.title': 'Things I\'ve <em>built</em>',
+    'projects.p1_type': 'AI Product · Full-Stack',
+    'projects.p1_desc': 'An AI companion that transforms your daily life into a multimedia learning journal — powered by Google Gemini 3.',
+    'projects.p2_type': 'Research Tool',
+    'projects.p2_name': 'Urban Digital Twin Sub-Module',
+    'projects.p2_desc': 'Interactive scenario visualization for urban planners. Simulate facility changes and watch predicted behavioral responses update in real time.',
+    'pub.eyebrow': 'Publications & Conferences',
+    'pub.title': 'Writing that <em>measures</em> the city',
+    'pub.badge_conf_oral': 'Conference · Oral',
+    'pub.badge_conf_oral_jp': 'Conference · Oral (JP)',
+    'pub.badge_conf': 'Conference',
+    'pub.badge_journal': 'Journal ',
+    'blog.eyebrow': 'Blog',
+    'blog.title': 'Notes on cities, <br> and <em>uncertainty</em>',
+    'blog.tab_causal': '⌘ Causal Inference',
+    'blog.tab_life': '☕ PhD life corner',
+    'blog.causal_intro': 'Technical notes on causal inference, machine learning, and urban data science.',
+    'blog.c1_date': '2026-03-20 · Technical',
+    'blog.c1_title': 'Why Correlation Fails Urban Planning',
+    'blog.c1_excerpt': 'Most urban studies only measure correlation. Yet cities are shaped by interventions—building, closing, rerouting. That is why causal inference changes the game.',
+    'blog.read_article': 'Read Article',
+    'blog.c2_date': 'Google Doc',
+    'blog.c2_title': 'PhD survival guide',
+    'blog.c2_excerpt': 'From theory → econometrics → LLMs (live updates)',
+    'blog.life_intro': 'Fragments of life in Japan—stress, loneliness, sparks of inspiration, and searching for meaning on the academic path.',
+    'blog.life_link': '✦ Rednote (Xiaohongshu) · Coconut Planet’s first PhD →',
+    'blog.xhs_slogan': '没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span>',
+    'blog.l1_date': '2026-02-14 · Insight',
+    'blog.l1_title': 'On Building AI Products as a PhD Student',
+    'blog.l1_excerpt': 'The gap between research and product is less about technology than about whom you solve problems for. Shifting that lens made me rethink my dissertation.',
+    'blog.view_post': 'View Post',
+    'contact.eyebrow': 'Contact',
+    'contact.title': 'Let\'s talk about<br><em>cities &amp; data</em>',
+    'contact.intro': 'Open to research collaborations, and AI products.',
+    'contact.key_email': 'Email',
+    'contact.key_github': 'GitHub',
+    'contact.key_linkedin': 'LinkedIn',
+    'contact.key_rednote': 'Rednote / Xiaohongshu',
+    'contact.val_rednote': 'Coconut Planet’s first PhD',
+    'contact.xhs_slogan': '没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span>',
+    'contact.loc_title': 'Tokyo,<br>Japan',
+    'contact.loc_sub': 'Graduate School of Engineering · Civil Engineering · Sekimoto Lab',
+    'contact.view_cv': '↓ View CV',
+    'cv.aria_modal': 'CV preview',
+    'cv.aria_close': 'Close',
+    'cv.modal_title': 'Sijian Tian — CV (Data Science)',
+    'cv.iframe_title': 'CV PDF'
+  },
+  ja: {
+    'meta.title': '田思俭 | Sijian Tian',
+    'meta.footer': '© 2025 Shiken Tian',
+    'nav.home': 'ホーム',
+    'nav.research': '研究',
+    'nav.projects': 'プロジェクト',
+    'nav.publications': '発表',
+    'nav.blog': 'ブログ',
+    'nav.contact': 'お問い合わせ',
+    'img.avatar_alt': '田思俭（ティエン・スージエン）',
+    'home.greeting': 'アーバンデータサイエンティスト／博士課程',
+    'home.role': '研究者<br>',
+    'home.bio': '東京大学大学院工学系研究科社会基盤学専攻・関本研究室の博士課程に在籍しています。<br><br>研究テーマは都市システムと人間行動の交差点です。都市は単なる背景ではなく、人々の移動や意思決定、暮らし方を形づくる力そのものだと考えています。<br><br>研究以外にも、日常の利用者向けのプロダクトづくりやSNSでの発信を通じて、研究の洞察を手に取れる形にすることを大切にしています。<br><br>都市やデータ、AIプロダクトに興味がある方、あるいは一緒に話したいアイデアがある方は、お気軽にご連絡ください。<br>',
+    'home.chip1': '因果推論',
+    'home.chip2': '因果的機械学習',
+    'home.chip3': '時系列予測',
+    'home.chip4': 'フルスタックAIエンジニア',
+    'home.chip5': '行動情報学（分析・予測・シミュレーション）',
+    'home.cta1': '研究を見る →',
+    'home.cta2': '連絡する',
+    'home.cta3': '履歴書',
+    'home.stat': 'Peace & Love',
+    'home.strip1_title': 'デジタルツイン都市',
+    'home.strip1_body': '人流・行動変化シミュレーション・政策シミュレーション',
+    'home.strip2_title': '建築・都市デザイン',
+    'home.strip2_body': '建築史、公共空間、社会技術システム',
+    'home.strip3_title': 'AIプロダクト開発',
+    'home.strip3_body': 'フルスタックエンジニア',
+    'research.eyebrow': '研究',
+    'research.title': '<em>博士課程</em>研究の紹介',
+    'research.intro': 'エージェントベースモデルに因果推論層を組み込み、都市デジタルツイン上の活動系列モデルを強化することを目指しています。都市施設の変化に応じた裁量的活動行動の反事実的変化をシミュレートします。',
+    'projects.eyebrow': 'プロジェクト',
+    'projects.title': 'つくってきた<em>もの</em>',
+    'projects.p1_type': 'AIプロダクト・フルスタック',
+    'projects.p1_desc': '日々の暮らしをマルチメディア学習ジャーナルへと変えるAIコンパニオン（Google Gemini 3 搭載）。',
+    'projects.p2_type': '研究ツール',
+    'projects.p2_name': '都市デジタルツイン・サブモジュール',
+    'projects.p2_desc': '都市計画者向けのインタラクティブなシナリオ可視化。施設変更をシミュレートし、予測される行動応答がリアルタイムで更新されます。',
+    'pub.eyebrow': '論文・学会発表',
+    'pub.title': '都市を<em>測る</em>文章',
+    'pub.badge_conf_oral': '学会発表（口頭）',
+    'pub.badge_conf_oral_jp': '学会発表（口頭・国内）',
+    'pub.badge_conf': '学会発表',
+    'pub.badge_journal': '論文誌 ',
+    'blog.eyebrow': 'ブログ',
+    'blog.title': '都市と、<br><em>不確実性</em>について',
+    'blog.tab_causal': '⌘ 因果推論',
+    'blog.tab_life': '☕ 博士生活コーナー',
+    'blog.causal_intro': '因果推論・機械学習・都市データサイエンスに関する技術メモです。',
+    'blog.c1_date': '2026-03-20 · 技術',
+    'blog.c1_title': 'なぜ相関だけでは都市計画は語れないのか',
+    'blog.c1_excerpt': '多くの都市研究は相関にとどまります。しかし都市は道路の新設や施設の閉鎖といった介入によって形づくられます。だからこそ因果推論が鍵になります。',
+    'blog.read_article': '記事を読む',
+    'blog.c2_date': 'Googleドキュメント',
+    'blog.c2_title': '博士課程サバイバルガイド',
+    'blog.c2_excerpt': '理論 → 計量経済学 → LLM（随時更新）',
+    'blog.life_intro': '日本での生活の断片——ストレスや孤独、ひらめき、そして学術の道で意味を探すこと。',
+    'blog.life_link': '✦ 小红书（RED）· ココナッツ星の博士1号 →',
+    'blog.xhs_slogan': '落ち着きはないけれど、わりと楽しい実行派 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span>',
+    'blog.l1_date': '2026-02-14 · 考察',
+    'blog.l1_title': '博士課程でAIプロダクトをつくるということ',
+    'blog.l1_excerpt': '研究とプロダクトの距離は、技術より「誰の課題を解くか」で決まります。その視点をずらしたとき、自分の論文の書き方も変わりました。',
+    'blog.view_post': 'Devpost を見る',
+    'contact.eyebrow': 'お問い合わせ',
+    'contact.title': '都市と<br><em>データ</em>について話しましょう',
+    'contact.intro': '共同研究やAIプロダクトのご相談も歓迎です。',
+    'contact.key_email': 'メール',
+    'contact.key_github': 'GitHub',
+    'contact.key_linkedin': 'LinkedIn',
+    'contact.key_rednote': 'RED（小红书）',
+    'contact.val_rednote': 'ココナッツ星の博士1号',
+    'contact.xhs_slogan': '落ち着きはないけれど、わりと楽しい実行派 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span>',
+    'contact.loc_title': '東京、<br>日本',
+    'contact.loc_sub': '工学系研究科 社会基盤学専攻 · 関本研究室',
+    'contact.view_cv': '↓ 履歴書を見る',
+    'cv.aria_modal': '履歴書のプレビュー',
+    'cv.aria_close': '閉じる',
+    'cv.modal_title': '田思俭 — 履歴書（データサイエンス）',
+    'cv.iframe_title': '履歴書 PDF'
+  },
+  zh: {
+    'meta.title': '田思俭 | Sijian Tian',
+    'meta.footer': '© 2025 Shiken Tian',
+    'nav.home': '首页',
+    'nav.research': '研究',
+    'nav.projects': '项目',
+    'nav.publications': '发表',
+    'nav.blog': '博客',
+    'nav.contact': '联系',
+    'img.avatar_alt': '田思俭',
+    'home.greeting': '城市数据科学家 · 博士研究生',
+    'home.role': '研究者<br>',
+    'home.bio': '东京大学大学院工学系研究科社会基盘学专攻、关本研究室博士研究生。<br><br>我的研究处在城市系统与人类行为的交叉点上——城市不只是背景，更是塑造人们如何移动、决策与生活的主动力量。<br><br>除研究之外，我也为日常用户做产品、在社交媒体创作内容，把研究洞察变成可触摸、可使用的现实。<br><br>若你对城市、数据或 AI 产品感兴趣，或只是想聊聊某个想法，欢迎随时联系。<br>',
+    'home.chip1': '因果推断',
+    'home.chip2': '因果机器学习',
+    'home.chip3': '时间序列预测',
+    'home.chip4': '全栈 AI 工程师',
+    'home.chip5': '行为信息学（分析、预测、仿真）',
+    'home.cta1': '查看研究 →',
+    'home.cta2': '联系我',
+    'home.cta3': '简历',
+    'home.stat': 'Peace & Love',
+    'home.strip1_title': '城市数字孪生',
+    'home.strip1_body': '人群流动 · 行为变化仿真 · 政策仿真',
+    'home.strip2_title': '建筑与城市设计',
+    'home.strip2_body': '建筑史、公共空间与社会—技术系统',
+    'home.strip3_title': 'AI 产品开发者',
+    'home.strip3_body': '全栈工程师',
+    'research.eyebrow': '研究',
+    'research.title': '<em>博士</em>研究介绍',
+    'research.intro': '通过在基于主体的模型（ABM）中嵌入因果推断层，我希望增强城市数字孪生平台上的活动序列模型——模拟城市设施变化情境下，自主性活动行为的反事实变化。',
+    'projects.eyebrow': '项目',
+    'projects.title': '我做过的一些<em>东西</em>',
+    'projects.p1_type': 'AI 产品 · 全栈',
+    'projects.p1_desc': '把你的日常生活变成多媒体学习日志的 AI 伙伴——由 Google Gemini 3 驱动。',
+    'projects.p2_type': '研究工具',
+    'projects.p2_name': '城市数字孪生子模块',
+    'projects.p2_desc': '面向城市规划者的交互式情景可视化。模拟设施变更，实时观看预测的行为响应如何更新。',
+    'pub.eyebrow': '论文与会议',
+    'pub.title': '书写<em>度量</em>城市',
+    'pub.badge_conf_oral': '会议 · 口头报告',
+    'pub.badge_conf_oral_jp': '会议 · 口头报告（日本）',
+    'pub.badge_conf': '会议',
+    'pub.badge_journal': '期刊 ',
+    'blog.eyebrow': '博客',
+    'blog.title': '关于城市<br>与<em>不确定性</em>的笔记',
+    'blog.tab_causal': '⌘ 因果推断',
+    'blog.tab_life': '☕ 读博手记',
+    'blog.causal_intro': '关于因果推断、机器学习与城市数据科学的技术笔记。',
+    'blog.c1_date': '2026-03-20 · 技术',
+    'blog.c1_title': '为什么仅靠「相关」做不好城市规划',
+    'blog.c1_excerpt': '许多城市研究只停留在相关关系；但城市是被修路、关店、改线等「干预」塑造的。这正是因果推断能改变游戏规则的原因。',
+    'blog.read_article': '阅读文章',
+    'blog.c2_date': 'Google 文档',
+    'blog.c2_title': '读博生存指南',
+    'blog.c2_excerpt': '从理论 → 计量经济学 → 大语言模型（持续更新）',
+    'blog.life_intro': '在日本生活的碎片——压力、孤独、灵感的火花，以及在学术道路上寻找意义。',
+    'blog.life_link': '✦ 小红书 · 椰子星第一位博士生 →',
+    'blog.xhs_slogan': '没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span>',
+    'blog.l1_date': '2026-02-14 · 随笔',
+    'blog.l1_title': '读博同时做 AI 产品',
+    'blog.l1_excerpt': '研究与产品之间的距离，与其说在技术，不如说在「为谁解决问题」。换了这个视角后，我也重新思考了论文该怎么写。',
+    'blog.view_post': '查看 Devpost',
+    'contact.eyebrow': '联系',
+    'contact.title': '聊聊<br><em>城市与数据</em>',
+    'contact.intro': '欢迎科研合作与 AI 产品相关交流。',
+    'contact.key_email': '邮箱',
+    'contact.key_github': 'GitHub',
+    'contact.key_linkedin': 'LinkedIn',
+    'contact.key_rednote': '小红书',
+    'contact.val_rednote': '椰子星第一位博士生',
+    'contact.xhs_slogan': '没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span>',
+    'contact.loc_title': '东京，<br>日本',
+    'contact.loc_sub': '工学系研究科 社会基盘学专攻 · 关本研究室',
+    'contact.view_cv': '↓ 查看简历',
+    'cv.aria_modal': '简历预览',
+    'cv.aria_close': '关闭',
+    'cv.modal_title': '田思俭 — 简历（数据科学）',
+    'cv.iframe_title': '简历 PDF'
+  }
+};
+
+function applyLanguage(lang) {
+  if (lang !== 'en' && lang !== 'ja' && lang !== 'zh') lang = 'en';
+  var T = STRINGS[lang];
+  if (!T) { lang = 'en'; T = STRINGS.en; }
+  document.documentElement.lang = lang === 'ja' ? 'ja' : lang === 'zh' ? 'zh-Hans' : 'en';
+  try {
+    localStorage.setItem('siteLang', lang);
+  } catch (e) {}
+  try {
+    var u = new URL(window.location.href);
+    u.searchParams.set('lang', lang);
+    history.replaceState(null, '', u);
+  } catch (e) {}
+
+  if (T['meta.title']) document.title = T['meta.title'];
+
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
+    var k = el.getAttribute('data-i18n');
+    if (T[k] != null) el.textContent = T[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+    var k = el.getAttribute('data-i18n-html');
+    if (T[k] != null) el.innerHTML = T[k];
+  });
+  document.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
+    var k = el.getAttribute('data-i18n-alt');
+    if (T[k] != null) el.setAttribute('alt', T[k]);
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(function (el) {
+    var k = el.getAttribute('data-i18n-title');
+    if (T[k] != null) el.setAttribute('title', T[k]);
+  });
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(function (el) {
+    var k = el.getAttribute('data-i18n-aria-label');
+    if (T[k] != null) el.setAttribute('aria-label', T[k]);
+  });
+
+  document.querySelectorAll('.lang-btn').forEach(function (btn) {
+    var active = btn.getAttribute('data-set-lang') === lang;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
+  triggerReveals();
+}
+
+function setLanguage(lang) {
+  applyLanguage(lang);
+}
+
+function resolveInitialLang() {
+  try {
+    var u = new URL(window.location.href);
+    var q = u.searchParams.get('lang');
+    if (q === 'ja' || q === 'en' || q === 'zh') return q;
+  } catch (e) {}
+  try {
+    var s = localStorage.getItem('siteLang');
+    if (s === 'ja' || s === 'en' || s === 'zh') return s;
+  } catch (e) {}
+  if (navigator.language && navigator.language.indexOf('ja') === 0) return 'ja';
+  if (navigator.language && navigator.language.indexOf('zh') === 0) return 'zh';
+  return 'en';
+}
 
 function openCvModal() {
   const modal = document.getElementById('cv-modal');
@@ -972,6 +1374,13 @@ function switchBlogTab(tab) {
 
   triggerReveals();
 }
+
+applyLanguage(resolveInitialLang());
+document.querySelectorAll('[data-set-lang]').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    setLanguage(btn.getAttribute('data-set-lang'));
+  });
+});
 </script>
 </body>
 </html>
