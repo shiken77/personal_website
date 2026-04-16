@@ -43,6 +43,7 @@ html[lang="ja"] {
 }
 html[lang="ja"] body { line-height: 1.75; }
 html[lang="ja"] .home-bio,
+html[lang="ja"] .home-bio-p,
 html[lang="ja"] .research-intro p,
 html[lang="ja"] .proj-desc,
 html[lang="ja"] .blog-excerpt,
@@ -58,6 +59,7 @@ html[lang="zh-Hans"] {
 }
 html[lang="zh-Hans"] body { line-height: 1.8; }
 html[lang="zh-Hans"] .home-bio,
+html[lang="zh-Hans"] .home-bio-p,
 html[lang="zh-Hans"] .research-intro p,
 html[lang="zh-Hans"] .proj-desc,
 html[lang="zh-Hans"] .blog-excerpt,
@@ -197,6 +199,13 @@ nav {
   font-size:14.5px; line-height:1.85; color:var(--text2);
   max-width:480px; margin-bottom:40px;
 }
+.home-bio-p { margin:0 0 1em; font-size:inherit; line-height:inherit; color:inherit; }
+.home-bio-p:last-child { margin-bottom:0; }
+
+.page-header-title .i18n-line { display:block; }
+.page-header-title .i18n-line + .i18n-line { margin-top:0.06em; }
+.contact-loc-title .i18n-line { display:block; }
+.contact-loc-title .i18n-line + .i18n-line { margin-top:0.12em; }
 
 .home-chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:40px; }
 .chip {
@@ -678,16 +687,13 @@ footer {
     <div class="home-left">
       <div class="home-greeting" data-i18n="home.greeting">Urban Data Scientist · PhD Candidate</div>
       <h1 class="home-name">Sijian<em>Tian</em></h1>
-      <div class="home-role" data-i18n="home.role">a researcher<br></div>
-      <p class="home-bio" data-i18n-html="home.bio">
-        PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Sekimoto Lab.<br>
-        
-        My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.<br>
-        
-        Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.<br>
-        
-        If you're interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.<br>  
-      </p>
+      <div class="home-role" data-i18n="home.role">a researcher</div>
+      <div class="home-bio" data-i18n-html="home.bio">
+        <p class="home-bio-p">PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Sekimoto Lab.</p>
+        <p class="home-bio-p">My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.</p>
+        <p class="home-bio-p">Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.</p>
+        <p class="home-bio-p">If you're interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.</p>
+      </div>
       <div class="home-chips">
         <span class="chip chip-orange" data-i18n="home.chip1">Causal Inference</span>
         <span class="chip chip-orange" data-i18n="home.chip2">Causal Machine Learning</span>
@@ -847,7 +853,7 @@ footer {
 <div class="page" id="page-blog">
   <div class="page-header">
     <div class="page-header-eyebrow" data-i18n="blog.eyebrow">Blog </div>
-    <h1 class="page-header-title" data-i18n-html="blog.title">Notes on cities, <br> and <em>uncertainty</em></h1>
+    <h1 class="page-header-title" data-i18n-html="blog.title"><span class="i18n-line">Notes on cities,</span><span class="i18n-line"> and <em>uncertainty</em></span></h1>
   </div>
 
   <div class="research-tabs">
@@ -898,7 +904,7 @@ footer {
 <div class="page" id="page-contact">
   <div class="page-header">
     <div class="page-header-eyebrow" data-i18n="contact.eyebrow">Contact</div>
-    <h1 class="page-header-title" data-i18n-html="contact.title">Let's talk about<br><em>cities & data</em></h1>
+    <h1 class="page-header-title" data-i18n-html="contact.title"><span class="i18n-line">Let's talk about</span><span class="i18n-line"><em>cities &amp; data</em></span></h1>
   </div>
   <div class="contact-layout">
     <div>
@@ -949,7 +955,7 @@ footer {
     </div>
     <div class="contact-right">
       <div class="contact-card">
-        <div class="contact-loc-title" data-i18n-html="contact.loc_title">Tokyo,<br>Japan</div>
+        <div class="contact-loc-title" data-i18n-html="contact.loc_title"><span class="i18n-line">Tokyo,</span><span class="i18n-line">Japan</span></div>
         <div class="contact-loc-sub" data-i18n="contact.loc_sub">Graduate School of Engineering · Civil Engineering · Sekimoto Lab</div>
         <a href="#" class="cv-btn" data-i18n="contact.view_cv" onclick="openCvModal(); return false;">↓ View CV</a>
       </div>
@@ -989,8 +995,8 @@ const STRINGS = {
     'nav.contact': 'Contact',
     'img.avatar_alt': 'Sijian Tian',
     'home.greeting': 'Urban Data Scientist · PhD Candidate',
-    'home.role': 'a researcher<br>',
-    'home.bio': 'PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Sekimoto Lab.<br><br>My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.<br><br>Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.<br><br>If you\'re interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.<br>',
+    'home.role': 'a researcher',
+    'home.bio': '<p class="home-bio-p">PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Sekimoto Lab.</p><p class="home-bio-p">My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.</p><p class="home-bio-p">Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.</p><p class="home-bio-p">If you\'re interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.</p>',
     'home.chip1': 'Causal Inference',
     'home.chip2': 'Causal Machine Learning',
     'home.chip3': 'Time series forecasting',
@@ -1023,7 +1029,7 @@ const STRINGS = {
     'pub.badge_conf': 'Conference',
     'pub.badge_journal': 'Journal ',
     'blog.eyebrow': 'Blog',
-    'blog.title': 'Notes on cities, <br> and <em>uncertainty</em>',
+    'blog.title': '<span class="i18n-line">Notes on cities,</span><span class="i18n-line"> and <em>uncertainty</em></span>',
     'blog.tab_causal': '⌘ Causal Inference',
     'blog.tab_life': '☕ PhD life corner',
     'blog.causal_intro': 'Technical notes on causal inference, machine learning, and urban data science.',
@@ -1042,7 +1048,7 @@ const STRINGS = {
     'blog.l1_excerpt': 'The gap between research and product is less about technology than about whom you solve problems for. Shifting that lens made me rethink my dissertation.',
     'blog.view_post': 'View Post',
     'contact.eyebrow': 'Contact',
-    'contact.title': 'Let\'s talk about<br><em>cities &amp; data</em>',
+    'contact.title': '<span class="i18n-line">Let\'s talk about</span><span class="i18n-line"><em>cities &amp; data</em></span>',
     'contact.intro': 'Open to research collaborations, and AI products.',
     'contact.key_email': 'Email',
     'contact.key_github': 'GitHub',
@@ -1050,7 +1056,7 @@ const STRINGS = {
     'contact.key_rednote': 'Rednote / Xiaohongshu',
     'contact.val_rednote': 'Coconut Planet’s first PhD',
     'contact.xhs_slogan': '没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span>',
-    'contact.loc_title': 'Tokyo,<br>Japan',
+    'contact.loc_title': '<span class="i18n-line">Tokyo,</span><span class="i18n-line">Japan</span>',
     'contact.loc_sub': 'Graduate School of Engineering · Civil Engineering · Sekimoto Lab',
     'contact.view_cv': '↓ View CV',
     'cv.aria_modal': 'CV preview',
@@ -1070,7 +1076,7 @@ const STRINGS = {
     'img.avatar_alt': '田思俭（ティエン・スージエン）',
     'home.greeting': 'アーバンデータサイエンティスト／博士課程',
     'home.role': '研究者',
-    'home.bio': '東京大学大学院工学系研究科社会基盤学専攻・関本研究室の博士課程に在籍しています。<br><br>研究テーマは都市システムと人間行動の交差点です。都市は単なる背景ではなく、人々の移動や意思決定、暮らし方を形づくる力そのものだと考えています。<br><br>研究以外にも、日常の利用者向けのプロダクトづくりやSNSでの発信を通じて、研究の洞察を手に取れる形にすることを大切にしています。<br><br>都市やデータ、AIプロダクトに興味がある方、あるいは一緒に話したいアイデアがある方は、お気軽にご連絡ください。<br>',
+    'home.bio': '<p class="home-bio-p">東京大学大学院工学系研究科社会基盤学専攻・関本研究室の博士課程に在籍しています。</p><p class="home-bio-p">研究テーマは都市システムと人間行動の交差点です。都市は単なる背景ではなく、人々の移動や意思決定、暮らし方を形づくる力そのものだと考えています。</p><p class="home-bio-p">研究以外にも、日常の利用者向けのプロダクトづくりやSNSでの発信を通じて、研究の洞察を手に取れる形にすることを大切にしています。</p><p class="home-bio-p">都市やデータ、AIプロダクトに興味がある方、あるいは一緒に話したいアイデアがある方は、お気軽にご連絡ください。</p>',
     'home.chip1': '因果推論',
     'home.chip2': '因果的機械学習',
     'home.chip3': '時系列予測',
@@ -1103,7 +1109,7 @@ const STRINGS = {
     'pub.badge_conf': '学会発表',
     'pub.badge_journal': '論文誌 ',
     'blog.eyebrow': 'ブログ',
-    'blog.title': '都市と、<br><em>不確実性</em>について',
+    'blog.title': '<span class="i18n-line">都市と、</span><span class="i18n-line"><em>不確実性</em>について</span>',
     'blog.tab_causal': '⌘ 因果推論',
     'blog.tab_life': '☕ 博士生活コーナー',
     'blog.causal_intro': '因果推論・機械学習・都市データサイエンスに関する技術メモです。',
@@ -1122,7 +1128,7 @@ const STRINGS = {
     'blog.l1_excerpt': '研究とプロダクトの距離は、技術より「誰の課題を解くか」で決まります。その視点をずらしたとき、自分の論文の書き方も変わりました。',
     'blog.view_post': 'Devpost を見る',
     'contact.eyebrow': 'お問い合わせ',
-    'contact.title': '都市と<br><em>データ</em>について話しましょう',
+    'contact.title': '<span class="i18n-line">都市と</span><span class="i18n-line"><em>データ</em>について話しましょう</span>',
     'contact.intro': '共同研究やAIプロダクトのご相談も歓迎です。',
     'contact.key_email': 'メール',
     'contact.key_github': 'GitHub',
@@ -1130,7 +1136,7 @@ const STRINGS = {
     'contact.key_rednote': 'RED（小红书）',
     'contact.val_rednote': 'ココナッツ星の博士1号',
     'contact.xhs_slogan': '落ち着きはないけれど、わりと楽しい実行派 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span>',
-    'contact.loc_title': '東京、<br>日本',
+    'contact.loc_title': '<span class="i18n-line">東京、</span><span class="i18n-line">日本</span>',
     'contact.loc_sub': '工学系研究科 社会基盤学専攻 · 関本研究室',
     'contact.view_cv': '↓ 履歴書を見る',
     'cv.aria_modal': '履歴書のプレビュー',
@@ -1150,7 +1156,7 @@ const STRINGS = {
     'img.avatar_alt': '田思俭',
     'home.greeting': '城市数据科学家 · 博士研究生',
     'home.role': '研究者',
-    'home.bio': '东京大学大学院工学系研究科社会基盘学专攻、关本研究室博士研究生。<br><br>我的研究处在城市系统与人类行为的交叉点上——城市不只是背景，更是塑造人们如何移动、决策与生活的主动力量。<br><br>除研究之外，我也为日常用户做产品、在社交媒体创作内容，把研究洞察变成可触摸、可使用的现实。<br><br>若你对城市、数据或 AI 产品感兴趣，或只是想聊聊某个想法，欢迎随时联系。<br>',
+    'home.bio': '<p class="home-bio-p">东京大学大学院工学系研究科社会基盘学专攻、关本研究室博士研究生。</p><p class="home-bio-p">我的研究处在城市系统与人类行为的交叉点上——城市不只是背景，更是塑造人们如何移动、决策与生活的主动力量。</p><p class="home-bio-p">除研究之外，我也为日常用户做产品、在社交媒体创作内容，把研究洞察变成可触摸、可使用的现实。</p><p class="home-bio-p">若你对城市、数据或 AI 产品感兴趣，或只是想聊聊某个想法，欢迎随时联系。</p>',
     'home.chip1': '因果推断',
     'home.chip2': '因果机器学习',
     'home.chip3': '时间序列预测',
@@ -1183,7 +1189,7 @@ const STRINGS = {
     'pub.badge_conf': '会议',
     'pub.badge_journal': '期刊 ',
     'blog.eyebrow': '博客',
-    'blog.title': '关于城市<br>与<em>不确定性</em>的笔记',
+    'blog.title': '<span class="i18n-line">关于城市</span><span class="i18n-line">与<em>不确定性</em>的笔记</span>',
     'blog.tab_causal': '⌘ 因果推断',
     'blog.tab_life': '☕ 读博手记',
     'blog.causal_intro': '关于因果推断、机器学习与城市数据科学的技术笔记。',
@@ -1202,7 +1208,7 @@ const STRINGS = {
     'blog.l1_excerpt': '研究与产品之间的距离，与其说在技术，不如说在「为谁解决问题」。换了这个视角后，我也重新思考了论文该怎么写。',
     'blog.view_post': '查看 Devpost',
     'contact.eyebrow': '联系',
-    'contact.title': '聊聊<br><em>城市与数据</em>',
+    'contact.title': '<span class="i18n-line">聊聊</span><span class="i18n-line"><em>城市与数据</em></span>',
     'contact.intro': '欢迎科研合作与 AI 产品相关交流。',
     'contact.key_email': '邮箱',
     'contact.key_github': 'GitHub',
@@ -1210,7 +1216,7 @@ const STRINGS = {
     'contact.key_rednote': '小红书',
     'contact.val_rednote': '椰子星第一位博士生',
     'contact.xhs_slogan': '没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span>',
-    'contact.loc_title': '东京，<br>日本',
+    'contact.loc_title': '<span class="i18n-line">东京，</span><span class="i18n-line">日本</span>',
     'contact.loc_sub': '工学系研究科 社会基盘学专攻 · 关本研究室',
     'contact.view_cv': '↓ 查看简历',
     'cv.aria_modal': '简历预览',
