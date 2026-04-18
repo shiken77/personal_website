@@ -539,6 +539,13 @@ nav {
   border:1px solid var(--border); transition:background .2s;
 }
 .blog-card:hover { background:var(--bg3); }
+a.blog-card.blog-card-link {
+  display:block;
+  text-decoration:none;
+  color:inherit;
+  cursor:none;
+}
+a.blog-card.blog-card-link:hover { background:var(--bg3); }
 .blog-date { font-family:var(--mono); font-size:10px; letter-spacing:1.5px; color:var(--text3); margin-bottom:14px; }
 .blog-title { font-family:var(--serif); font-size:1.1rem; line-height:1.35; margin-bottom:10px; }
 .blog-excerpt { font-size:13px; line-height:1.65; color:var(--text2); margin-bottom:20px; }
@@ -866,12 +873,12 @@ footer {
       <p data-i18n="blog.causal_intro">Technical notes on causal inference, machine learning, and urban data science.</p>
     </div>
     <div class="blog-grid">
-      <div class="blog-card reveal">
+      <a href="https://www.notion.so/deep-learning-llm-causality-346cf532e5318060afe1c514cd605ecf?source=copy_link" target="_blank" rel="noopener noreferrer" class="blog-card blog-card-link reveal">
         <div class="blog-date" data-i18n="blog.c1_date">2026-03-20 · Technical</div>
         <div class="blog-title" data-i18n="blog.c1_title">Why Correlation Fails Urban Planning</div>
-        <div class="blog-excerpt" data-i18n="blog.c1_excerpt">Most urban studies only measure correlation. Yet cities are shaped by interventions—building, closing, rerouting. That is why causal inference changes the game.</div>
-        <a href="#" class="blog-read" data-i18n="blog.read_article">Read Article</a>
-      </div>
+        <div class="blog-excerpt" data-i18n="blog.c1_excerpt">Deep learning, LLMs & causality — full notes on Notion.</div>
+        <span class="blog-read" data-i18n="blog.c1_read">Open in Notion</span>
+      </a>
       <div class="blog-card reveal">
         <div class="blog-date" data-i18n="blog.c2_date">Google Doc</div>
         <div class="blog-title" data-i18n="blog.c2_title">PhD survival guide</div>
@@ -1033,9 +1040,10 @@ const STRINGS = {
     'blog.tab_causal': '⌘ Causal Inference',
     'blog.tab_life': '☕ PhD life corner',
     'blog.causal_intro': 'Technical notes on causal inference, machine learning, and urban data science.',
-    'blog.c1_date': '2026-03-20 · Technical',
+    'blog.c1_date': '2026-03-20 · Technical · Notion',
     'blog.c1_title': 'Why Correlation Fails Urban Planning',
-    'blog.c1_excerpt': 'Most urban studies only measure correlation. Yet cities are shaped by interventions—building, closing, rerouting. That is why causal inference changes the game.',
+    'blog.c1_excerpt': 'Deep learning, LLMs & causality — full notes on Notion.',
+    'blog.c1_read': 'Open in Notion',
     'blog.read_article': 'Read Article',
     'blog.c2_date': 'Google Doc',
     'blog.c2_title': 'PhD survival guide',
@@ -1113,9 +1121,10 @@ const STRINGS = {
     'blog.tab_causal': '⌘ 因果推論',
     'blog.tab_life': '☕ 博士生活コーナー',
     'blog.causal_intro': '因果推論・機械学習・都市データサイエンスに関する技術メモです。',
-    'blog.c1_date': '2026-03-20 · 技術',
+    'blog.c1_date': '2026-03-20 · 技術 · Notion',
     'blog.c1_title': 'なぜ相関だけでは都市計画は語れないのか',
-    'blog.c1_excerpt': '多くの都市研究は相関にとどまります。しかし都市は道路の新設や施設の閉鎖といった介入によって形づくられます。だからこそ因果推論が鍵になります。',
+    'blog.c1_excerpt': '深層学習・LLM・因果性について。本文は Notion で公開しています。',
+    'blog.c1_read': 'Notion で読む',
     'blog.read_article': '記事を読む',
     'blog.c2_date': 'Googleドキュメント',
     'blog.c2_title': '博士課程サバイバルガイド',
@@ -1193,9 +1202,10 @@ const STRINGS = {
     'blog.tab_causal': '⌘ 因果推断',
     'blog.tab_life': '☕ 读博手记',
     'blog.causal_intro': '关于因果推断、机器学习与城市数据科学的技术笔记。',
-    'blog.c1_date': '2026-03-20 · 技术',
+    'blog.c1_date': '2026-03-20 · 技术 · Notion',
     'blog.c1_title': '为什么仅靠「相关」做不好城市规划',
-    'blog.c1_excerpt': '许多城市研究只停留在相关关系；但城市是被修路、关店、改线等「干预」塑造的。这正是因果推断能改变游戏规则的原因。',
+    'blog.c1_excerpt': '深度学习、大语言模型与因果推断。正文见 Notion。',
+    'blog.c1_read': '在 Notion 阅读',
     'blog.read_article': '阅读文章',
     'blog.c2_date': 'Google 文档',
     'blog.c2_title': '读博生存指南',
