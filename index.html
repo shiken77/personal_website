@@ -282,6 +282,32 @@ nav {
 .strip-title { font-family:var(--serif); font-size:1rem; font-weight:600; margin-bottom:6px; }
 .strip-body { font-size:13px; color:var(--text2); line-height:1.65; }
 
+.home-blog-preview {
+  padding:48px 6vw 64px;
+  border-top:2px solid var(--border);
+  max-width:720px;
+}
+.home-blog-preview-head { margin-bottom:20px; }
+.home-blog-preview-heading {
+  font-family:var(--serif); font-size:1.35rem; font-weight:600;
+  margin:8px 0 0; line-height:1.35; color:var(--text);
+}
+.home-blog-preview-list {
+  list-style:none; margin:0; padding:0;
+  display:flex; flex-direction:column; gap:0;
+}
+.home-blog-preview-link {
+  display:block; width:100%; text-align:left;
+  font-family:var(--serif); font-size:1.05rem; font-weight:500;
+  color:var(--text); background:none; border:none;
+  padding:12px 0; cursor:none;
+  border-bottom:1px solid var(--border);
+  transition:color .2s;
+  line-height:1.45;
+}
+.home-blog-preview-list li:last-child .home-blog-preview-link { border-bottom:none; }
+.home-blog-preview-link:hover { color:var(--orange); }
+
 /* ── RESEARCH PAGE ── */
 .research-tabs {
   display:flex; gap:0;
@@ -747,6 +773,24 @@ footer {
       <div class="strip-body" data-i18n="home.strip3_body">Full-Stack Engineer</div>
     </div>
   </div>
+
+  <section class="home-blog-preview" aria-labelledby="home-blog-preview-heading">
+    <div class="home-blog-preview-head">
+      <div class="page-header-eyebrow" data-i18n="home.blog_preview_eyebrow">Blog</div>
+      <h2 id="home-blog-preview-heading" class="home-blog-preview-heading" data-i18n="home.blog_preview_title">Recent posts</h2>
+    </div>
+    <ul class="home-blog-preview-list">
+      <li>
+        <button type="button" class="home-blog-preview-link" data-i18n="blog.c1_title" onclick="navigateHomeBlogEntry('causal', true)">Paper survey on how causality is considered in deep learning and LLM models</button>
+      </li>
+      <li>
+        <button type="button" class="home-blog-preview-link" data-i18n="blog.c2_title" onclick="navigateHomeBlogEntry('causal', false)">PhD survival guide</button>
+      </li>
+      <li>
+        <button type="button" class="home-blog-preview-link" data-i18n="blog.l1_title" onclick="navigateHomeBlogEntry('life', false)">On Building AI Products as a PhD Student</button>
+      </li>
+    </ul>
+  </section>
 </div>
 
 <!-- ════════════════════ RESEARCH ════════════════════ -->
@@ -864,8 +908,8 @@ footer {
   </div>
 
   <div class="research-tabs">
-    <button type="button" class="rtab active" data-i18n="blog.tab_causal" onclick="switchBlogTab('causal')">⌘ Causal Inference</button>
-    <button type="button" class="rtab" data-i18n="blog.tab_life" onclick="switchBlogTab('life')">☕ PhD life corner</button>
+    <button type="button" class="rtab active" data-blog-tab="causal" data-i18n="blog.tab_causal" onclick="switchBlogTab('causal')">⌘ Causal Inference</button>
+    <button type="button" class="rtab" data-blog-tab="life" data-i18n="blog.tab_life" onclick="switchBlogTab('life')">☕ PhD life corner</button>
   </div>
 
   <div class="blog-panel active" id="blog-causal">
@@ -1019,6 +1063,8 @@ const STRINGS = {
     'home.strip2_body': 'Architectural history, public space, and socio-technical systems',
     'home.strip3_title': 'AI Product Builder',
     'home.strip3_body': 'Full-Stack Engineer',
+    'home.blog_preview_eyebrow': 'Blog',
+    'home.blog_preview_title': 'Recent posts',
     'research.eyebrow': 'Research',
     'research.title': '<em>PhD</em> research introduction',
     'research.intro': 'By integrating a causal inference layer into an Agent-Based Model, my research aims to enhance activity sequence models within urban digital twin platforms — simulating counterfactual changes in discretionary activity behavior in response to shifts in urban facilities.',
@@ -1100,6 +1146,8 @@ const STRINGS = {
     'home.strip2_body': '建築史、公共空間、社会技術システム',
     'home.strip3_title': 'AIプロダクト開発',
     'home.strip3_body': 'フルスタックエンジニア',
+    'home.blog_preview_eyebrow': 'ブログ',
+    'home.blog_preview_title': '最近の記事',
     'research.eyebrow': '研究',
     'research.title': '<em>博士課程</em>研究の紹介',
     'research.intro': 'エージェントベースモデルに因果推論層を組み込み、都市デジタルツイン上の活動系列モデルを強化することを目指しています。都市施設の変化に応じた裁量的活動行動の反事実的変化をシミュレートします。',
@@ -1181,6 +1229,8 @@ const STRINGS = {
     'home.strip2_body': '建筑史、公共空间与社会—技术系统',
     'home.strip3_title': 'AI 产品开发者',
     'home.strip3_body': '全栈工程师',
+    'home.blog_preview_eyebrow': '博客',
+    'home.blog_preview_title': '最新文章',
     'research.eyebrow': '研究',
     'research.title': '<em>博士</em>研究介绍',
     'research.intro': '通过在基于主体的模型（ABM）中嵌入因果推断层，我希望增强城市数字孪生平台上的活动序列模型——模拟城市设施变化情境下，自主性活动行为的反事实变化。',
@@ -1326,6 +1376,30 @@ function showPage(id) {
   triggerReveals();
 }
 
+function setBlogTab(tab) {
+  var wrap = document.querySelector('#page-blog .research-tabs');
+  if (wrap) {
+    wrap.querySelectorAll('.rtab').forEach(function (t) { t.classList.remove('active'); });
+    var btn = wrap.querySelector('.rtab[data-blog-tab="' + tab + '"]');
+    if (btn) btn.classList.add('active');
+  }
+  document.querySelectorAll('.blog-panel').forEach(function (p) { p.classList.remove('active'); });
+  var panel = document.getElementById('blog-' + tab);
+  if (panel) panel.classList.add('active');
+  triggerReveals();
+}
+
+function navigateHomeBlogEntry(tab, scrollToFirstCausalCard) {
+  showPage('blog');
+  setBlogTab(tab);
+  if (scrollToFirstCausalCard) {
+    requestAnimationFrame(function () {
+      var el = document.querySelector('#blog-causal .blog-card-link');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+}
+
 // ── RESEARCH TABS ──
 function switchTab(tab) {
   document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
@@ -1380,16 +1454,7 @@ document.querySelectorAll('.nav-links a').forEach(a=>{
 
 // ── BLOG TABS NAVIGATION ──
 function switchBlogTab(tab) {
-  const clickedBtn = event.currentTarget;
-  const parent = clickedBtn.parentElement;
-
-  parent.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
-  clickedBtn.classList.add('active');
-
-  document.querySelectorAll('.blog-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('blog-' + tab).classList.add('active');
-
-  triggerReveals();
+  setBlogTab(tab);
 }
 
 applyLanguage(resolveInitialLang());
