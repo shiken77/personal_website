@@ -337,10 +337,10 @@ nav {
   display: flex;
   flex-direction: column;
   padding: 0;
-  border: 2px solid var(--border);
+  border: 2px solid rgba(249, 115, 22, 0.22);
   border-radius: 14px;
-  background: linear-gradient(165deg, #f5eef8 0%, #fdf8f5 48%, #faf3ee 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 4px 24px rgba(44, 26, 14, 0.06);
+  background: #fff4e8;
+  box-shadow: 0 4px 22px rgba(249, 115, 22, 0.08);
   overflow: hidden;
 }
 .home-blog-preview-inner {
@@ -369,9 +369,13 @@ nav {
   font-family:var(--serif); font-size: 0.92rem; font-weight:500;
   color:var(--text); background:none; border:none;
   padding:10px 0; cursor:none;
-  border-bottom:1px solid rgba(240, 200, 210, 0.55);
+  border-bottom:1px solid rgba(249, 115, 22, 0.18);
   transition:color .2s;
   line-height:1.42;
+}
+a.home-blog-preview-link {
+  text-decoration: none;
+  color: inherit;
 }
 .home-blog-preview-list li:last-child .home-blog-preview-link { border-bottom:none; }
 .home-blog-preview-link:hover { color:var(--orange); }
@@ -841,10 +845,10 @@ footer {
             </div>
             <ul class="home-blog-preview-list">
               <li>
-                <button type="button" class="home-blog-preview-link" data-i18n="blog.c1_title" onclick="navigateHomeBlogEntry('causal', true)">Paper survey on how causality is considered in deep learning and LLM models</button>
+                <a class="home-blog-preview-link" href="https://www.notion.so/phd-survive-guide-346cf532e53180feb3c1e4b836cdd271?source=copy_link" target="_blank" rel="noopener noreferrer" data-i18n="blog.c2_title">PhD survival guide</a>
               </li>
               <li>
-                <button type="button" class="home-blog-preview-link" data-i18n="blog.c2_title" onclick="navigateHomeBlogEntry('causal', false)">PhD survival guide</button>
+                <button type="button" class="home-blog-preview-link" data-i18n="blog.c1_title" onclick="navigateHomeBlogEntry('causal', '#blog-entry-causal-survey')">Paper survey on how causality is considered in deep learning and LLM models</button>
               </li>
               <li>
                 <button type="button" class="home-blog-preview-link" data-i18n="blog.l1_title" onclick="navigateHomeBlogEntry('life', false)">On Building AI Products as a PhD Student</button>
@@ -999,18 +1003,18 @@ footer {
       <p data-i18n="blog.causal_intro">Technical notes on causal inference, machine learning, and urban data science.</p>
     </div>
     <div class="blog-grid">
-      <a href="https://www.notion.so/deep-learning-llm-causality-346cf532e5318060afe1c514cd605ecf?source=copy_link" target="_blank" rel="noopener noreferrer" class="blog-card blog-card-link reveal">
+      <a href="https://www.notion.so/phd-survive-guide-346cf532e53180feb3c1e4b836cdd271?source=copy_link" target="_blank" rel="noopener noreferrer" id="blog-entry-phd-guide" class="blog-card blog-card-link reveal">
+        <div class="blog-date" data-i18n="blog.c2_date">Notion</div>
+        <div class="blog-title" data-i18n="blog.c2_title">PhD survival guide</div>
+        <div class="blog-excerpt" data-i18n="blog.c2_excerpt">From theory → econometrics → LLMs (live updates)</div>
+        <span class="blog-read" data-i18n="blog.c1_read">Open in Notion</span>
+      </a>
+      <a href="https://www.notion.so/deep-learning-llm-causality-346cf532e5318060afe1c514cd605ecf?source=copy_link" target="_blank" rel="noopener noreferrer" id="blog-entry-causal-survey" class="blog-card blog-card-link reveal">
         <div class="blog-date" data-i18n="blog.c1_date">2026-03-20 · Technical</div>
         <div class="blog-title" data-i18n="blog.c1_title">Paper survey on how causality is considered in deep learning and LLM models</div>
         <div class="blog-excerpt" data-i18n="blog.c1_excerpt">Deep learning, LLMs & causality — full notes on Notion.</div>
         <span class="blog-read" data-i18n="blog.c1_read">Open in Notion</span>
       </a>
-      <div class="blog-card reveal">
-        <div class="blog-date" data-i18n="blog.c2_date">Google Doc</div>
-        <div class="blog-title" data-i18n="blog.c2_title">PhD survival guide</div>
-        <div class="blog-excerpt" data-i18n="blog.c2_excerpt">From theory → econometrics → LLMs (live updates)</div>
-        <a href="https://docs.google.com/document/d/1HqM3ysDKL8AZoTtImrgQ5gjqsKU1z0N2BOJOj33qUD8/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="blog-read" data-i18n="blog.read_article">Read Article</a>
-      </div>
     </div>
   </div>
 
@@ -1173,7 +1177,7 @@ const STRINGS = {
     'blog.c1_excerpt': 'Deep learning, LLMs & causality — full notes on Notion.',
     'blog.c1_read': 'Open in Notion',
     'blog.read_article': 'Read Article',
-    'blog.c2_date': 'Google Doc',
+    'blog.c2_date': 'Notion',
     'blog.c2_title': 'PhD survival guide',
     'blog.c2_excerpt': 'From theory → econometrics → LLMs (live updates)',
     'blog.life_intro': 'Fragments of life in Japan—stress, loneliness, sparks of inspiration, and searching for meaning on the academic path.',
@@ -1256,7 +1260,7 @@ const STRINGS = {
     'blog.c1_excerpt': '深層学習・LLM・因果性について。本文は Notion で公開しています。',
     'blog.c1_read': 'Notion で読む',
     'blog.read_article': '記事を読む',
-    'blog.c2_date': 'Googleドキュメント',
+    'blog.c2_date': 'Notion',
     'blog.c2_title': '博士課程サバイバルガイド',
     'blog.c2_excerpt': '理論 → 計量経済学 → LLM（随時更新）',
     'blog.life_intro': '日本での生活の断片——ストレスや孤独、ひらめき、そして学術の道で意味を探すこと。',
@@ -1339,7 +1343,7 @@ const STRINGS = {
     'blog.c1_excerpt': '深度学习、大语言模型与因果推断。正文见 Notion。',
     'blog.c1_read': '在 Notion 阅读',
     'blog.read_article': '阅读文章',
-    'blog.c2_date': 'Google 文档',
+    'blog.c2_date': 'Notion',
     'blog.c2_title': '读博生存指南',
     'blog.c2_excerpt': '从理论 → 计量经济学 → 大语言模型（持续更新）',
     'blog.life_intro': '在日本生活的碎片——压力、孤独、灵感的火花，以及在学术道路上寻找意义。',
@@ -1471,12 +1475,12 @@ function setBlogTab(tab) {
   triggerReveals();
 }
 
-function navigateHomeBlogEntry(tab, scrollToFirstCausalCard) {
+function navigateHomeBlogEntry(tab, scrollToSelector) {
   showPage('blog');
   setBlogTab(tab);
-  if (scrollToFirstCausalCard) {
+  if (scrollToSelector && typeof scrollToSelector === 'string') {
     requestAnimationFrame(function () {
-      var el = document.querySelector('#blog-causal .blog-card-link');
+      var el = document.querySelector(scrollToSelector);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   }
