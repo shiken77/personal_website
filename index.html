@@ -848,10 +848,10 @@ footer {
                 <a class="home-blog-preview-link" href="https://www.notion.so/phd-survive-guide-346cf532e53180feb3c1e4b836cdd271?source=copy_link" target="_blank" rel="noopener noreferrer" data-i18n="blog.c2_title">PhD survival guide</a>
               </li>
               <li>
-                <button type="button" class="home-blog-preview-link" data-i18n="blog.c1_title" onclick="navigateHomeBlogEntry('causal', '#blog-entry-causal-survey')">Paper survey on how causality is considered in deep learning and LLM models</button>
+                <a class="home-blog-preview-link" href="https://www.notion.so/deep-learning-llm-causality-346cf532e5318060afe1c514cd605ecf?source=copy_link" target="_blank" rel="noopener noreferrer" data-i18n="blog.c1_title">Paper survey on how causality is considered in deep learning and LLM models</a>
               </li>
               <li>
-                <button type="button" class="home-blog-preview-link" data-i18n="blog.l1_title" onclick="navigateHomeBlogEntry('life', false)">On Building AI Products as a PhD Student</button>
+                <a class="home-blog-preview-link" href="https://devpost.com/software/lifecho?ref_content=my-projects-tab&ref_feature=my_projects" target="_blank" rel="noopener noreferrer" data-i18n="blog.l1_title">On Building AI Products as a PhD Student</a>
               </li>
             </ul>
           </div>
@@ -1473,17 +1473,6 @@ function setBlogTab(tab) {
   var panel = document.getElementById('blog-' + tab);
   if (panel) panel.classList.add('active');
   triggerReveals();
-}
-
-function navigateHomeBlogEntry(tab, scrollToSelector) {
-  showPage('blog');
-  setBlogTab(tab);
-  if (scrollToSelector && typeof scrollToSelector === 'string') {
-    requestAnimationFrame(function () {
-      var el = document.querySelector(scrollToSelector);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-  }
 }
 
 // ── RESEARCH TABS ──
