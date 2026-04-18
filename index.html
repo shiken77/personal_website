@@ -337,10 +337,11 @@ nav {
   display: flex;
   flex-direction: column;
   padding: 0;
-  border: 2px solid rgba(244, 114, 182, 0.35);
+  /* Match .chip-pink (full-stack AI engineer): border --pink2, fill same tint as chip */
+  border: 2px solid var(--pink2);
   border-radius: 14px;
-  background: #fdf0f7;
-  box-shadow: 0 4px 22px rgba(244, 114, 182, 0.14);
+  background: rgba(244, 114, 182, 0.06);
+  box-shadow: 0 4px 20px rgba(244, 114, 182, 0.12);
   overflow: hidden;
 }
 .home-blog-preview-inner {
@@ -372,7 +373,7 @@ nav {
   font-family:var(--serif); font-size: 0.92rem; font-weight:500;
   color:var(--text); background:none; border:none;
   padding:10px 0; cursor:none;
-  border-bottom:1px solid rgba(244, 114, 182, 0.28);
+  border-bottom:1px solid rgba(244, 114, 182, 0.32);
   transition:color .2s;
   line-height:1.42;
 }
@@ -820,7 +821,9 @@ footer {
           </div>
         </div>
         <div class="home-bio" data-i18n-html="home.bio">
-          <p class="home-bio-p">PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Sekimoto Lab.</p>
+          <p class="home-bio-p">PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Human and Urban Informatics (Sekimoto Lab).</p>
+          <p class="home-bio-p"><strong>Skills:</strong> causal inference; causal machine learning; time series forecasting; behavioral informatics (analysis, prediction, simulation); full-stack AI engineering.</p>
+          <p class="home-bio-p"><strong>Research interests:</strong> inclusive decision support systems; behavioral heterogeneity and inequality; behavioral resilience.</p>
           <p class="home-bio-p">My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.</p>
           <p class="home-bio-p">Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.</p>
           <p class="home-bio-p">If you're interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.</p>
@@ -1096,7 +1099,7 @@ footer {
     <div class="contact-right">
       <div class="contact-card">
         <div class="contact-loc-title" data-i18n-html="contact.loc_title"><span class="i18n-line">Tokyo,</span><span class="i18n-line">Japan</span></div>
-        <div class="contact-loc-sub" data-i18n="contact.loc_sub">Graduate School of Engineering · Civil Engineering · Sekimoto Lab</div>
+        <div class="contact-loc-sub" data-i18n="contact.loc_sub">Graduate School of Engineering · Civil Engineering · Human and Urban Informatics (Sekimoto Lab)</div>
         <a href="#" class="cv-btn" data-i18n="contact.view_cv" onclick="openCvModal(); return false;">↓ View CV</a>
       </div>
     </div>
@@ -1136,7 +1139,7 @@ const STRINGS = {
     'img.avatar_alt': 'Sijian Tian',
     'home.greeting': 'Urban Data Scientist · PhD Candidate',
     'home.role': 'a researcher',
-    'home.bio': '<p class="home-bio-p">PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Sekimoto Lab.</p><p class="home-bio-p">My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.</p><p class="home-bio-p">Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.</p><p class="home-bio-p">If you\'re interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.</p>',
+    'home.bio': '<p class="home-bio-p">PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Human and Urban Informatics (Sekimoto Lab).</p><p class="home-bio-p"><strong>Skills:</strong> causal inference; causal machine learning; time series forecasting; behavioral informatics (analysis, prediction, simulation); full-stack AI engineering.</p><p class="home-bio-p"><strong>Research interests:</strong> inclusive decision support systems; behavioral heterogeneity and inequality; behavioral resilience.</p><p class="home-bio-p">My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.</p><p class="home-bio-p">Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.</p><p class="home-bio-p">If you\'re interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.</p>',
     'home.chip1': 'Causal Inference',
     'home.chip2': 'Causal Machine Learning',
     'home.chip3': 'Time series forecasting',
@@ -1200,7 +1203,7 @@ const STRINGS = {
     'contact.val_rednote': 'Coconut Planet’s first PhD',
     'contact.xhs_slogan': '没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span>',
     'contact.loc_title': '<span class="i18n-line">Tokyo,</span><span class="i18n-line">Japan</span>',
-    'contact.loc_sub': 'Graduate School of Engineering · Civil Engineering · Sekimoto Lab',
+    'contact.loc_sub': 'Graduate School of Engineering · Civil Engineering · Human and Urban Informatics (Sekimoto Lab)',
     'contact.view_cv': '↓ View CV',
     'cv.aria_modal': 'CV preview',
     'cv.aria_close': 'Close',
@@ -1219,7 +1222,7 @@ const STRINGS = {
     'img.avatar_alt': '田思俭（ティエン・スージエン）',
     'home.greeting': 'アーバンデータサイエンティスト／博士課程',
     'home.role': '研究者',
-    'home.bio': '<p class="home-bio-p">東京大学大学院工学系研究科社会基盤学専攻・関本研究室の博士課程に在籍しています。</p><p class="home-bio-p">研究テーマは都市システムと人間行動の交差点です。都市は単なる背景ではなく、人々の移動や意思決定、暮らし方を形づくる力そのものだと考えています。</p><p class="home-bio-p">研究以外にも、日常の利用者向けのプロダクトづくりやSNSでの発信を通じて、研究の洞察を手に取れる形にすることを大切にしています。</p><p class="home-bio-p">都市やデータ、AIプロダクトに興味がある方、あるいは一緒に話したいアイデアがある方は、お気軽にご連絡ください。</p>',
+    'home.bio': '<p class="home-bio-p">東京大学大学院工学系研究科社会基盤学専攻・人間都市情報学（関本研究室）の博士課程に在籍しています。</p><p class="home-bio-p"><strong>スキル：</strong>因果推論、因果的機械学習、時系列予測、行動情報学（分析・予測・シミュレーション）、フルスタックAIエンジニア。</p><p class="home-bio-p"><strong>研究関心：</strong>インクルーシブな意思決定支援システム、行動の異質性と不平等、行動のレジリエンス。</p><p class="home-bio-p">研究テーマは都市システムと人間行動の交差点です。都市は単なる背景ではなく、人々の移動や意思決定、暮らし方を形づくる力そのものだと考えています。</p><p class="home-bio-p">研究以外にも、日常の利用者向けのプロダクトづくりやSNSでの発信を通じて、研究の洞察を手に取れる形にすることを大切にしています。</p><p class="home-bio-p">都市やデータ、AIプロダクトに興味がある方、あるいは一緒に話したいアイデアがある方は、お気軽にご連絡ください。</p>',
     'home.chip1': '因果推論',
     'home.chip2': '因果的機械学習',
     'home.chip3': '時系列予測',
@@ -1283,7 +1286,7 @@ const STRINGS = {
     'contact.val_rednote': 'ココナッツ星の博士1号',
     'contact.xhs_slogan': '落ち着きはないけれど、わりと楽しい実行派 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span>',
     'contact.loc_title': '<span class="i18n-line">東京、</span><span class="i18n-line">日本</span>',
-    'contact.loc_sub': '工学系研究科 社会基盤学専攻 · 関本研究室',
+    'contact.loc_sub': '工学系研究科 社会基盤学専攻 · 人間都市情報学（関本研究室）',
     'contact.view_cv': '↓ 履歴書を見る',
     'cv.aria_modal': '履歴書のプレビュー',
     'cv.aria_close': '閉じる',
@@ -1302,7 +1305,7 @@ const STRINGS = {
     'img.avatar_alt': '田思俭',
     'home.greeting': '城市数据科学家 · 博士研究生',
     'home.role': '研究者',
-    'home.bio': '<p class="home-bio-p">东京大学大学院工学系研究科社会基盘学专攻、关本研究室博士研究生。</p><p class="home-bio-p">我的研究处在城市系统与人类行为的交叉点上——城市不只是背景，更是塑造人们如何移动、决策与生活的主动力量。</p><p class="home-bio-p">除研究之外，我也为日常用户做产品、在社交媒体创作内容，把研究洞察变成可触摸、可使用的现实。</p><p class="home-bio-p">若你对城市、数据或 AI 产品感兴趣，或只是想聊聊某个想法，欢迎随时联系。</p>',
+    'home.bio': '<p class="home-bio-p">东京大学大学院工学系研究科社会基盘学专攻、人間都市情報学(关本研究室)博士研究生。</p><p class="home-bio-p"><strong>技能：</strong>因果推断，因果机器学习，时间序列预测，行为信息学（分析、预测、仿真），全栈 AI 工程师。</p><p class="home-bio-p"><strong>研究兴趣：</strong>inclusive decision support system，行为异质性—不平等，行为韧性。</p><p class="home-bio-p">我的研究处在城市系统与人类行为的交叉点上——城市不只是背景，更是塑造人们如何移动、决策与生活的主动力量。</p><p class="home-bio-p">除研究之外，我也为日常用户做产品、在社交媒体创作内容，把研究洞察变成可触摸、可使用的现实。</p><p class="home-bio-p">若你对城市、数据或 AI 产品感兴趣，或只是想聊聊某个想法，欢迎随时联系。</p>',
     'home.chip1': '因果推断',
     'home.chip2': '因果机器学习',
     'home.chip3': '时间序列预测',
@@ -1366,7 +1369,7 @@ const STRINGS = {
     'contact.val_rednote': '椰子星第一位博士生',
     'contact.xhs_slogan': '没头脑，但挺高兴的实干家 ·<span class="xhs-slogan-en">peace &amp; love &amp; fun &amp; street smart</span>',
     'contact.loc_title': '<span class="i18n-line">东京，</span><span class="i18n-line">日本</span>',
-    'contact.loc_sub': '工学系研究科 社会基盘学专攻 · 关本研究室',
+    'contact.loc_sub': '工学系研究科 社会基盘学专攻 · 人間都市情報学(关本研究室)',
     'contact.view_cv': '↓ 查看简历',
     'cv.aria_modal': '简历预览',
     'cv.aria_close': '关闭',
