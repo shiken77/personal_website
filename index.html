@@ -227,6 +227,7 @@ nav {
 .contact-loc-title .i18n-line + .i18n-line { margin-top:0.12em; }
 
 .home-chips { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:22px; }
+.home-chips + .home-chips { margin-top: -12px; margin-bottom: 22px; }
 .chip {
   padding:5px 14px; border-radius:100px;
   font-family:var(--mono); font-size:10px; letter-spacing:1px;
@@ -822,8 +823,6 @@ footer {
         </div>
         <div class="home-bio" data-i18n-html="home.bio">
           <p class="home-bio-p">PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Human and Urban Informatics (Sekimoto Lab).</p>
-          <p class="home-bio-p"><strong>Skills:</strong> causal inference; causal machine learning; time series forecasting; behavioral informatics (analysis, prediction, simulation); full-stack AI engineering.</p>
-          <p class="home-bio-p"><strong>Research interests:</strong> inclusive decision support systems; behavioral heterogeneity and inequality; behavioral resilience.</p>
           <p class="home-bio-p">My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.</p>
           <p class="home-bio-p">Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.</p>
           <p class="home-bio-p">If you're interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.</p>
@@ -834,6 +833,11 @@ footer {
           <span class="chip chip-orange" data-i18n="home.chip3">Time series forecasting</span>
           <span class="chip chip-pink" data-i18n="home.chip4">AI Full Stack Engineer</span>
           <span class="chip chip-pink" data-i18n="home.chip5">Behavior informatics (analysis, forecast, simulation)</span>
+        </div>
+        <div class="home-chips home-chips-research">
+          <span class="chip chip-blue" data-i18n="home.ri1">Inclusive decision support systems</span>
+          <span class="chip chip-blue" data-i18n="home.ri2">Behavioral heterogeneity &amp; inequality</span>
+          <span class="chip chip-blue" data-i18n="home.ri3">Behavioral resilience</span>
         </div>
         <div class="home-ctas">
           <a href="#" class="btn btn-solid" data-i18n="home.cta1" onclick="showPage('research')">View Research →</a>
@@ -1139,12 +1143,15 @@ const STRINGS = {
     'img.avatar_alt': 'Sijian Tian',
     'home.greeting': 'Urban Data Scientist · PhD Candidate',
     'home.role': 'a researcher',
-    'home.bio': '<p class="home-bio-p">PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Human and Urban Informatics (Sekimoto Lab).</p><p class="home-bio-p"><strong>Skills:</strong> causal inference; causal machine learning; time series forecasting; behavioral informatics (analysis, prediction, simulation); full-stack AI engineering.</p><p class="home-bio-p"><strong>Research interests:</strong> inclusive decision support systems; behavioral heterogeneity and inequality; behavioral resilience.</p><p class="home-bio-p">My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.</p><p class="home-bio-p">Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.</p><p class="home-bio-p">If you\'re interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.</p>',
+    'home.bio': '<p class="home-bio-p">PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Human and Urban Informatics (Sekimoto Lab).</p><p class="home-bio-p">My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.</p><p class="home-bio-p">Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.</p><p class="home-bio-p">If you\'re interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.</p>',
     'home.chip1': 'Causal Inference',
     'home.chip2': 'Causal Machine Learning',
     'home.chip3': 'Time series forecasting',
     'home.chip4': 'AI Full Stack Engineer',
     'home.chip5': 'Behavior informatics (analysis, forecast, simulation)',
+    'home.ri1': 'Inclusive decision support systems',
+    'home.ri2': 'Behavioral heterogeneity & inequality',
+    'home.ri3': 'Behavioral resilience',
     'home.cta1': 'View Research →',
     'home.cta2': 'Get in Touch',
     'home.cta3': 'CV',
@@ -1222,12 +1229,15 @@ const STRINGS = {
     'img.avatar_alt': '田思俭（ティエン・スージエン）',
     'home.greeting': 'アーバンデータサイエンティスト／博士課程',
     'home.role': '研究者',
-    'home.bio': '<p class="home-bio-p">東京大学大学院工学系研究科社会基盤学専攻・人間都市情報学（関本研究室）の博士課程に在籍しています。</p><p class="home-bio-p"><strong>スキル：</strong>因果推論、因果的機械学習、時系列予測、行動情報学（分析・予測・シミュレーション）、フルスタックAIエンジニア。</p><p class="home-bio-p"><strong>研究関心：</strong>インクルーシブな意思決定支援システム、行動の異質性と不平等、行動のレジリエンス。</p><p class="home-bio-p">研究テーマは都市システムと人間行動の交差点です。都市は単なる背景ではなく、人々の移動や意思決定、暮らし方を形づくる力そのものだと考えています。</p><p class="home-bio-p">研究以外にも、日常の利用者向けのプロダクトづくりやSNSでの発信を通じて、研究の洞察を手に取れる形にすることを大切にしています。</p><p class="home-bio-p">都市やデータ、AIプロダクトに興味がある方、あるいは一緒に話したいアイデアがある方は、お気軽にご連絡ください。</p>',
+    'home.bio': '<p class="home-bio-p">東京大学大学院工学系研究科社会基盤学専攻・人間都市情報学（関本研究室）の博士課程に在籍しています。</p><p class="home-bio-p">研究テーマは都市システムと人間行動の交差点です。都市は単なる背景ではなく、人々の移動や意思決定、暮らし方を形づくる力そのものだと考えています。</p><p class="home-bio-p">研究以外にも、日常の利用者向けのプロダクトづくりやSNSでの発信を通じて、研究の洞察を手に取れる形にすることを大切にしています。</p><p class="home-bio-p">都市やデータ、AIプロダクトに興味がある方、あるいは一緒に話したいアイデアがある方は、お気軽にご連絡ください。</p>',
     'home.chip1': '因果推論',
     'home.chip2': '因果的機械学習',
     'home.chip3': '時系列予測',
     'home.chip4': 'フルスタックAIエンジニア',
     'home.chip5': '行動情報学（分析・予測・シミュレーション）',
+    'home.ri1': 'インクルーシブな意思決定支援システム',
+    'home.ri2': '行動の異質性と不平等',
+    'home.ri3': '行動のレジリエンス',
     'home.cta1': '研究を見る →',
     'home.cta2': '連絡する',
     'home.cta3': '履歴書',
@@ -1305,12 +1315,15 @@ const STRINGS = {
     'img.avatar_alt': '田思俭',
     'home.greeting': '城市数据科学家 · 博士研究生',
     'home.role': '研究者',
-    'home.bio': '<p class="home-bio-p">东京大学大学院工学系研究科社会基盘学专攻、人間都市情報学(关本研究室)博士研究生。</p><p class="home-bio-p"><strong>技能：</strong>因果推断，因果机器学习，时间序列预测，行为信息学（分析、预测、仿真），全栈 AI 工程师。</p><p class="home-bio-p"><strong>研究兴趣：</strong>inclusive decision support system，行为异质性—不平等，行为韧性。</p><p class="home-bio-p">我的研究处在城市系统与人类行为的交叉点上——城市不只是背景，更是塑造人们如何移动、决策与生活的主动力量。</p><p class="home-bio-p">除研究之外，我也为日常用户做产品、在社交媒体创作内容，把研究洞察变成可触摸、可使用的现实。</p><p class="home-bio-p">若你对城市、数据或 AI 产品感兴趣，或只是想聊聊某个想法，欢迎随时联系。</p>',
+    'home.bio': '<p class="home-bio-p">东京大学大学院工学系研究科社会基盘学专攻、人間都市情報学(关本研究室)博士研究生。</p><p class="home-bio-p">我的研究处在城市系统与人类行为的交叉点上——城市不只是背景，更是塑造人们如何移动、决策与生活的主动力量。</p><p class="home-bio-p">除研究之外，我也为日常用户做产品、在社交媒体创作内容，把研究洞察变成可触摸、可使用的现实。</p><p class="home-bio-p">若你对城市、数据或 AI 产品感兴趣，或只是想聊聊某个想法，欢迎随时联系。</p>',
     'home.chip1': '因果推断',
     'home.chip2': '因果机器学习',
     'home.chip3': '时间序列预测',
     'home.chip4': '全栈 AI 工程师',
     'home.chip5': '行为信息学（分析、预测、仿真）',
+    'home.ri1': 'inclusive decision support system',
+    'home.ri2': '行为异质性—不平等',
+    'home.ri3': '行为韧性',
     'home.cta1': '查看研究 →',
     'home.cta2': '联系我',
     'home.cta3': '简历',
