@@ -745,6 +745,136 @@ footer {
 .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
 .reveal.visible { opacity:1; transform:translateY(0); }
 
+/* ── HOME RESEARCH FRAMEWORK ── */
+.research-framework {
+  padding: 10px 6vw 54px;
+}
+.research-framework-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.research-framework-vision {
+  width: min(680px, 78%);
+  margin: 0 auto;
+  padding: 22px 34px 20px;
+  border: 2px solid var(--orange);
+  border-radius: 18px;
+  background: rgba(249,115,22,.055);
+  text-align: center;
+}
+.research-framework-kicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+.research-framework-kicker::before,
+.research-framework-kicker::after {
+  content: '';
+  width: 24px;
+  height: 1.5px;
+  background: var(--orange);
+}
+.research-framework-title {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 2.1vw, 1.72rem);
+  line-height: 1.24;
+  font-weight: 600;
+  color: var(--text);
+}
+.research-framework-subtitle {
+  margin-top: 7px;
+  font-size: 12px;
+  color: var(--text3);
+}
+.research-framework-tree {
+  display: block;
+  width: 100%;
+  height: 72px;
+  color: var(--orange);
+  overflow: visible;
+}
+.research-framework-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.research-direction {
+  --direction: var(--blue2);
+  --direction-bg: rgba(147,197,253,.14);
+  min-width: 0;
+  padding: 20px 22px 19px;
+  border: 1.5px solid var(--direction);
+  border-radius: 15px;
+  background: var(--direction-bg);
+}
+.research-direction:nth-child(2) {
+  --direction: var(--pink2);
+  --direction-bg: rgba(249,168,212,.14);
+}
+.research-direction:nth-child(3) {
+  --direction: var(--orange);
+  --direction-bg: rgba(249,115,22,.07);
+}
+.research-direction-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+.research-direction-number {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--direction);
+  border-radius: 50%;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text2);
+}
+.research-direction-verb {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+.research-direction-title {
+  min-height: 2.5em;
+  margin-bottom: 8px;
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.35vw, 1.17rem);
+  line-height: 1.25;
+  font-weight: 600;
+}
+.research-direction-copy {
+  font-size: 11.5px;
+  line-height: 1.62;
+  color: var(--text2);
+}
+.research-direction-question {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid var(--direction);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--text2);
+}
+.research-direction-question strong {
+  display: inline;
+  margin-right: 5px;
+  color: var(--text);
+  font-weight: 600;
+}
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .home-hero { padding: 32px 6vw 36px; }
@@ -761,6 +891,18 @@ footer {
   .proj-card { grid-template-columns:1fr; }
   .phase-item { grid-template-columns:1fr; }
   .phase-num { display:none; }
+  .research-framework { padding: 4px 6vw 40px; }
+  .research-framework-vision { width: 100%; }
+  .research-framework-tree {
+    width: 1.5px;
+    height: 32px;
+    margin: 0 auto;
+    background: var(--orange);
+  }
+  .research-framework-tree path,
+  .research-framework-tree circle { display: none; }
+  .research-framework-grid { grid-template-columns: 1fr; gap: 12px; }
+  .research-direction-title { min-height: 0; }
   nav { padding:0 4vw; flex-wrap: wrap; height: auto; min-height: 64px; row-gap: 10px; }
   .nav-cluster { width: 100%; margin-left: 0; justify-content: space-between; gap: 16px; }
   .nav-links { gap:12px; flex-wrap: wrap; }
@@ -865,6 +1007,58 @@ footer {
           </div>
         </section>
       </aside>
+    </div>
+  </section>
+
+  <section class="research-framework reveal" aria-labelledby="research-framework-title">
+    <div class="research-framework-inner">
+      <header class="research-framework-vision">
+        <div class="research-framework-kicker">Research vision</div>
+        <h2 class="research-framework-title" id="research-framework-title">Human-Centered Urban Mobility &amp; Policy Modeling</h2>
+        <p class="research-framework-subtitle">For sustainable and equitable cities</p>
+      </header>
+
+      <svg class="research-framework-tree" viewBox="0 0 1180 72" preserveAspectRatio="none" role="img" aria-label="The research vision connects to three complementary research directions">
+        <path d="M590 0 V18 C590 36 196 36 196 68" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M590 0 V68" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M590 0 V18 C590 36 984 36 984 68" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <circle cx="196" cy="68" r="3.5" fill="var(--blue2)"/>
+        <circle cx="590" cy="68" r="3.5" fill="var(--pink2)"/>
+        <circle cx="984" cy="68" r="3.5" fill="var(--orange)"/>
+      </svg>
+
+      <div class="research-framework-grid">
+        <article class="research-direction">
+          <div class="research-direction-head">
+            <span class="research-direction-number">01</span>
+            <span class="research-direction-verb">Understand</span>
+          </div>
+          <h3 class="research-direction-title">Human Mobility Heterogeneity</h3>
+          <p class="research-direction-copy">Reveal how mobility behavior varies across people, places, and contexts.</p>
+          <p class="research-direction-question"><strong>Core question</strong>How and why do people behave differently?</p>
+        </article>
+
+        <article class="research-direction">
+          <div class="research-direction-head">
+            <span class="research-direction-number">02</span>
+            <span class="research-direction-verb">Anticipate</span>
+          </div>
+          <h3 class="research-direction-title">Behavioral Responses to Urban Policies</h3>
+          <p class="research-direction-copy">Estimate credible counterfactuals and model how people reorganize activity–travel behavior under interventions.</p>
+          <p class="research-direction-question"><strong>Core question</strong>How do diverse people adapt to urban change?</p>
+        </article>
+
+        <article class="research-direction">
+          <div class="research-direction-head">
+            <span class="research-direction-number">03</span>
+            <span class="research-direction-verb">Support</span>
+          </div>
+          <h3 class="research-direction-title">Urban Policy Simulation &amp; Decision Support</h3>
+          <p class="research-direction-copy">Develop simulation tools to evaluate policy impacts and visualize trade-offs across objectives and stakeholders.</p>
+          <p class="research-direction-question"><strong>Core question</strong>How can better evidence support better urban decisions?</p>
+        </article>
+      </div>
+
     </div>
   </section>
 
