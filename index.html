@@ -756,30 +756,21 @@ footer {
 .research-framework-vision {
   width: min(680px, 78%);
   margin: 0 auto;
-  padding: 22px 34px 20px;
+  text-align: center;
+}
+.research-framework-outcome {
+  margin-bottom: 12px;
+  font-family: var(--serif);
+  font-size: clamp(1.18rem, 2vw, 1.55rem);
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--blue2);
+}
+.research-framework-focus {
+  padding: 21px 34px 20px;
   border: 2px solid var(--orange);
   border-radius: 18px;
   background: rgba(249,115,22,.055);
-  text-align: center;
-}
-.research-framework-kicker {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 8px;
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 2.2px;
-  text-transform: uppercase;
-  color: var(--text3);
-}
-.research-framework-kicker::before,
-.research-framework-kicker::after {
-  content: '';
-  width: 24px;
-  height: 1.5px;
-  background: var(--orange);
 }
 .research-framework-title {
   font-family: var(--serif);
@@ -787,11 +778,6 @@ footer {
   line-height: 1.24;
   font-weight: 600;
   color: var(--text);
-}
-.research-framework-subtitle {
-  margin-top: 7px;
-  font-size: 12px;
-  color: var(--text3);
 }
 .research-framework-tree {
   display: block;
@@ -808,6 +794,8 @@ footer {
 .research-direction {
   --direction: var(--blue2);
   --direction-bg: rgba(147,197,253,.14);
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   padding: 20px 22px 19px;
   border: 1.5px solid var(--direction);
@@ -857,23 +845,28 @@ footer {
   font-weight: 600;
 }
 .research-direction-copy {
+  position: relative;
+  padding-left: 14px;
   font-size: 11.5px;
   line-height: 1.62;
   color: var(--text2);
 }
-.research-direction-question {
-  margin-top: 12px;
-  padding-top: 11px;
-  border-top: 1px solid var(--direction);
-  font-size: 11px;
-  line-height: 1.55;
-  color: var(--text2);
-}
-.research-direction-question strong {
-  display: inline;
-  margin-right: 5px;
+.research-direction-copy::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: -.02em;
   color: var(--text);
   font-weight: 600;
+}
+.research-direction-method {
+  margin-top: auto;
+  padding-top: 16px;
+  font-family: var(--sans);
+  font-size: 11px;
+  line-height: 1.42;
+  font-weight: 600;
+  color: var(--blue2);
 }
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
@@ -1013,9 +1006,10 @@ footer {
   <section class="research-framework reveal" aria-labelledby="research-framework-title">
     <div class="research-framework-inner">
       <header class="research-framework-vision">
-        <div class="research-framework-kicker">Research vision</div>
-        <h2 class="research-framework-title" id="research-framework-title">Human-Centered Urban Mobility &amp; Policy Modeling</h2>
-        <p class="research-framework-subtitle">For sustainable and equitable cities</p>
+        <h2 class="research-framework-outcome" id="research-framework-title">Sustainable and Equitable Cities</h2>
+        <div class="research-framework-focus">
+          <h3 class="research-framework-title">Human-Centered Urban Mobility &amp; Policy Simulation</h3>
+        </div>
       </header>
 
       <svg class="research-framework-tree" viewBox="0 0 1180 72" preserveAspectRatio="none" role="img" aria-label="The research vision connects to three complementary research directions">
@@ -1033,9 +1027,9 @@ footer {
             <span class="research-direction-number">01</span>
             <span class="research-direction-verb">Understand</span>
           </div>
-          <h3 class="research-direction-title">Human Mobility Heterogeneity</h3>
-          <p class="research-direction-copy">Reveal how mobility behavior varies across people, places, and contexts.</p>
-          <p class="research-direction-question"><strong>Core question</strong>How and why do people behave differently?</p>
+          <h3 class="research-direction-title">Spatial and Social Heterogeneity in Human Mobility</h3>
+          <p class="research-direction-copy">How and why do people behave differently across spatial and social contexts?</p>
+          <p class="research-direction-method">Behavioral patterns</p>
         </article>
 
         <article class="research-direction">
@@ -1043,9 +1037,9 @@ footer {
             <span class="research-direction-number">02</span>
             <span class="research-direction-verb">Anticipate</span>
           </div>
-          <h3 class="research-direction-title">Behavioral Responses to Urban Policies</h3>
-          <p class="research-direction-copy">Estimate credible counterfactuals and model how people reorganize activity–travel behavior under interventions.</p>
-          <p class="research-direction-question"><strong>Core question</strong>How do diverse people adapt to urban change?</p>
+          <h3 class="research-direction-title">Behavioral Responses to Urban Change</h3>
+          <p class="research-direction-copy">How can reliable counterfactuals estimate the effects of urban policies?</p>
+          <p class="research-direction-method">Counterfactual outcomes · Sequence modeling · Causal inference</p>
         </article>
 
         <article class="research-direction">
@@ -1053,9 +1047,9 @@ footer {
             <span class="research-direction-number">03</span>
             <span class="research-direction-verb">Support</span>
           </div>
-          <h3 class="research-direction-title">Urban Policy Simulation &amp; Decision Support</h3>
-          <p class="research-direction-copy">Develop simulation tools to evaluate policy impacts and visualize trade-offs across objectives and stakeholders.</p>
-          <p class="research-direction-question"><strong>Core question</strong>How can better evidence support better urban decisions?</p>
+          <h3 class="research-direction-title">Human-Centered Urban Policy Simulation &amp; Decision Support</h3>
+          <p class="research-direction-copy">Develop simulation tools to evaluate policy impacts and visualize trade-offs across multiple objectives and stakeholders.</p>
+          <p class="research-direction-method">Systems integration · Web applications</p>
         </article>
       </div>
 
