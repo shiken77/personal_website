@@ -745,6 +745,16 @@ footer {
 .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
 .reveal.visible { opacity:1; transform:translateY(0); }
 
+/* ── HOME RESEARCH PLAYGROUND (interactive iframe) ── */
+.research-playground {
+  display: block;
+  width: 100%;
+  height: 1000px;
+  border: 0;
+  background: transparent;
+}
+@media (max-width: 820px) { .research-playground { height: 1900px; } }
+
 /* ── HOME RESEARCH FRAMEWORK ── */
 .research-framework {
   padding: 10px 6vw 54px;
@@ -1003,56 +1013,11 @@ footer {
     </div>
   </section>
 
-  <section class="research-framework reveal" aria-labelledby="research-framework-title">
+  <section class="research-framework research-playground-section reveal" aria-label="Research overview">
     <div class="research-framework-inner">
-      <header class="research-framework-vision">
-        <h2 class="research-framework-outcome" id="research-framework-title">Sustainable and Equitable Cities</h2>
-        <div class="research-framework-focus">
-          <h3 class="research-framework-title">Human-Centered Urban Mobility &amp; Policy Simulation</h3>
-        </div>
-      </header>
-
-      <svg class="research-framework-tree" viewBox="0 0 1180 72" preserveAspectRatio="none" role="img" aria-label="The research vision connects to three complementary research directions">
-        <path d="M590 0 V18 C590 36 196 36 196 68" fill="none" stroke="currentColor" stroke-width="1.4"/>
-        <path d="M590 0 V68" fill="none" stroke="currentColor" stroke-width="1.4"/>
-        <path d="M590 0 V18 C590 36 984 36 984 68" fill="none" stroke="currentColor" stroke-width="1.4"/>
-        <circle cx="196" cy="68" r="3.5" fill="var(--blue2)"/>
-        <circle cx="590" cy="68" r="3.5" fill="var(--pink2)"/>
-        <circle cx="984" cy="68" r="3.5" fill="var(--orange)"/>
-      </svg>
-
-      <div class="research-framework-grid">
-        <article class="research-direction">
-          <div class="research-direction-head">
-            <span class="research-direction-number">01</span>
-            <span class="research-direction-verb">Understand</span>
-          </div>
-          <h3 class="research-direction-title">Spatial and Social Heterogeneity in Human Mobility</h3>
-          <p class="research-direction-copy">How and why do people behave differently across spatial and social contexts?</p>
-          <p class="research-direction-method">Behavioral patterns</p>
-        </article>
-
-        <article class="research-direction">
-          <div class="research-direction-head">
-            <span class="research-direction-number">02</span>
-            <span class="research-direction-verb">Anticipate</span>
-          </div>
-          <h3 class="research-direction-title">Behavioral Responses to Urban Change</h3>
-          <p class="research-direction-copy">How can reliable counterfactuals estimate the effects of urban policies?</p>
-          <p class="research-direction-method">Counterfactual outcomes · Sequence modeling · Causal inference</p>
-        </article>
-
-        <article class="research-direction">
-          <div class="research-direction-head">
-            <span class="research-direction-number">03</span>
-            <span class="research-direction-verb">Support</span>
-          </div>
-          <h3 class="research-direction-title">Human-Centered Urban Policy Simulation &amp; Decision Support</h3>
-          <p class="research-direction-copy">Develop simulation tools to evaluate policy impacts and visualize trade-offs across multiple objectives and stakeholders.</p>
-          <p class="research-direction-method">Systems integration · Web applications</p>
-        </article>
-      </div>
-
+      <!-- src is set by syncResearchPlayground() so the iframe opens in the site language -->
+      <iframe id="research-playground" class="research-playground"
+              title="Interactive research overview" loading="lazy"></iframe>
     </div>
   </section>
 
@@ -1641,8 +1606,26 @@ function applyLanguage(lang) {
     btn.setAttribute('aria-pressed', active ? 'true' : 'false');
   });
 
+  syncResearchPlayground(lang);
   triggerReveals();
 }
+
+// The interactive research overview lives in an iframe; keep its language and height in sync.
+function syncResearchPlayground(lang) {
+  var f = document.getElementById('research-playground');
+  if (!f) return;
+  var src = 'research_interactive.html?embed=1&lang=' + lang;
+  if (!f.getAttribute('data-ready')) { f.setAttribute('src', src); return; }
+  f.contentWindow.postMessage({ researchPlaygroundLang: lang }, '*');
+}
+window.addEventListener('message', function (e) {
+  var f = document.getElementById('research-playground');
+  if (!f || e.source !== f.contentWindow || !e.data) return;
+  if (e.data.researchPlaygroundHeight) {
+    f.setAttribute('data-ready', '1');
+    f.style.height = e.data.researchPlaygroundHeight + 'px';
+  }
+});
 
 function setLanguage(lang) {
   applyLanguage(lang);
