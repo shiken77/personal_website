@@ -12,6 +12,16 @@
     var s = localStorage.getItem('siteLang');
     var l = (q === 'ja' || q === 'en' || q === 'zh') ? q : (s === 'ja' || s === 'en' || s === 'zh' ? s : (navigator.language && navigator.language.indexOf('ja') === 0 ? 'ja' : (navigator.language && navigator.language.indexOf('zh') === 0 ? 'zh' : 'en')));
     document.documentElement.lang = l === 'ja' ? 'ja' : l === 'zh' ? 'zh-Hans' : 'en';
+    // The first visit in a tab opens the Tokyo intro, which links back here with ?from=intro.
+    var p = new URLSearchParams(window.location.search), seen = false;
+    try { seen = sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
+    if (p.get('from') === 'intro') {
+      try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
+      p.delete('from');
+      history.replaceState(null, '', window.location.pathname + (p.toString() ? '?' + p : '') + window.location.hash);
+    } else if (!seen && !p.has('nointro')) {
+      window.location.replace('intro.html?lang=' + l);
+    }
   } catch (e) {}
 })();
 </script>
