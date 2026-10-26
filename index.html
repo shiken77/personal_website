@@ -189,8 +189,30 @@ nav {
 }
 
 .home-name-stack {
-  flex: 1;
+  flex: 0 1 240px;
   min-width: 0;
+}
+
+/* skills sit beside the name so the hero stays short and the playground shows sooner */
+.home-skills {
+  flex: 1 1 400px;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px 14px;
+  align-items: start;
+  padding-left: 22px;
+  border-left: 1.5px solid var(--border);
+}
+.home-skills-label {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text3); padding-top: 6px;
+}
+.home-skills .home-chips,
+.home-skills .home-chips + .home-chips { margin: 0; gap: 6px; }
+.home-skills .chip {
+  font-family: var(--sans); font-size: 11px; letter-spacing: 0;
+  padding: 3px 10px; border-width: 1px; line-height: 1.35;
 }
 
 .home-greeting {
@@ -885,6 +907,7 @@ footer {
   .home-col-blog { order: 2; }
   .home-col-left { order: 1; }
   .home-name-row { flex-wrap: wrap; align-items: flex-start; }
+  .home-skills { flex-basis: 100%; padding-left: 0; border-left: 0; }
   .avatar-wrap--compact { width: 96px; height: 96px; }
   .avatar-wrap--compact .avatar-img { width: 96px; height: 96px; }
   .home-strips { grid-template-columns:1fr; }
@@ -963,24 +986,28 @@ footer {
               </div>
             </div>
           </div>
+          <div class="home-skills">
+            <div class="home-skills-label" data-i18n="home.skills_label">Skills</div>
+            <div class="home-chips">
+              <span class="chip chip-orange" data-i18n="home.chip1">Causal Inference</span>
+              <span class="chip chip-orange" data-i18n="home.chip2">Causal Machine Learning</span>
+              <span class="chip chip-orange" data-i18n="home.chip3">Time series forecasting</span>
+              <span class="chip chip-orange" data-i18n="home.chip4">AI Full Stack Engineer</span>
+              <span class="chip chip-orange" data-i18n="home.chip5">Behavior informatics (analysis, forecast, simulation)</span>
+            </div>
+            <div class="home-skills-label" data-i18n="home.research_label">Research</div>
+            <div class="home-chips home-chips-research">
+              <span class="chip chip-blue" data-i18n="home.ri1">Inclusive decision support systems</span>
+              <span class="chip chip-blue" data-i18n="home.ri2">Behavioral heterogeneity &amp; inequality</span>
+              <span class="chip chip-blue" data-i18n="home.ri3">Behavioral resilience</span>
+            </div>
+          </div>
         </div>
         <div class="home-bio" data-i18n-html="home.bio">
           <p class="home-bio-p">PhD candidate, Graduate School of Engineering, Department of Civil Engineering, the University of Tokyo — Human and Urban Informatics (Sekimoto Lab).</p>
           <p class="home-bio-p">My research sits at the intersection of urban systems and human behavior — where the city is not just a physical backdrop, but an active force shaping how people move, decide, and live.</p>
           <p class="home-bio-p">Beyond research, I build products for everyday users and create content on social media, turning research insights into something real and accessible.</p>
           <p class="home-bio-p">If you're interested in cities, data, or AI products — or just have some idea you want to talk through — feel free to reach out.</p>
-        </div>
-        <div class="home-chips">
-          <span class="chip chip-orange" data-i18n="home.chip1">Causal Inference</span>
-          <span class="chip chip-orange" data-i18n="home.chip2">Causal Machine Learning</span>
-          <span class="chip chip-orange" data-i18n="home.chip3">Time series forecasting</span>
-          <span class="chip chip-pink" data-i18n="home.chip4">AI Full Stack Engineer</span>
-          <span class="chip chip-pink" data-i18n="home.chip5">Behavior informatics (analysis, forecast, simulation)</span>
-        </div>
-        <div class="home-chips home-chips-research">
-          <span class="chip chip-blue" data-i18n="home.ri1">Inclusive decision support systems</span>
-          <span class="chip chip-blue" data-i18n="home.ri2">Behavioral heterogeneity &amp; inequality</span>
-          <span class="chip chip-blue" data-i18n="home.ri3">Behavioral resilience</span>
         </div>
         <div class="home-ctas">
           <a href="#" class="btn btn-solid" data-i18n="home.cta1" onclick="showPage('research')">View Research →</a>
@@ -1318,6 +1345,8 @@ const STRINGS = {
     'home.ri1': 'Inclusive decision support systems',
     'home.ri2': 'Behavioral heterogeneity & inequality',
     'home.ri3': 'Behavioral resilience',
+    'home.skills_label': 'Skills',
+    'home.research_label': 'Research',
     'home.cta1': 'View Research →',
     'home.cta2': 'Get in Touch',
     'home.cta3': 'CV',
@@ -1406,6 +1435,8 @@ const STRINGS = {
     'home.ri1': 'インクルーシブな意思決定支援システム',
     'home.ri2': '行動の異質性と不平等',
     'home.ri3': '行動のレジリエンス',
+    'home.skills_label': 'スキル',
+    'home.research_label': '研究テーマ',
     'home.cta1': '研究を見る →',
     'home.cta2': '連絡する',
     'home.cta3': '履歴書',
@@ -1494,6 +1525,8 @@ const STRINGS = {
     'home.ri1': 'inclusive decision support system',
     'home.ri2': '行为异质性—不平等',
     'home.ri3': '行为韧性',
+    'home.skills_label': '技能',
+    'home.research_label': '研究方向',
     'home.cta1': '查看研究 →',
     'home.cta2': '联系我',
     'home.cta3': '简历',
