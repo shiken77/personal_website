@@ -57,7 +57,7 @@ h1 span{color:#f9a8d4}
 .ghost svg{width:30px;height:30px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
 .ghost span{position:absolute;left:30px;top:24px;white-space:nowrap;font:600 12px/1 var(--font);color:#0b1124;background:#eef2ff;padding:6px 9px;border-radius:999px}
 .toast{position:fixed;z-index:4;font:600 12px/1 var(--font);color:#0b1124;background:#fbbf24;padding:6px 9px;border-radius:999px;pointer-events:none;transform:translate(-50%,-170%);transition:opacity .6s;white-space:nowrap}
-#tip{position:fixed;z-index:4;pointer-events:none;font:600 12px/1.3 var(--font);color:#0b1124;background:#eef2ff;padding:6px 9px;border-radius:8px;display:none;white-space:nowrap}
+#tip{display:none!important;position:fixed;z-index:4;pointer-events:none;font:600 12px/1.3 var(--font);color:#0b1124;background:#eef2ff;padding:6px 9px;border-radius:8px;display:none;white-space:nowrap}
 .wipe{position:fixed;z-index:9;inset:0;background:var(--cream);clip-path:circle(0% at var(--wx,50%) var(--wy,50%));pointer-events:none;transition:clip-path 1s cubic-bezier(.7,0,.3,1) .45s}
 .leaving .wipe{clip-path:circle(160% at var(--wx,50%) var(--wy,50%))}
 .leaving .center{opacity:0;transform:scale(.96)}
@@ -81,14 +81,13 @@ h1 span{color:#f9a8d4}
 <div id="card"></div>
 <canvas id="cv"></canvas>
 <div class="chead" id="chead">
-  <div><div class="lab" data-t="cardLabel"></div><div class="clk" id="clock">07:20</div><div class="ph" id="phase"></div></div>
-  <div class="cnt"><b id="nMove">0</b><span data-t="moving"></span></div>
+  <div><div class="clk" id="clock">07:20</div><div id="phase" hidden></div><b id="nMove" hidden></b></div>
 </div>
-<div class="clegend" id="clegend"><div class="chips" id="chips"></div><p class="cap" id="cap"></p></div>
-<div class="gap" id="gap"></div>
+<div class="clegend" id="clegend" hidden><div class="chips" id="chips"></div><p class="cap" id="cap"></p></div>
+<div class="gap" id="gap" hidden></div>
 <div class="cfoot" id="cfoot">
   <button id="play" aria-label="pause">❚❚</button>
-  <div class="rng"><div class="ticks"><span>0</span><span>6</span><span>12</span><span>18</span><span>24</span></div>
+  <div class="rng">
     <input type="range" id="slider" min="0" max="24" step="0.01" value="7.3" aria-label="time of day"></div>
 </div>
 <div class="center" id="center">
@@ -98,12 +97,12 @@ h1 span{color:#f9a8d4}
   <p class="focus" data-t="focus"></p>
   <button class="enter" id="enter" data-t="enter"></button>
 </div>
-<div class="note" id="note" data-t="note"></div>
+<div class="note" id="note" hidden></div>
 <div class="top">
   <div class="lang"><button data-l="en">EN</button><button data-l="ja">日本語</button><button data-l="zh">中文</button></div>
   <a class="skip" id="skip" data-t="skip" href="index.html"></a>
 </div>
-<div class="ghost" id="ghost"><svg viewBox="0 0 24 24"><path d="M9 11.2V5.5a1.5 1.5 0 0 1 3 0v4.6l.2-.1a1.5 1.5 0 0 1 2.8.8v.3a1.5 1.5 0 0 1 2.6 1v.6a1.4 1.4 0 0 1 2.4 1V17a5.5 5.5 0 0 1-5.5 5.5h-1.7a5.5 5.5 0 0 1-4.3-2.1L5 16.2a1.5 1.5 0 0 1 2.3-1.9L9 16Z" fill="#eef2ff" stroke="#0b1124" stroke-width="1.1"/></svg><span id="ghostTxt"></span></div>
+<div class="ghost" id="ghost"><svg viewBox="0 0 24 24"><path d="M9 11.2V5.5a1.5 1.5 0 0 1 3 0v4.6l.2-.1a1.5 1.5 0 0 1 2.8.8v.3a1.5 1.5 0 0 1 2.6 1v.6a1.4 1.4 0 0 1 2.4 1V17a5.5 5.5 0 0 1-5.5 5.5h-1.7a5.5 5.5 0 0 1-4.3-2.1L5 16.2a1.5 1.5 0 0 1 2.3-1.9L9 16Z" fill="#eef2ff" stroke="#0b1124" stroke-width="1.1"/></svg><span id="ghostTxt" hidden></span></div>
 <div id="tip"></div>
 <div class="wipe"></div>
 <script>
@@ -267,12 +266,12 @@ function resize() {
   place($('card'), card.x, card.y, card.w, card.h);
   place($('chead'), card.x + 18, card.y + 14, card.w - 36);
   place($('cfoot'), card.x + 16, card.y + card.h - 46, card.w - 32);
-  place($('clegend'), card.x + 16, card.y + (mobile ? 70 : 88), card.w - 32);
+  place($('clegend'), card.x + 16, card.y + (mobile ? 50 : 62), card.w - 32);
   const legendH = $('clegend').offsetHeight;
   const note = $('note');
   Object.assign(note.style, {right: (W - card.x - card.w) + 'px', top: (card.y + card.h + 8) + 'px'});
   // fit the 23 wards inside the card, below the header and above the timeline
-  const top = (mobile ? 70 : 88) + legendH + 8, ix = card.x + 14, iy = card.y + top, iw = card.w - 28, ih = card.h - top - 54;
+  const top = (mobile ? 50 : 62) + legendH + 8, ix = card.x + 14, iy = card.y + top, iw = card.w - 28, ih = card.h - top - 54;
   S = Math.min(iw / ((LON1 - LON0) * KX), ih / (LAT1 - LAT0));
   X0 = ix + (iw - (LON1 - LON0) * KX * S) / 2;
   Y0 = iy + (ih - (LAT1 - LAT0) * S) / 2;
@@ -373,12 +372,7 @@ addEventListener('pointermove', e => {
 function openPlace(x, y, persist) {
   places.push({x, y, born: performance.now()});
   if (places.length > 4) places.shift();
-  const t = document.createElement('div');
-  t.className = 'toast'; t.textContent = persist ? `${T().open} · ${T().reach(addFacility(x, y))}` : T().open;
-  t.style.left = x + 'px'; t.style.top = y + 'px';
-  document.body.appendChild(t);
-  setTimeout(() => { t.style.opacity = 0; }, persist ? 2600 : 1500);
-  setTimeout(() => t.remove(), persist ? 3300 : 2200);
+  if (persist) addFacility(x, y);
 }
 cv.addEventListener('pointerdown', e => {
   if (leaving || !inCard(e.clientX, e.clientY) || e.clientY > card.y + card.h - 54) return;
@@ -493,7 +487,6 @@ function frame(now) {
     if (hb[3] < 5) return;
     const [x, y] = hubXY[i], rr = 3 + Math.sqrt(st.hubCount[i]) * 1.2;
     ctx.strokeStyle = 'rgba(238,242,255,.55)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(x, y, rr, 0, Math.PI * 2); ctx.stroke();
-    ctx.fillStyle = 'rgba(238,242,255,.7)'; ctx.fillText(hubName(hb[0]), x + rr + 4, y + 3.5);
   });
   for (const f of newFac) {
     const [x, y] = P(f[0], f[1]), rr = WALK_KM / KM_Y * S;
@@ -528,5 +521,6 @@ applyLang();
 requestAnimationFrame(frame);
 })();
 </script>
+<script src="tune.js" data-theme="dark" data-pos="bottom-left" data-auto="1"></script>
 </body>
 </html>

@@ -44,6 +44,28 @@ button{font-family:inherit;color:inherit}
 .mode .nm{display:block;font:600 14px/1.3 var(--body);margin-top:3px}
 .mode[data-i="0"]{--c:var(--blue2)}.mode[data-i="1"]{--c:var(--pink2)}.mode[data-i="2"]{--c:var(--orange)}.mode[data-i="3"]{--c:var(--violet);border-style:dashed}
 .mode.on{border-color:var(--c);background:#fff;box-shadow:0 6px 18px rgba(160,121,90,.12)}
+.mode .st{display:block;font:700 11px/1 var(--body);color:#f59e0b;margin-top:4px}
+/* mission cards: one goal, three steps, stars */
+.mission{margin-top:10px;padding:12px 13px;border-radius:14px;background:#fff;border:1.5px solid #fde68a}
+.mission .mt{display:flex;justify-content:space-between;align-items:center;gap:8px;font:700 13.5px/1.35 var(--body)}
+.mission .mt span{font:700 13px/1 var(--body);color:#f59e0b;white-space:nowrap}
+.mission ol{list-style:none;margin:9px 0 0;padding:0;display:grid;gap:6px}
+.mission li{display:flex;gap:8px;align-items:flex-start;font:400 12.5px/1.45 var(--body);color:var(--text3)}
+.mission li i{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid #e7dccb;font:700 10px/15px var(--body);text-align:center;font-style:normal}
+.mission li.now{color:var(--text);font-weight:600}.mission li.now i{border-color:var(--orange);color:var(--orange)}
+.mission li.done{color:var(--text2)}.mission li.done i{background:#22c55e;border-color:#22c55e;color:#fff}
+.mission .fb{margin-top:9px;padding:8px 10px;border-radius:10px;font:500 12.5px/1.5 var(--body);background:#fff7ed;color:#9a3412}
+.mission .fb.ok{background:#dcfce7;color:#14532d}
+.quiz{margin-top:10px}
+.quiz p{margin:0 0 7px;font:700 13px/1.45 var(--body)}
+.quiz div{display:grid;gap:6px}
+.quiz button{all:unset;box-sizing:border-box;cursor:pointer;padding:8px 11px;border-radius:10px;border:1.5px solid var(--line);font:500 12.5px/1.3 var(--body);background:#fffaf4}
+.quiz button:hover{border-color:var(--orange)}
+.quiz button.right{border-color:#22c55e;background:#dcfce7}
+.quiz button.wrong{border-color:#f97316;background:#fff1e6;animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+.pulse{animation:pulseRing 1.4s ease-in-out infinite}
+@keyframes pulseRing{0%,100%{box-shadow:0 0 0 0 rgba(249,115,22,0)}50%{box-shadow:0 0 0 5px rgba(249,115,22,.35)}}
 .question{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:0 2px 12px}
 .question p{margin:0;font:500 15px/1.5 var(--body)}
 .kw{display:flex;flex-wrap:wrap;gap:6px}
@@ -217,6 +239,7 @@ input[type=range]{flex:1;accent-color:var(--orange);min-width:60px}
       <section class="pane" id="pane0">
         <p class="t-label" data-t="p0label"></p>
         <h3 data-t="p0h"></h3>
+        <div class="mission" id="mission0"></div>
         <div class="pchips" id="pchips"></div>
         <div class="row"><div class="seg" id="view1"><button data-v="map"></button><button data-v="st"></button></div></div>
         <p class="quote" id="quote1"></p>
@@ -231,7 +254,7 @@ input[type=range]{flex:1;accent-color:var(--orange);min-width:60px}
       <section class="pane" id="pane1">
         <p class="t-label" data-t="p1label"></p>
         <h3 data-t="p1h"></h3>
-        <p class="t-lead" data-t="p1p"></p>
+        <div class="mission" id="mission1"></div>
         <div class="block"><p class="t-label" data-t="modsLabel"></p><div class="mchips" id="mchips"></div></div>
         <div class="block"><p class="t-label" data-t="impactLabel"></p><table class="impact" id="impact"></table></div>
         <div class="block"><p class="t-label" id="cmp2label"></p><div class="svgbox"><svg id="cmp2" viewBox="0 0 400 128"></svg></div></div>
@@ -242,7 +265,7 @@ input[type=range]{flex:1;accent-color:var(--orange);min-width:60px}
       <section class="pane" id="pane2">
         <p class="t-label" data-t="p2label"></p>
         <h3 data-t="p2h"></h3>
-        <p class="t-lead" data-t="p2p"></p>
+        <div class="mission" id="mission2"></div>
         <div class="block"><div class="levers" id="levers"></div>
           <div class="row" style="margin-top:10px;justify-content:space-between"><span class="t-label" id="budgetText"></span></div>
           <div class="budgetbar"><i id="budgetFill"></i></div><div class="warn" id="warn3"></div></div>
@@ -254,7 +277,7 @@ input[type=range]{flex:1;accent-color:var(--orange);min-width:60px}
       <section class="pane" id="pane3">
         <p class="t-label" data-t="p3label"></p>
         <h3 data-t="p3h"></h3>
-        <p class="t-lead" data-t="p3p"></p>
+        <div class="mission" id="mission3"></div>
         <div class="row"><div class="seg" id="role"><button data-r="tourist"></button><button data-r="resident"></button></div></div>
         <p class="quote" id="mission"></p>
         <div class="clockrow"><span class="t-num" id="clock4">09:00</span><span class="small" id="deadline4" style="margin:0"></span></div>
@@ -284,6 +307,21 @@ const TXT = {
       {verb: 'Anticipate', name: 'What-if worlds', q: 'When a piece of the city changes, how do people’s daily behaviours respond?', kw: ['Counterfactual outcomes', 'Sequence modeling', 'Causal inference']},
       {verb: 'Support', name: 'Policy sandbox', q: 'Which mix of policies helps whom, and which places win or lose?', kw: ['Place-based results', 'Individual-based results', 'Web applications']},
       {verb: 'Imagine', name: 'Tokyo exploration game', q: 'Could playing the city as a resident or a tourist reveal how people choose?', kw: ['Future direction', 'Serious games', 'Human-centred data']}],
+    mis: {
+      star: (n, m) => `★ ${n}/${m}`, right: 'Correct! ', wrong: 'Not quite. Watch the timeline and try again.',
+      m0: {title: 'Guess their day', steps: ['Pick a resident below', 'Press ▶ and watch their day', 'Answer the question']},
+      q: {mom: {q: 'How much time does she get for her own leisure today?', o: ['0 min', 'About 1 hour', 'About 2 hours'], a: 0, why: 'Daycare, work and groceries fill her day. My thesis (Ch. 3) finds working mothers’ free time depends on nearby facilities and transit.'},
+        dancer: {q: 'How long is her one-way trip to the dance studio?', o: ['15 min', 'About 40 min', '1.5 hours'], a: 1, why: 'The studio is across town, so leisure costs her time. Try moving a studio closer in 02.'},
+        wfh: {q: 'How many times does he leave home today?', o: ['Never', 'Once', 'Three times'], a: 1, why: 'Only for lunch. Remote work makes days very local, so what is near home decides whether he goes out.'},
+        student: {q: 'After cram school, where does she hang out?', o: ['A park', 'The library', 'A convenience store'], a: 2, why: 'Teenagers have few public places after school, so the konbini becomes her “third place”.'}},
+      pickOne: 'Pick one resident to get their question.',
+      m1: {title: 'Help 3 residents with one change', steps: ['Drag a module from the dock into the city, or tap one below', 'Drag the ⇆ slider to compare the two worlds', 'Make at least 3 residents better off']},
+      helped: n => `${n} / 4 residents better off`, ok1a: '⭐ 3 residents helped! Can you help all 4?', ok1b: '⭐⭐ Everyone is better off. A counterfactual measures exactly this: the same people, with and without the change.',
+      m2: {title: 'Free time for everyone, within budget', steps: ['Switch on policies (budget 5)', 'Open “Individual-based” to see who gains', 'Every group gains 15+ min and no district loses activity']},
+      need: n => `Still below +15 min: ${n}`, loses: z => `${z} is losing activity.`, ok2a: '⭐ Every group gains 15+ min!', ok2b: '⭐⭐ …and no district loses out. A balanced plan!',
+      m3: {title: 'Collect all four stamps in time', steps: ['Choose tourist or resident', 'Click the map to walk; crowds slow you down', 'Collect all 4 stamps before the deadline']},
+      ok3: '⭐ Mission complete!'
+    },
     hint: ['Drag to rotate · scroll to zoom', 'Drag modules from the dock · drag the slider to compare', 'Drag to rotate · scroll to zoom', 'Click the map to walk'],
     resetView: 'Reset view', noWebgl: 'This interactive city needs WebGL. Please try a recent browser.',
     acts: {home: 'home', work: 'work', study: 'study', shop: 'shopping', leis: 'leisure', care: 'childcare'},
@@ -335,12 +373,27 @@ const TXT = {
     note: 'An imaginative illustration of my PhD research vision, built on GPS trajectories in Tokyo’s 23 wards. The city, people and numbers are stylised.'
   },
   zh: {
-    eyebrow: '研究远景', vision: '包容与可持续的城市', focus: '以人为本的城市移动与政策模拟',
+    eyebrow: '研究愿景', vision: '包容与可持续的城市', focus: '以人为本的城市移动与政策模拟',
     modes: [
       {verb: '理解', name: '一天的轨迹', q: '人们的一天如何在城市中流动？为什么不同的人生与地方会产生不同的轨迹？', kw: ['行为模式', '时空路径']},
       {verb: '预判', name: '假如世界', q: '当城市的某一块发生变化时，人们的日常行为会如何响应？', kw: ['反事实结果', '序列建模', '因果推断']},
       {verb: '支持', name: '政策沙盘', q: '怎样的政策组合帮助了谁？哪些地方受益、哪些地方受损？', kw: ['基于地点的结果', '基于个体的结果', 'Web 应用']},
       {verb: '想象', name: '东京探索游戏', q: '以居民或游客的身份“玩”这座城市，能否揭示人们如何做选择？', kw: ['未来方向', '严肃游戏', '以人为本的数据']}],
+    mis: {
+      star: (n, m) => `★ ${n}/${m}`, right: '答对了！', wrong: '不太对，看看时间线再试一次。',
+      m0: {title: '猜一猜 TA 的一天', steps: ['在下面选一位居民', '点 ▶ 看 TA 的一天', '回答下面的问题']},
+      q: {mom: {q: '她今天留给自己的休闲时间有多少？', o: ['0 分钟', '约 1 小时', '约 2 小时'], a: 0, why: '托儿所、工作和买菜填满了她的一天。我的论文第 3 章发现：职场妈妈的自由时间取决于附近的设施和交通。'},
+        dancer: {q: '她去练舞室单程要多久？', o: ['15 分钟', '约 40 分钟', '1.5 小时'], a: 1, why: '练舞室在城市另一头，休闲要付出时间成本。去 02 试试把练舞室搬近一点。'},
+        wfh: {q: '他今天出门几次？', o: ['一次都没有', '一次', '三次'], a: 1, why: '只在午饭时出门。居家办公让一天变得很“近”，家附近有什么，决定了他出不出门。'},
+        student: {q: '补习班下课后，她去哪里打发时间？', o: ['公园', '图书馆', '便利店'], a: 2, why: '青少年放学后缺少公共空间，便利店成了她的“第三空间”。'}},
+      pickOne: '选一位居民，就会出现 TA 的问题。',
+      m1: {title: '用一个改变，帮到 3 位居民', steps: ['把模块从码头拖进城市，或点下方的模块', '拖动中间的 ⇆ 滑杆，对比两个世界', '至少让 3 位居民变得更好']},
+      helped: n => `已帮到 ${n} / 4 位居民`, ok1a: '⭐ 帮到了 3 位居民！能帮到全部 4 位吗？', ok1b: '⭐⭐ 每个人都变好了。反事实衡量的正是这个：同样的人，有没有这个改变。',
+      m2: {title: '在预算内，让每个人都多出自由时间', steps: ['打开政策（预算 5）', '切到“基于个体”，看谁受益', '每类居民都多 15 分钟以上，且没有街区受损']},
+      need: n => `还没到 +15 分钟：${n}`, loses: z => `${z}的活力在下降。`, ok2a: '⭐ 每类居民都多出了 15 分钟以上！', ok2b: '⭐⭐ 而且没有街区受损，这是一个平衡的方案！',
+      m3: {title: '在截止时间前集齐四个印章', steps: ['选择游客或居民', '点击地图行走，人多的地方会变慢', '在截止前集齐 4 个印章']},
+      ok3: '⭐ 任务完成！'
+    },
     hint: ['拖动旋转 · 滚轮缩放', '从码头拖出模块 · 拖动滑杆对比', '拖动旋转 · 滚轮缩放', '点击地图行走'],
     resetView: '重置视角', noWebgl: '这个交互城市需要 WebGL，请换用较新的浏览器。',
     acts: {home: '在家', work: '工作', study: '学习', shop: '购物', leis: '休闲', care: '接送孩子'},
@@ -389,7 +442,7 @@ const TXT = {
     done: (t, m, r) => `任务完成于 ${t}，步行 ${m} m。路线：${r}。在真正的游戏里，这样的路线会成为模拟用的选择序列。`,
     fail: '时间到了，换条路线再试试。', late: '到托儿所时已过 18:00，再试一次。', homeLast: '先完成其他任务再回家。', restart: '重新开始',
     land: {tower: '东京塔', sky: '晴空塔', river: '隅田川', station: '车站', fuji: '富士山', dock: '模块码头'},
-    note: '这是对我博士研究远景的想象性示意，基于东京 23 区的 GPS 轨迹。城市、人物和数值都经过简化。'
+    note: '这是对我博士研究愿景的想象性示意，基于东京 23 区的 GPS 轨迹。城市、人物和数值都经过简化。'
   },
   ja: {
     eyebrow: '研究のビジョン', vision: '包摂的で持続可能な都市', focus: '人間中心の都市モビリティと政策シミュレーション',
@@ -398,6 +451,21 @@ const TXT = {
       {verb: '予測する', name: 'もしもの世界', q: '街の一部が変わったとき、人の日常行動はどう反応するのか？', kw: ['反実仮想アウトカム', '系列モデリング', '因果推論']},
       {verb: '支援する', name: '政策サンドボックス', q: 'どの政策の組み合わせが誰を助け、どの場所が得をし、損をするのか？', kw: ['場所ベースの結果', '個人ベースの結果', 'Webアプリケーション']},
       {verb: '想像する', name: '東京探索ゲーム', q: '住民や観光客として街を「遊ぶ」ことで、人の選び方が見えてくるだろうか？', kw: ['今後の方向性', 'シリアスゲーム', '人間中心のデータ']}],
+    mis: {
+      star: (n, m) => `★ ${n}/${m}`, right: '正解！', wrong: 'ちょっと違います。タイムラインを見てもう一度。',
+      m0: {title: 'その人の一日を当てよう', steps: ['下で住民を一人選ぶ', '▶ を押して一日を見る', '下の質問に答える']},
+      q: {mom: {q: '今日、彼女が自分の余暇に使える時間は？', o: ['0 分', '約 1 時間', '約 2 時間'], a: 0, why: '保育園、仕事、買い物で一日が埋まります。博士論文の第3章では、働く母親の自由時間は近くの施設や交通に左右されることを示しました。'},
+        dancer: {q: 'ダンススタジオまで片道どれくらい？', o: ['15 分', '約 40 分', '1.5 時間'], a: 1, why: 'スタジオは街の反対側。余暇に時間のコストがかかります。02 でスタジオを近くに動かしてみて。'},
+        wfh: {q: '今日、彼は何回家を出る？', o: ['一度も出ない', '1 回', '3 回'], a: 1, why: '昼食のときだけ。在宅勤務では一日がとても「近く」なり、近所に何があるかで外出が決まります。'},
+        student: {q: '塾のあと、彼女はどこで過ごす？', o: ['公園', '図書館', 'コンビニ'], a: 2, why: '放課後の若者には公共の居場所が少なく、コンビニが「サードプレイス」になっています。'}},
+      pickOne: '住民を選ぶと、その人への質問が出ます。',
+      m1: {title: 'ひとつの変化で 3 人を助けよう', steps: ['ドックからモジュールを街へドラッグ（または下のモジュールをタップ）', '真ん中の ⇆ スライダーで二つの世界を比べる', '3 人以上の住民を良くする']},
+      helped: n => `${n} / 4 人が良くなった`, ok1a: '⭐ 3 人を助けました！4 人全員いけますか？', ok1b: '⭐⭐ 全員が良くなりました。反実仮想が測るのはまさにこれ：同じ人の、変化がある場合とない場合。',
+      m2: {title: '予算内で、みんなに自由時間を', steps: ['政策をオンにする（予算 5）', '「個人ベース」で誰が得をするか見る', '全グループが 15 分以上増え、活気が下がる地区がない']},
+      need: n => `まだ +15 分未満：${n}`, loses: z => `${z}の活気が下がっています。`, ok2a: '⭐ 全グループが 15 分以上増えました！', ok2b: '⭐⭐ しかも損をする地区がない。バランスのとれた案です！',
+      m3: {title: '締め切りまでにスタンプを 4 つ集めよう', steps: ['観光客か住民を選ぶ', '地図をクリックして歩く（混雑すると遅くなる）', '締め切り前に 4 つのスタンプを集める']},
+      ok3: '⭐ ミッション完了！'
+    },
     hint: ['ドラッグで回転 · スクロールでズーム', 'ドックからモジュールをドラッグ · スライダーで比較', 'ドラッグで回転 · スクロールでズーム', '地図をクリックして歩く'],
     resetView: '視点をリセット', noWebgl: 'このインタラクティブな街の表示には WebGL が必要です。新しいブラウザでお試しください。',
     acts: {home: '自宅', work: '仕事', study: '勉強', shop: '買い物', leis: '余暇', care: '送迎'},
@@ -1124,6 +1192,7 @@ function update1(t) {
   }
   if (s1.nowPlane) s1.nowPlane.position.y = yOf(h);
   setTimeOfDay(s1.view === 'st' ? 14 : h); // keep the space-time cube readable
+  if (h >= 20 && s1.sel !== 'all' && !prog.watched.has(s1.sel)) { prog.watched.add(s1.sel); mission0(); }
   $('#clock1').textContent = fmt(h);
   $('#slider1').value = h;
   if (s1.sel === 'all') { const c = $('#cur1'); if (c) { const x = 112 + (h - 6) / 18 * 272; c.setAttribute('x1', x); c.setAttribute('x2', x); } }
@@ -1176,7 +1245,7 @@ function markChain(cur) {
     li.classList.toggle('now', k === cur && li.classList.contains('stay'));
   });
 }
-function select1(p) { s1.sel = p; s1.h = 6; s1.playing = true; build1(); renderPanel1(); setPlay1(); flyTo(); }
+function select1(p) { s1.sel = p; s1.h = 6; s1.playing = true; prog.picked = true; build1(); renderPanel1(); setPlay1(); flyTo(); mission0(); }
 function setPlay1() { $('#play1').textContent = s1.playing ? '❚❚' : '▶'; }
 $('#play1').onclick = () => { if (!s1.playing && s1.h >= 23.98) s1.h = 6; s1.playing = !s1.playing; setPlay1(); };
 $('#slider1').oninput = e => { s1.h = +e.target.value; s1.playing = false; setPlay1(); };
@@ -1305,6 +1374,7 @@ function renderPanel2() {
   $('#cmp2').innerHTML = s;
   $('#resetMods').textContent = T().resetMods;
   g2.children.forEach(ch => { if (ch.name && ch.name.startsWith('badge2:')) { const p = ch.name.slice(7); ch.element.innerHTML = avatar(p, 10) + T().pers[p]; ch.element.style.opacity = p === s2.sel ? 1 : .55; } });
+  mission1();
 }
 function moveMod(m, pos) { m.pos = [pos[0], pos[1]]; m.obj.position.set(pos[0], 0, pos[1]); }
 $('#resetMods').onclick = () => { s2.mods.forEach(m => moveMod(m, DOCKPOS[m.type])); rebuild2(); };
@@ -1313,7 +1383,7 @@ $('#resetMods').onclick = () => { s2.mods.forEach(m => moveMod(m, DOCKPOS[m.type
   const el = $('#split');
   let on = false;
   el.addEventListener('pointerdown', e => { on = true; el.setPointerCapture(e.pointerId); e.preventDefault(); });
-  el.addEventListener('pointermove', e => { if (!on) return; const r = vp.getBoundingClientRect(); s2.split = clamp((e.clientX - r.left) / r.width, .05, .95); el.style.left = s2.split * 100 + '%'; });
+  el.addEventListener('pointermove', e => { if (!on) return; const r = vp.getBoundingClientRect(); s2.split = clamp((e.clientX - r.left) / r.width, .05, .95); el.style.left = s2.split * 100 + '%'; if (!prog.split) { prog.split = true; mission1(); } });
   el.addEventListener('pointerup', () => on = false);
   el.style.left = '50%';
 })();
@@ -1454,8 +1524,9 @@ function renderPanel3() {
     txt = T().insWho(T().pers[who]) + T().insWin(T().zones[zs[0]]) + (R.place[worst] < 0 ? T().insLose(T().zones[worst]) : (lang === 'en' ? '.' : '。'));
   }
   $('#insight3').textContent = txt;
+  mission2();
 }
-document.querySelectorAll('#view3 button').forEach(b => b.onclick = () => { s3.view = b.dataset.v; renderPanel3(); });
+document.querySelectorAll('#view3 button').forEach(b => b.onclick = () => { s3.view = b.dataset.v; if (s3.view === 'indiv') prog.viewed3 = true; renderPanel3(); });
 
 /* =================================================================== 04 · exploration game */
 const g4 = new THREE.Group(); scene.add(g4);
@@ -1572,16 +1643,86 @@ function renderPanel4() {
   if (s4.done) showResult4(T().done(fmt(s4.clock), Math.round(s4.walked * 25), s4.route.join(' → ')), 'ok');
   else if (s4.failed) showResult4(s4.failed, 'bad');
   else $('#result4').className = 'result';
+  mission3();
 }
-document.querySelectorAll('#role button').forEach(b => b.onclick = () => { s4.role = b.dataset.r; build4(); });
+document.querySelectorAll('#role button').forEach(b => b.onclick = () => { s4.role = b.dataset.r; prog.role4 = true; build4(); });
 $('#restart4').onclick = () => reset4();
+
+/* =================================================================== missions: one goal per section, three steps, stars */
+const prog = {picked: false, watched: new Set(), solved: new Set(), tried: {}, split: false, stars2: 0, viewed3: false, stars3: 0, role4: false, stars4: 0};
+const STAR_MAX = [4, 2, 2, 1];
+const starsOf = i => [prog.solved.size, prog.stars2, prog.stars3, prog.stars4][i];
+function missionCard(i, done, extra = '') {
+  const M = T().mis, m = M['m' + i], now = done.indexOf(false);
+  const steps = m.steps.map((t, k) => `<li class="${done[k] ? 'done' : k === now ? 'now' : ''}"><i>${done[k] ? '✓' : k + 1}</i><span>${t}</span></li>`).join('');
+  $('#mission' + i).innerHTML = `<div class="mt">${m.title}<span>${M.star(starsOf(i), STAR_MAX[i])}</span></div><ol>${steps}</ol>${extra}`;
+  return now;
+}
+function pulse(el, on) { if (el) el.classList.toggle('pulse', on); }
+let lastStars = '';
+function refreshStars() { const k = [0, 1, 2, 3].map(starsOf).join(); if (k !== lastStars) { lastStars = k; renderModes(); } }
+function mission0() {
+  const p = s1.sel, single = p !== 'all', Q = single && T().mis.q[p];
+  const done = [prog.picked, single && prog.watched.has(p), single && prog.solved.has(p)];
+  let extra = '';
+  if (!single) extra = `<div class="fb">${T().mis.pickOne}</div>`;
+  else {
+    const tried = prog.tried[p];
+    extra = `<div class="quiz"><p>${Q.q}</p><div>${Q.o.map((o, k) => `<button data-k="${k}" class="${prog.solved.has(p) && k === Q.a ? 'right' : tried === k && k !== Q.a ? 'wrong' : ''}">${o}</button>`).join('')}</div></div>`;
+    if (prog.solved.has(p)) extra += `<div class="fb ok">${T().mis.right}${Q.why}</div>`;
+    else if (tried != null) extra += `<div class="fb">${T().mis.wrong}</div>`;
+  }
+  const now = missionCard(0, done, extra);
+  document.querySelectorAll('#mission0 .quiz button').forEach(b => b.onclick = () => {
+    const k = +b.dataset.k;
+    prog.tried[p] = k;
+    if (k === Q.a) prog.solved.add(p);
+    mission0();
+  });
+  pulse($('#pchips'), now === 0);
+  pulse($('#play1'), now === 1);
+  refreshStars();
+}
+const better = p => { const a = dayStats(DAY0[p]), b = dayStats(s2.what[p] || DAY0[p]); return b.leis - a.leis > .01 || b.travel - a.travel < -5 / 60; };
+function mission1() {
+  const n = PERS.filter(better).length;
+  prog.stars2 = Math.max(prog.stars2, n >= 4 ? 2 : n >= 3 ? 1 : 0);
+  const done = [s2.mods.some(m => onBoard(m.pos)), prog.split, n >= 3];
+  const fb = n >= 4 ? `<div class="fb ok">${T().mis.ok1b}</div>` : n >= 3 ? `<div class="fb ok">${T().mis.ok1a}</div>` : `<div class="fb">${T().mis.helped(n)}</div>`;
+  const now = missionCard(1, done, fb);
+  pulse($('#mchips'), now === 0);
+  pulse($('#split .knob'), now === 1);
+  refreshStars();
+}
+function mission2() {
+  const R = s3.res || results3(), any = Object.values(s3.on).some(Boolean);
+  const low = PERS.filter(p => R.pers[p] < 15), worst = ZONES.find(z => R.place[z] < 0);
+  const all = any && !low.length, fair = all && !worst;
+  prog.stars3 = Math.max(prog.stars3, fair ? 2 : all ? 1 : 0);
+  const done = [any, prog.viewed3, fair];
+  let fb = '';
+  if (fair) fb = `<div class="fb ok">${T().mis.ok2b}</div>`;
+  else if (all) fb = `<div class="fb ok">${T().mis.ok2a} ${T().mis.loses(T().zones[worst])}</div>`;
+  else if (any) fb = `<div class="fb">${T().mis.need(low.map(p => `${T().pers[p]} (+${R.pers[p]})`).join(', '))}${worst ? ' ' + T().mis.loses(T().zones[worst]) : ''}</div>`;
+  const now = missionCard(2, done, fb);
+  pulse($('#levers'), now === 0);
+  pulse($('#view3'), now === 1);
+  refreshStars();
+}
+function mission3() {
+  if (s4.done) prog.stars4 = 1;
+  const done = [prog.role4, s4.walked > 0, s4.done];
+  const now = missionCard(3, done, s4.done ? `<div class="fb ok">${T().mis.ok3}</div>` : '');
+  pulse($('#role'), now === 0);
+  refreshStars();
+}
 
 /* =================================================================== modes, picking, language */
 let mode = 0;
 const GROUPS = [g1, g2, g3, g4];
 const labelsVisible = (g, v) => g.traverse(o => { if (o.isCSS2DObject) o.visible = v; });
 function renderModes() {
-  $('#modes').innerHTML = T().modes.map((m, i) => `<button class="mode${i === mode ? ' on' : ''}" data-i="${i}" role="tab" aria-selected="${i === mode}"><span class="n">0${i + 1}</span><span><span class="v">${m.verb}</span><span class="nm">${m.name}</span></span></button>`).join('');
+  $('#modes').innerHTML = T().modes.map((m, i) => `<button class="mode${i === mode ? ' on' : ''}" data-i="${i}" role="tab" aria-selected="${i === mode}"><span class="n">0${i + 1}</span><span><span class="v">${m.verb}</span><span class="nm">${m.name}</span><span class="st">${T().mis.star(starsOf(i), STAR_MAX[i])}</span></span></button>`).join('');
   document.querySelectorAll('.mode').forEach(b => b.onclick = () => setMode(+b.dataset.i));
   $('#question').textContent = T().modes[mode].q;
   $('#kw').innerHTML = T().modes[mode].kw.map(k => `<span>${k}</span>`).join('');
@@ -1615,7 +1756,7 @@ function onClick(e) {
   if (mode === 3 && !s4.done && !s4.failed) {
     setRay(e);
     const h = ray.intersectObjects(GROUND, false).find(x => x.face && x.face.normal.y > .5);
-    if (h) { s4.target = [h.point.x, h.point.z]; renderStatus4(); }
+    if (h) { s4.target = [h.point.x, h.point.z]; renderStatus4(); if (!prog.role4 || !s4.walked) { prog.role4 = true; setTimeout(mission3, 300); } }
   }
 }
 function applyLang() {
@@ -1627,7 +1768,7 @@ function applyLang() {
     if (o.name.startsWith('land:')) o.element.textContent = T().land[o.name.slice(5)];
     if (o.name.startsWith('mod:')) o.element.textContent = T().mods[o.name.slice(4)];
   });
-  renderModes(); renderPanel1(); if (mode === 1) rebuild2(); else renderPanel2(); renderPanel3(); renderPanel4();
+  renderModes(); renderPanel1(); if (mode === 1) rebuild2(); else renderPanel2(); renderPanel3(); renderPanel4(); mission0();
 }
 document.querySelectorAll('.lang button').forEach(b => b.onclick = () => { lang = b.dataset.lang; applyLang(); });
 $('#resetView').onclick = () => flyTo();
