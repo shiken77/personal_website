@@ -25,7 +25,8 @@
   } catch (e) {}
 })();
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&text=%E7%94%B0%E6%80%9D%E4%BF%AD&display=swap" rel="stylesheet">
+<!-- 田 思俭 in Yozai Bold (OFL); only the three font chunks holding these glyphs are loaded -->
+<style>@font-face{font-family:'Yozai Name';font-weight:700;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@chinese-fonts/yozai@3.0.0/dist/Yozai-Bold/8c87315ab20806fa24981afd5cd0d61b.woff2) format('woff2');unicode-range:U+7530}@font-face{font-family:'Yozai Name';font-weight:700;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@chinese-fonts/yozai@3.0.0/dist/Yozai-Bold/d8e75038f3aa036fb43bc55939b9c10c.woff2) format('woff2');unicode-range:U+601D}@font-face{font-family:'Yozai Name';font-weight:700;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@chinese-fonts/yozai@3.0.0/dist/Yozai-Bold/5826c66822dcc8d17b27a9b4ead3eee2.woff2) format('woff2');unicode-range:U+4FED}</style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -239,8 +240,8 @@ nav {
   line-height:1.06; margin-bottom:6px; letter-spacing:-0.5px;
 }
 .home-name em { font-style:italic; color:var(--orange); }
-/* Chinese pages show 田 思俭 in a brush font (only these three glyphs are downloaded) */
-html[lang="zh-Hans"] .home-name { font-family:'Ma Shan Zheng','STKaiti','KaiTi',serif; font-weight:400; letter-spacing:.08em; font-size:clamp(2.6rem, 4.4vw, 3.9rem); }
+/* Chinese pages show 田 思俭 in a rounded handwritten font (only these three glyphs are downloaded) */
+html[lang="zh-Hans"] .home-name { font-family:'Yozai Name','STKaiti','KaiTi',serif; font-weight:700; letter-spacing:.08em; font-size:clamp(2.6rem, 4.4vw, 3.9rem); }
 html[lang="zh-Hans"] .home-name em { font-style:normal; }
 
 .home-role {
@@ -1112,6 +1113,9 @@ footer {
 .rf-card.rf-on{background:#fff;border-color:var(--c);box-shadow:0 8px 22px rgba(160,121,90,.14)}
 .rf-play{display:inline-block;margin-top:10px;font:600 11.5px/1.2 var(--rf-body);color:var(--c);opacity:.7;transition:opacity .2s}
 .rf-card:hover .rf-play,.rf-card.rf-on .rf-play{opacity:1}
+.rf-card{cursor:pointer}
+.rf-star{margin-left:8px;color:#f59e0b;font-weight:700}
+.rf-card.rf-on{transform:translateY(-3px)}
 .rf-card:not(:last-child)::after{content:"";position:absolute;right:-17px;top:50%;width:12px;height:12px;border-top:2.5px solid var(--rf-text3);border-right:2.5px solid var(--rf-text3);transform:translateY(-50%) rotate(45deg)}
 .rf-card .rf-top{display:flex;align-items:baseline;gap:8px}
 .rf-card .rf-n{font:700 24px/1 var(--rf-display);color:var(--c)}
@@ -1166,13 +1170,13 @@ footer {
   let activeMode = 0;
   const TXT = {
     en: {
-      eyebrow: 'Research vision', vision: 'Urban Digital Governance, Measured by Social Welfare',
+      eyebrow: 'Research vision', vision: 'Urban Digital Governance towards Social Welfare',
       line2: 'Line 2 · Governing digital systems', bandTitle: 'Reflect: who owns, who benefits?',
       bandQ: 'When digital and AI systems start to shape city decisions, who holds the evidence, the data and the gains? Who is seen, and who is left out?',
       bandChips: ['Ownership of evidence', 'Who benefits', 'Missing from the data'],
       down: 'Questions & audits', up: 'Tools & evidence',
       line1: 'Line 1 · Building digital systems for people',
-      people: 'Built for <em>real people</em>, not the average person.', play: 'Try it below →',
+      people: 'Built for <em>real people</em>, not the average person.', play: 'Try it below →', playing: '▼ Playing below',
       cards: [
         {v: 'Understand', t: 'Behavioral patterns', d: 'How and why people move differently across places and lives.', k: ['Space-time paths', 'Heterogeneity']},
         {v: 'Anticipate', t: 'Validating interventions', d: 'How behavior responds when a facility opens or closes.', k: ['Quasi-experimental design', 'Counterfactuals']},
@@ -1180,13 +1184,13 @@ footer {
         {v: 'Imagine', t: 'Participatory exploration', d: 'Letting residents and visitors play the city themselves.', k: ['Serious games']}]
     },
     zh: {
-      eyebrow: '研究愿景', vision: '以社会福祉为尺度的城市数字化治理',
+      eyebrow: '研究愿景', vision: '面向社会福祉的城市数字化治理',
       line2: '线索二 · 治理数字系统', bandTitle: '反思：谁拥有，谁受益？',
       bandQ: '当数字与 AI 系统开始参与城市决策，证据、数据与收益掌握在谁手里？谁被看见，谁被落下？',
       bandChips: ['证据归属', '受益分配', '数据中的缺席者'],
       down: '审视与问责', up: '工具与证据',
       line1: '线索一 · 为人构建数字系统',
-      people: '为<em>具体的人</em>而建，而不是“平均人”。', play: '在下方试玩 →',
+      people: '为<em>具体的人</em>而建，而不是“平均人”。', play: '在下方试玩 →', playing: '▼ 正在下方试玩',
       cards: [
         {v: '理解', t: '行为模式', d: '人们为何在不同地方、不同人生中移动得不一样。', k: ['时空轨迹', '异质性']},
         {v: '预判', t: '干预验证', d: '设施开业或关闭后，人们的行为如何响应。', k: ['准实验设计', '反事实']},
@@ -1194,13 +1198,13 @@ footer {
         {v: '想象', t: '参与式探索', d: '让居民与游客亲手推演自己的城市。', k: ['严肃游戏']}]
     },
     ja: {
-      eyebrow: '研究のビジョン', vision: '社会的福祉を尺度とする都市のデジタル・ガバナンス',
+      eyebrow: '研究のビジョン', vision: '社会的福祉に向けた都市のデジタル・ガバナンス',
       line2: '軸 2 · デジタルシステムのガバナンス', bandTitle: '問い直す：誰が持ち、誰が得をするのか？',
       bandQ: 'デジタルや AI のシステムが都市の意思決定に関わり始めたとき、証拠・データ・便益は誰の手にあるのか？誰が見え、誰が取り残されるのか？',
       bandChips: ['証拠の帰属', '便益の分配', 'データに現れない人'],
       down: '問い直しと説明責任', up: 'ツールと証拠',
       line1: '軸 1 · 人のためのデジタルシステムを作る',
-      people: '「平均的な人」ではなく、<em>具体的な人</em>のために。', play: '下で試してみる →',
+      people: '「平均的な人」ではなく、<em>具体的な人</em>のために。', play: '下で試してみる →', playing: '▼ 下でプレイ中',
       cards: [
         {v: '理解する', t: '行動パターン', d: '人は場所や暮らしによって、なぜ異なる動き方をするのか。', k: ['時空間パス', '異質性']},
         {v: '予測する', t: '介入の検証', d: '施設の開業・閉鎖に、行動はどう反応するのか。', k: ['準実験デザイン', '反実仮想']},
@@ -1211,13 +1215,15 @@ footer {
 
   /* ---------- text ---------- */
   const root = document.getElementById('rf');
+  let rfLang = 'en', stars = null, starMax = null;
   function render(lang) {
+    rfLang = lang;
     const T = TXT[lang] || TXT.en;
     root.querySelectorAll('[data-rf]').forEach(e => { e.textContent = T[e.dataset.rf]; });
     document.getElementById('rf-bandChips').innerHTML = T.bandChips.map(c => `<span>${c}</span>`).join('');
     document.getElementById('rf-people').innerHTML = `<strong>${T.people}</strong>`;
     document.getElementById('rf-pipe').innerHTML = T.cards.map((c, i) =>
-      `<article class="rf-card${i === 3 ? ' rf-future' : ''}${i === activeMode ? ' rf-on' : ''}" data-mode="${i}" role="button" tabindex="0" style="--c:${C[i]}"><div class="rf-top"><span class="rf-n">0${i + 1}</span><span class="rf-v">${c.v}</span></div><h4>${c.t}</h4><p>${c.d}</p><div class="rf-chips" style="--c:${C[i]}">${c.k.map(k => `<span>${k}</span>`).join('')}</div><span class="rf-play">${T.play}</span></article>`).join('');
+      `<article class="rf-card${i === 3 ? ' rf-future' : ''}${i === activeMode ? ' rf-on' : ''}" data-mode="${i}" role="button" tabindex="0" style="--c:${C[i]}"><div class="rf-top"><span class="rf-n">0${i + 1}</span><span class="rf-v">${c.v}</span></div><h4>${c.t}</h4><p>${c.d}</p><div class="rf-chips" style="--c:${C[i]}">${c.k.map(k => `<span>${k}</span>`).join('')}</div><span class="rf-play">${i === activeMode ? T.playing : T.play}${stars ? `<span class="rf-star">★ ${stars[i]}/${starMax[i]}</span>` : ''}</span></article>`).join('');
   }
   // the homepage's applyLanguage() calls this when the visitor switches language
   window.rfRender = l => render(l === 'zh-Hans' ? 'zh' : l);
@@ -1226,7 +1232,8 @@ footer {
   const open = e => { const c = e.target.closest('.rf-card'); if (c && window.rfOpen) window.rfOpen(+c.dataset.mode); };
   pipe.addEventListener('click', open);
   pipe.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(e); } });
-  window.rfActive = i => { activeMode = i; pipe.querySelectorAll('.rf-card').forEach(c => c.classList.toggle('rf-on', +c.dataset.mode === i)); };
+  window.rfActive = i => { activeMode = i; render(rfLang); };
+  window.rfStars = (n, m) => { stars = n; starMax = m; render(rfLang); };
   const l0 = document.documentElement.lang || 'en';
   render(l0.startsWith('zh') ? 'zh' : l0.startsWith('ja') ? 'ja' : 'en');
 })();
@@ -1882,6 +1889,7 @@ window.addEventListener('message', function (e) {
     if (pendingPlaygroundMode != null) { f.contentWindow.postMessage({ researchPlaygroundMode: pendingPlaygroundMode }, '*'); pendingPlaygroundMode = null; }
   }
   if (e.data.researchPlaygroundModeChanged != null && window.rfActive) window.rfActive(e.data.researchPlaygroundModeChanged);
+  if (e.data.researchPlaygroundStars && window.rfStars) window.rfStars(e.data.researchPlaygroundStars, e.data.researchPlaygroundStarMax);
 });
 
 function setLanguage(lang) {

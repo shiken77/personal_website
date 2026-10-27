@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shican Tian · Tokyo in Motion</title>
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&text=%E7%94%B0%E6%80%9D%E4%BF%AD&display=swap" rel="stylesheet">
+<!-- 田 思俭 in Yozai Bold (OFL); only the three font chunks holding these glyphs are loaded -->
+<style>@font-face{font-family:'Yozai Name';font-weight:700;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@chinese-fonts/yozai@3.0.0/dist/Yozai-Bold/8c87315ab20806fa24981afd5cd0d61b.woff2) format('woff2');unicode-range:U+7530}@font-face{font-family:'Yozai Name';font-weight:700;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@chinese-fonts/yozai@3.0.0/dist/Yozai-Bold/d8e75038f3aa036fb43bc55939b9c10c.woff2) format('woff2');unicode-range:U+601D}@font-face{font-family:'Yozai Name';font-weight:700;font-display:swap;src:url(https://cdn.jsdelivr.net/npm/@chinese-fonts/yozai@3.0.0/dist/Yozai-Bold/5826c66822dcc8d17b27a9b4ead3eee2.woff2) format('woff2');unicode-range:U+4FED}</style>
 <style>
 :root{--bg:#0b1124;--card:#111a35;--line:rgba(148,163,209,.22);--text:#eef2ff;--text2:#b6c0e0;--text3:#7f8bb3;--cream:#fdf6ee;
   --font:-apple-system,BlinkMacSystemFont,'Hiragino Sans','PingFang SC','Noto Sans SC','Noto Sans JP','Segoe UI',system-ui,sans-serif;
@@ -30,7 +31,7 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:1}
 .eyebrow{font:600 11.5px/1.5 var(--font);letter-spacing:.18em;text-transform:uppercase;color:var(--text3);margin:0 0 14px}
 h1{font:700 clamp(40px,5.4vw,78px)/1 var(--display);margin:0;letter-spacing:-.01em;text-shadow:0 0 40px rgba(96,165,250,.35)}
 h1 span{color:#f9a8d4}
-h1.zh{font-family:'Ma Shan Zheng','STKaiti','KaiTi',serif;font-weight:400;letter-spacing:.06em;font-size:clamp(56px,7vw,100px)}
+h1.zh{font-family:'Yozai Name','STKaiti','KaiTi',serif;font-weight:700;letter-spacing:.06em;font-size:clamp(56px,7vw,100px)}
 .vision{font:700 clamp(17px,1.9vw,25px)/1.3 var(--display);color:#93c5fd;margin:18px 0 6px}
 .focus{font:400 clamp(13px,1.2vw,15.5px)/1.5 var(--font);color:var(--text2);margin:0}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -117,7 +118,7 @@ try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
 const nextUrl = () => `${NEXT}?lang=${lang}&from=intro`;
 
 const TXT = {
-  en: {eyebrow: 'Urban data scientist · PhD candidate · The University of Tokyo', vision: 'Urban Digital Governance, Measured by Social Welfare', focus: 'Human-centered urban mobility & policy simulation',
+  en: {eyebrow: 'Urban data scientist · PhD candidate · The University of Tokyo', vision: 'Urban Digital Governance towards Social Welfare', focus: 'Human-centered urban mobility & policy simulation',
     who: 'Who moves through Tokyo', enter: 'Enter →', skip: 'Skip', cardLabel: 'Tokyo 23 wards · one weekday', moving: 'on the move',
     hint: '<b>Move</b> over the map to draw people toward you · <b>Click</b> to open a new place and see who gains access', try: 'Try it: move & click', open: 'A new place opens', here: 'here now',
     note: 'Simulated weekday. Homes follow 1 km mesh population; trips are illustrative.',
@@ -127,7 +128,7 @@ const TXT = {
     caps: {welfare: 'Older residents and caregivers live shorter, more local days. Many have no leisure place within a 10-minute walk.', worker: 'Long trips into the centre and back.', student: 'Short trips to school and cram school.', senior: 'Mostly within a few kilometres of home, during the day.', carer: 'Daycare drop-off, work or errands, pick-up: a day shaped by care.', leisure: 'Midday trips to parks, shops and sights.'},
     types: {worker: 'Commuters', student: 'Students', senior: 'Older residents', carer: 'Caregivers', leisure: 'Leisure'},
     phases: [[0, 'Night'], [6, 'Early morning'], [7, 'Morning rush into the centre'], [9.5, 'Working hours'], [12, 'Lunch & errands'], [14, 'Afternoon'], [17, 'Evening rush home'], [19.5, 'Nightlife hubs light up'], [22.5, 'Last trains home']]},
-  ja: {eyebrow: '都市データサイエンティスト · 博士課程 · 東京大学', vision: '社会的福祉を尺度とする都市のデジタル・ガバナンス', focus: '人間中心の都市モビリティと政策シミュレーション',
+  ja: {eyebrow: '都市データサイエンティスト · 博士課程 · 東京大学', vision: '社会的福祉に向けた都市のデジタル・ガバナンス', focus: '人間中心の都市モビリティと政策シミュレーション',
     who: '東京を動く人たち', enter: '入る →', skip: 'スキップ', cardLabel: '東京23区 · ある平日', moving: '移動中',
     hint: '地図の上で<b>動かす</b>と人が集まり、<b>クリック</b>で新しい場所をつくると誰が行けるようになるかが分かります', try: '動かして、クリックしてみて', open: '新しい場所ができた', here: '人がいます',
     note: '平日のシミュレーション。居住地は1kmメッシュ人口に基づき、移動は説明用です。',
@@ -137,7 +138,7 @@ const TXT = {
     caps: {welfare: '高齢の住民や子育て・介護中の人の一日は短く、近場で完結しがち。徒歩10分圏に余暇の場がない人も多い。', worker: '都心との長い往復。', student: '学校や塾への短い移動。', senior: '日中、自宅から数km以内がほとんど。', carer: '保育園の送り、仕事や用事、お迎え。ケアが一日を形づくる。', leisure: '昼間に公園や店、観光地へ。'},
     types: {worker: '通勤者', student: '学生', senior: '高齢の住民', carer: '子育て・介護中の人', leisure: '余暇'},
     phases: [[0, '深夜'], [6, '早朝'], [7, '都心へ向かう朝のラッシュ'], [9.5, '就業時間'], [12, '昼休みと用事'], [14, '午後'], [17, '帰宅ラッシュ'], [19.5, '繁華街が賑わう'], [22.5, '終電で帰宅']]},
-  zh: {eyebrow: '城市数据科学家 · 博士研究生 · 东京大学', vision: '以社会福祉为尺度的城市数字化治理', focus: '以人为本的城市移动与政策模拟',
+  zh: {eyebrow: '城市数据科学家 · 博士研究生 · 东京大学', vision: '面向社会福祉的城市数字化治理', focus: '以人为本的城市移动与政策模拟',
     who: '在东京流动的人们', enter: '进入 →', skip: '跳过', cardLabel: '东京 23 区 · 一个工作日', moving: '正在移动',
     hint: '在地图上<b>移动</b>鼠标，人会向你聚集 · <b>点击</b>开一个新地方，看看谁因此能走得到', try: '试试：移动并点击', open: '这里新开了一个地方', here: '人在这里',
     note: '模拟的工作日。居住地按 1 km 网格人口分布，出行为示意。',
