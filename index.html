@@ -126,6 +126,9 @@ nav {
   gap: 24px;
   flex-shrink: 0;
 }
+/* back to the intro page (the animated Tokyo map) */
+.nav-intro{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;color:var(--orange);text-decoration:none;border:1.5px solid var(--orange);border-radius:999px;padding:5px 12px;white-space:nowrap;transition:background .2s,color .2s}
+.nav-intro:hover{background:var(--orange);color:#fff}
 .lang-switch {
   display: flex;
   align-items: center;
@@ -974,6 +977,7 @@ footer {
       <li><a href="#" data-i18n="nav.blog" onclick="showPage('blog')">Blog</a></li>
       <li><a href="#" data-i18n="nav.contact" onclick="showPage('contact')">Contact</a></li>
     </ul>
+    <a href="intro.html" class="nav-intro" id="nav-intro" data-i18n="nav.intro">↺ Intro</a>
     <div class="lang-switch" role="group" aria-label="Language">
       <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="true">EN</button>
       <span class="lang-sep" aria-hidden="true">|</span>
@@ -1087,42 +1091,44 @@ footer {
 .rf-line b{font-weight:700;color:var(--c)}
 
 /* ---------- line 2: reflection band with the mini-game ---------- */
-.rf-band{border:2px dashed var(--rf-violet);border-radius:22px;background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(244,114,182,.07));padding:20px 22px}
-.rf-band .rf-n{font:700 30px/1 var(--rf-display);color:var(--rf-violet)}
-.rf-band h3{font:700 clamp(18px,2vw,22px)/1.3 var(--rf-display);margin:6px 0 8px}
-.rf-band .rf-q{font:400 14px/1.65 var(--rf-body);color:var(--rf-text2);margin:0}
+.rf-band{border:2px dashed var(--rf-violet);border-radius:18px;background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(244,114,182,.07));padding:12px 20px}
+.rf-band>div{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px}
+.rf-band .rf-n{font:700 22px/1 var(--rf-display);color:var(--rf-violet)}
+.rf-band h3{font:700 clamp(16px,1.7vw,19px)/1.3 var(--rf-display);margin:0}
+.rf-band .rf-q{order:3;flex-basis:100%;font:400 13.5px/1.5 var(--rf-body);color:var(--rf-text2);margin:0}
+.rf-band .rf-chips{order:2;margin:0 0 0 auto}
 .rf-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
 .rf-chips span{font:600 12px/1 var(--rf-body);padding:6px 11px;border-radius:999px;background:#fff;border:1px solid var(--c,var(--rf-border));color:var(--c,var(--rf-text2))}
 
 /* connectors */
-.rf-link{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
+.rf-link{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:6px 0}
 .rf-link div{display:flex;align-items:center;justify-content:center;gap:8px;font:600 12.5px/1.3 var(--rf-body);color:var(--rf-text2)}
-.rf-link svg{width:18px;height:34px;flex:none;overflow:visible}
+.rf-link svg{width:14px;height:26px;flex:none;overflow:visible}
 .rf-link .rf-dash{stroke-dasharray:4 4;animation:rf-flow 1.2s linear infinite}
 .rf-link .rf-up .rf-dash{animation-direction:reverse}
 @keyframes rf-flow{to{stroke-dashoffset:-16}}
 
 /* ---------- line 1: people statement + pipeline ---------- */
-.rf-people{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 14px;padding:12px 16px;border-radius:14px;background:#fff;border:1px solid var(--rf-border)}
+.rf-people{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 12px;padding:9px 16px;border-radius:14px;background:#fff;border:1px solid var(--rf-border)}
 .rf-people strong{font:700 15px/1.4 var(--rf-display);color:var(--rf-text);margin-right:4px}
 .rf-people strong em{font-style:normal;color:var(--rf-pink)}
 .rf-people span{font:600 12px/1 var(--rf-body);padding:6px 11px;border-radius:999px;background:var(--rf-card);border:1px solid var(--rf-border);color:var(--rf-text2)}
 .rf-pipe{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
-.rf-card{position:relative;background:var(--rf-card);border:1.5px solid var(--rf-border);border-top:4px solid var(--c);border-radius:16px;padding:14px 15px 15px;transition:transform .2s,box-shadow .2s}
+.rf-card{position:relative;background:var(--rf-card);border:1.5px solid var(--rf-border);border-top:4px solid var(--c);border-radius:14px;padding:10px 14px 11px;transition:transform .2s,box-shadow .2s}
 .rf-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(160,121,90,.16)}
 .rf-card.rf-on{background:#fff;border-color:var(--c);box-shadow:0 8px 22px rgba(160,121,90,.14)}
-.rf-play{display:inline-block;margin-top:10px;font:600 11.5px/1.2 var(--rf-body);color:var(--c);opacity:.7;transition:opacity .2s}
+.rf-play{display:inline-block;margin-left:auto;font:600 11.5px/1.2 var(--rf-body);color:var(--c);opacity:.7;transition:opacity .2s}
 .rf-card:hover .rf-play,.rf-card.rf-on .rf-play{opacity:1}
 .rf-card{cursor:pointer}
-.rf-star{margin-left:8px;color:#f59e0b;font-weight:700}
+.rf-star{color:#f59e0b;font-weight:700;white-space:nowrap}
 .rf-card.rf-on{transform:translateY(-3px)}
 .rf-card:not(:last-child)::after{content:"";position:absolute;right:-17px;top:50%;width:12px;height:12px;border-top:2.5px solid var(--rf-text3);border-right:2.5px solid var(--rf-text3);transform:translateY(-50%) rotate(45deg)}
-.rf-card .rf-top{display:flex;align-items:baseline;gap:8px}
-.rf-card .rf-n{font:700 24px/1 var(--rf-display);color:var(--c)}
-.rf-card .rf-v{font:600 10.5px/1.2 var(--rf-body);letter-spacing:.12em;text-transform:uppercase;color:var(--rf-text3)}
-.rf-card h4{font:700 15px/1.3 var(--rf-body);margin:8px 0 5px}
+.rf-card .rf-top{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+.rf-card .rf-n{font:700 20px/1 var(--rf-display);color:var(--c)}
+.rf-card .rf-v{margin-left:auto;font:600 10.5px/1.2 var(--rf-body);letter-spacing:.12em;text-transform:uppercase;color:var(--rf-text3)}
+.rf-card h4{font:700 15px/1.3 var(--rf-body);margin:0}
 .rf-card p{font:400 12.5px/1.55 var(--rf-body);color:var(--rf-text2);margin:0}
-.rf-card .rf-chips{margin-top:9px}
+.rf-card .rf-chips{margin-top:7px;gap:5px;align-items:center}
 .rf-card .rf-chips span{font-size:11px;padding:4px 8px}
 .rf-card.rf-future{border-style:dashed;border-top-style:solid}
 
@@ -1176,7 +1182,7 @@ footer {
       bandChips: ['Ownership of evidence', 'Who benefits', 'Missing from the data'],
       down: 'Questions & audits', up: 'Tools & evidence',
       line1: 'Line 1 · Building digital systems for people',
-      people: 'Built for <em>real people</em>, not the average person.', play: 'Try it below →', playing: '▼ Playing below',
+      people: 'Built for <em>real people</em>, not the average person.',
       cards: [
         {v: 'Understand', t: 'Behavioral patterns', d: 'How and why people move differently across places and lives.', k: ['Space-time paths', 'Heterogeneity']},
         {v: 'Anticipate', t: 'Validating interventions', d: 'How behavior responds when a facility opens or closes.', k: ['Quasi-experimental design', 'Counterfactuals']},
@@ -1190,7 +1196,7 @@ footer {
       bandChips: ['证据归属', '受益分配', '数据中的缺席者'],
       down: '审视与问责', up: '工具与证据',
       line1: '线索一 · 为人构建数字系统',
-      people: '为<em>具体的人</em>而建，而不是“平均人”。', play: '在下方试玩 →', playing: '▼ 正在下方试玩',
+      people: '为<em>具体的人</em>而建，而不是“平均人”。',
       cards: [
         {v: '理解', t: '行为模式', d: '人们为何在不同地方、不同人生中移动得不一样。', k: ['时空轨迹', '异质性']},
         {v: '预判', t: '干预验证', d: '设施开业或关闭后，人们的行为如何响应。', k: ['准实验设计', '反事实']},
@@ -1204,7 +1210,7 @@ footer {
       bandChips: ['証拠の帰属', '便益の分配', 'データに現れない人'],
       down: '問い直しと説明責任', up: 'ツールと証拠',
       line1: '軸 1 · 人のためのデジタルシステムを作る',
-      people: '「平均的な人」ではなく、<em>具体的な人</em>のために。', play: '下で試してみる →', playing: '▼ 下でプレイ中',
+      people: '「平均的な人」ではなく、<em>具体的な人</em>のために。',
       cards: [
         {v: '理解する', t: '行動パターン', d: '人は場所や暮らしによって、なぜ異なる動き方をするのか。', k: ['時空間パス', '異質性']},
         {v: '予測する', t: '介入の検証', d: '施設の開業・閉鎖に、行動はどう反応するのか。', k: ['準実験デザイン', '反実仮想']},
@@ -1223,7 +1229,7 @@ footer {
     document.getElementById('rf-bandChips').innerHTML = T.bandChips.map(c => `<span>${c}</span>`).join('');
     document.getElementById('rf-people').innerHTML = `<strong>${T.people}</strong>`;
     document.getElementById('rf-pipe').innerHTML = T.cards.map((c, i) =>
-      `<article class="rf-card${i === 3 ? ' rf-future' : ''}${i === activeMode ? ' rf-on' : ''}" data-mode="${i}" role="button" tabindex="0" style="--c:${C[i]}"><div class="rf-top"><span class="rf-n">0${i + 1}</span><span class="rf-v">${c.v}</span></div><h4>${c.t}</h4><p>${c.d}</p><div class="rf-chips" style="--c:${C[i]}">${c.k.map(k => `<span>${k}</span>`).join('')}</div><span class="rf-play">${i === activeMode ? T.playing : T.play}${stars ? `<span class="rf-star">★ ${stars[i]}/${starMax[i]}</span>` : ''}</span></article>`).join('');
+      `<article class="rf-card${i === 3 ? ' rf-future' : ''}${i === activeMode ? ' rf-on' : ''}" data-mode="${i}" role="button" tabindex="0" style="--c:${C[i]}"><div class="rf-top"><span class="rf-n">0${i + 1}</span><h4>${c.t}</h4><span class="rf-v">${c.v}</span></div><p>${c.d}</p><div class="rf-chips" style="--c:${C[i]}">${c.k.map(k => `<span>${k}</span>`).join('')}${stars ? `<b class="rf-play rf-star">★ ${stars[i]}/${starMax[i]}</b>` : ''}</div></article>`).join('');
   }
   // the homepage's applyLanguage() calls this when the visitor switches language
   window.rfRender = l => render(l === 'zh-Hans' ? 'zh' : l);
@@ -1540,6 +1546,7 @@ const STRINGS = {
     'nav.publications': 'Publications',
     'nav.blog': 'Blog',
     'nav.contact': 'Contact',
+    'nav.intro': '↺ Intro',
     'img.avatar_alt': 'Sijian Tian',
     'home.greeting': 'Urban Data Scientist · PhD Candidate',
     'home.role': 'a researcher',
@@ -1634,6 +1641,7 @@ const STRINGS = {
     'nav.publications': '発表',
     'nav.blog': 'ブログ',
     'nav.contact': 'お問い合わせ',
+    'nav.intro': '↺ オープニング',
     'img.avatar_alt': '田思俭（ティエン・スージエン）',
     'home.greeting': 'アーバンデータサイエンティスト／博士課程',
     'home.role': '研究者',
@@ -1728,6 +1736,7 @@ const STRINGS = {
     'nav.publications': '发表',
     'nav.blog': '博客',
     'nav.contact': '联系',
+    'nav.intro': '↺ 开场动画',
     'img.avatar_alt': '田思俭',
     'home.greeting': '城市数据科学家 · 博士研究生',
     'home.role': '研究者',
@@ -1820,6 +1829,8 @@ function applyLanguage(lang) {
   var T = STRINGS[lang];
   if (!T) { lang = 'en'; T = STRINGS.en; }
   document.documentElement.lang = lang === 'ja' ? 'ja' : lang === 'zh' ? 'zh-Hans' : 'en';
+  var introLink = document.getElementById('nav-intro');
+  if (introLink) introLink.href = 'intro.html?lang=' + lang;
   try {
     localStorage.setItem('siteLang', lang);
   } catch (e) {}
