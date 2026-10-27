@@ -19,6 +19,7 @@ button{font-family:inherit;color:inherit}
 .rs{max-width:1220px;margin:0 auto;padding:22px 16px 32px}
 .embed .rs{padding:4px 2px 8px}
 .embed .topbar{display:none}
+.embed .intro{display:none} /* the homepage framework above already states the vision */
 
 /* ---------- type scale ---------- */
 .t-label{font:600 11.5px/1.3 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin:0}
@@ -301,7 +302,7 @@ import {CSS2DRenderer, CSS2DObject} from 'three/addons/renderers/CSS2DRenderer.j
 const durFmt = (u1, u2, sep) => h => { const m = Math.round(h * 60); return m >= 60 ? `${Math.floor(m / 60)}${u1}${sep}${String(m % 60).padStart(2, '0')}${u2}` : `${m}${u2}`; };
 const TXT = {
   en: {
-    eyebrow: 'Research vision', vision: 'Inclusive and Sustainable Cities', focus: 'Human-Centered Urban Mobility & Policy Simulation',
+    eyebrow: 'Research vision', vision: 'Digital Governance for Inclusive and Sustainable Cities', focus: 'Human-Centered Urban Mobility & Policy Simulation',
     modes: [
       {verb: 'Understand', name: 'Daily trajectories', q: 'How do people’s days move through the city, and why do they differ across lives and places?', kw: ['Behavioral patterns', 'Space-time paths']},
       {verb: 'Anticipate', name: 'What-if worlds', q: 'When a piece of the city changes, how do people’s daily behaviours respond?', kw: ['Counterfactual outcomes', 'Sequence modeling', 'Causal inference']},
@@ -373,7 +374,7 @@ const TXT = {
     note: 'An imaginative illustration of my PhD research vision, built on GPS trajectories in Tokyo’s 23 wards. The city, people and numbers are stylised.'
   },
   zh: {
-    eyebrow: '研究愿景', vision: '包容与可持续的城市', focus: '以人为本的城市移动与政策模拟',
+    eyebrow: '研究愿景', vision: '包容与可持续城市的数字化治理', focus: '以人为本的城市移动与政策模拟',
     modes: [
       {verb: '理解', name: '一天的轨迹', q: '人们的一天如何在城市中流动？为什么不同的人生与地方会产生不同的轨迹？', kw: ['行为模式', '时空路径']},
       {verb: '预判', name: '假如世界', q: '当城市的某一块发生变化时，人们的日常行为会如何响应？', kw: ['反事实结果', '序列建模', '因果推断']},
@@ -445,7 +446,7 @@ const TXT = {
     note: '这是对我博士研究愿景的想象性示意，基于东京 23 区的 GPS 轨迹。城市、人物和数值都经过简化。'
   },
   ja: {
-    eyebrow: '研究のビジョン', vision: '包摂的で持続可能な都市', focus: '人間中心の都市モビリティと政策シミュレーション',
+    eyebrow: '研究のビジョン', vision: '包摂的で持続可能な都市のためのデジタル・ガバナンス', focus: '人間中心の都市モビリティと政策シミュレーション',
     modes: [
       {verb: '理解する', name: '一日の軌跡', q: '人の一日は街の中をどう移動し、暮らしや場所によってなぜ違うのか？', kw: ['行動パターン', '時空間パス']},
       {verb: '予測する', name: 'もしもの世界', q: '街の一部が変わったとき、人の日常行動はどう反応するのか？', kw: ['反実仮想アウトカム', '系列モデリング', '因果推論']},
@@ -1739,6 +1740,7 @@ function setMode(i) {
   if (i === 2) { s3.res = null; renderPanel3(); }
   if (i === 3) renderPanel4();
   flyTo();
+  if (parent !== window) parent.postMessage({researchPlaygroundModeChanged: i}, '*');
 }
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
 function setRay(e) {
@@ -1869,6 +1871,9 @@ if (EMBED) {
   addEventListener('message', e => {
     const l = e.data && e.data.researchPlaygroundLang;
     if (['en', 'zh', 'ja'].includes(l) && l !== lang) { lang = l; applyLang(); }
+    // the homepage framework cards open a section directly
+    const m = e.data && e.data.researchPlaygroundMode;
+    if (m != null && m >= 0 && m <= 3 && m !== mode) setMode(+m);
   });
 }
 if (parent !== window) new ResizeObserver(() => parent.postMessage({researchPlaygroundHeight: Math.ceil($('#app').getBoundingClientRect().height)}, '*')).observe($('#app'));

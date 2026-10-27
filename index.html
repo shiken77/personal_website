@@ -652,6 +652,13 @@ a.home-blog-preview-link {
   border-bottom:2px solid var(--border); align-items:start;
 }
 .pub-item:last-child { border-bottom:none; }
+/* publications grouped by the research framework */
+.pub-group { margin-top:44px; padding-bottom:6px; border-bottom:2px solid var(--c); }
+.pub-group:first-child { margin-top:0; }
+.pub-group-line { font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--c); margin-bottom:6px; }
+.pub-group-title { display:flex; align-items:baseline; gap:10px; font-family:var(--serif); font-size:1.25rem; font-weight:600; color:var(--text); }
+.pub-group-n { font-family:var(--serif); font-size:1.6rem; color:var(--c); }
+.pub-group + .pub-item { padding-top:24px; }
 .pub-idx { font-family:var(--mono); font-size:11px; color:var(--text3); padding-top:3px; }
 .pub-title { font-size:15px; font-weight:600; line-height:1.5; margin-bottom:6px; }
 .pub-authors { font-size:13px; color:var(--text2); margin-bottom:7px; line-height:1.5; }
@@ -1056,6 +1063,174 @@ footer {
 
   <section class="research-framework research-playground-section reveal" aria-label="Research overview">
     <div class="research-framework-inner">
+      <!-- research framework (two lines: governing digital systems / building digital systems for people) -->
+      <style>
+/* Self-contained component: every class is prefixed with rf- so it can be dropped into the homepage. */
+:root{
+  --rf-bg:#fdf6ee;--rf-card:#fffaf4;--rf-border:#f0d8c0;--rf-text:#2c1a0e;--rf-text2:#6b3f20;--rf-text3:#a0795a;
+  --rf-blue:#60a5fa;--rf-pink:#f472b6;--rf-orange:#f97316;--rf-violet:#8b5cf6;--rf-green:#22a660;
+  --rf-young:#3b82f6;--rf-old:#ec4899;
+  --rf-display:'Chalkboard SE','Hiragino Maru Gothic ProN','PingFang SC','Noto Sans SC',system-ui,sans-serif;
+  --rf-body:-apple-system,BlinkMacSystemFont,'Hiragino Sans','PingFang SC','Noto Sans SC','Noto Sans JP','Segoe UI',system-ui,sans-serif;
+}
+
+.rf{max-width:1180px;margin:0 auto;padding:28px 16px 40px;box-sizing:border-box}
+.rf *{box-sizing:border-box}
+.rf-head{text-align:center;margin-bottom:28px}
+.rf-head .rf-eyebrow{font:600 11.5px/1.3 var(--rf-body);letter-spacing:.18em;text-transform:uppercase;color:var(--rf-text3);margin:0 auto 10px}
+.rf-head h2{font:700 clamp(26px,3.6vw,42px)/1.15 var(--rf-display);color:var(--rf-blue);margin:0 0 10px}
+.rf-head p{font:600 clamp(15px,1.8vw,19px)/1.45 var(--rf-display);margin:0 auto;max-width:720px}
+
+.rf-line{display:flex;align-items:center;gap:10px;margin:0 0 10px;font:600 11.5px/1.3 var(--rf-body);letter-spacing:.14em;text-transform:uppercase;color:var(--rf-text3)}
+.rf-line::after{content:"";flex:1;height:1px;background:var(--rf-border)}
+.rf-line b{font-weight:700;color:var(--c)}
+
+/* ---------- line 2: reflection band with the mini-game ---------- */
+.rf-band{border:2px dashed var(--rf-violet);border-radius:22px;background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(244,114,182,.07));padding:20px 22px}
+.rf-band .rf-n{font:700 30px/1 var(--rf-display);color:var(--rf-violet)}
+.rf-band h3{font:700 clamp(18px,2vw,22px)/1.3 var(--rf-display);margin:6px 0 8px}
+.rf-band .rf-q{font:400 14px/1.65 var(--rf-body);color:var(--rf-text2);margin:0}
+.rf-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.rf-chips span{font:600 12px/1 var(--rf-body);padding:6px 11px;border-radius:999px;background:#fff;border:1px solid var(--c,var(--rf-border));color:var(--c,var(--rf-text2))}
+
+/* connectors */
+.rf-link{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
+.rf-link div{display:flex;align-items:center;justify-content:center;gap:8px;font:600 12.5px/1.3 var(--rf-body);color:var(--rf-text2)}
+.rf-link svg{width:18px;height:34px;flex:none;overflow:visible}
+.rf-link .rf-dash{stroke-dasharray:4 4;animation:rf-flow 1.2s linear infinite}
+.rf-link .rf-up .rf-dash{animation-direction:reverse}
+@keyframes rf-flow{to{stroke-dashoffset:-16}}
+
+/* ---------- line 1: people statement + pipeline ---------- */
+.rf-people{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 14px;padding:12px 16px;border-radius:14px;background:#fff;border:1px solid var(--rf-border)}
+.rf-people strong{font:700 15px/1.4 var(--rf-display);color:var(--rf-text);margin-right:4px}
+.rf-people strong em{font-style:normal;color:var(--rf-pink)}
+.rf-people span{font:600 12px/1 var(--rf-body);padding:6px 11px;border-radius:999px;background:var(--rf-card);border:1px solid var(--rf-border);color:var(--rf-text2)}
+.rf-pipe{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.rf-card{position:relative;background:var(--rf-card);border:1.5px solid var(--rf-border);border-top:4px solid var(--c);border-radius:16px;padding:14px 15px 15px;transition:transform .2s,box-shadow .2s}
+.rf-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(160,121,90,.16)}
+.rf-card.rf-on{background:#fff;border-color:var(--c);box-shadow:0 8px 22px rgba(160,121,90,.14)}
+.rf-play{display:inline-block;margin-top:10px;font:600 11.5px/1.2 var(--rf-body);color:var(--c);opacity:.7;transition:opacity .2s}
+.rf-card:hover .rf-play,.rf-card.rf-on .rf-play{opacity:1}
+.rf-card:not(:last-child)::after{content:"";position:absolute;right:-17px;top:50%;width:12px;height:12px;border-top:2.5px solid var(--rf-text3);border-right:2.5px solid var(--rf-text3);transform:translateY(-50%) rotate(45deg)}
+.rf-card .rf-top{display:flex;align-items:baseline;gap:8px}
+.rf-card .rf-n{font:700 24px/1 var(--rf-display);color:var(--c)}
+.rf-card .rf-v{font:600 10.5px/1.2 var(--rf-body);letter-spacing:.12em;text-transform:uppercase;color:var(--rf-text3)}
+.rf-card h4{font:700 15px/1.3 var(--rf-body);margin:8px 0 5px}
+.rf-card p{font:400 12.5px/1.55 var(--rf-body);color:var(--rf-text2);margin:0}
+.rf-card .rf-chips{margin-top:9px}
+.rf-card .rf-chips span{font-size:11px;padding:4px 8px}
+.rf-card.rf-future{border-style:dashed;border-top-style:solid}
+
+@media (max-width:900px){
+  .rf-pipe{grid-template-columns:1fr 1fr}
+  .rf-card:nth-child(2)::after{display:none}
+}
+@media (max-width:560px){
+  .rf-pipe{grid-template-columns:1fr;gap:20px}
+  .rf-card:not(:last-child)::after{display:block;right:auto;left:50%;top:auto;bottom:-15px;transform:translateX(-50%) rotate(135deg)}
+  .rf-link{grid-template-columns:1fr}
+  .rf-band{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){.rf-link .rf-dash{animation:none}}
+.research-playground-section .rf{padding-top:4px}
+      </style>
+<section class="rf" id="rf" aria-labelledby="rf-title">
+  <header class="rf-head">
+    <p class="rf-eyebrow" data-rf="eyebrow"></p>
+    <h2 id="rf-title" data-rf="vision"></h2>
+  </header>
+
+  <div class="rf-line" style="--c:var(--rf-violet)"><b data-rf="line2"></b></div>
+  <div class="rf-band">
+    <div>
+      <span class="rf-n">05</span>
+      <h3 data-rf="bandTitle"></h3>
+      <p class="rf-q" data-rf="bandQ"></p>
+      <div class="rf-chips" id="rf-bandChips" style="--c:var(--rf-violet)"></div>
+    </div>
+  </div>
+
+  <div class="rf-link" aria-hidden="true">
+    <div class="rf-down"><svg viewBox="0 0 18 34"><path class="rf-dash" d="M9 2 V28" stroke="#8b5cf6" stroke-width="2" fill="none"/><path d="M3 24 L9 32 L15 24" stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span data-rf="down"></span></div>
+    <div class="rf-up"><svg viewBox="0 0 18 34"><path class="rf-dash" d="M9 32 V6" stroke="#f97316" stroke-width="2" fill="none"/><path d="M3 10 L9 2 L15 10" stroke="#f97316" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span data-rf="up"></span></div>
+  </div>
+
+  <div class="rf-line" style="--c:var(--rf-orange)"><b data-rf="line1"></b></div>
+  <div class="rf-people" id="rf-people"></div>
+  <div class="rf-pipe" id="rf-pipe"></div>
+</section>
+      <script>
+(() => {
+  const C = ['var(--rf-blue)', 'var(--rf-pink)', 'var(--rf-orange)', 'var(--rf-violet)'];
+  let activeMode = 0;
+  const TXT = {
+    en: {
+      eyebrow: 'Research vision', vision: 'Digital Governance for Inclusive and Sustainable Cities',
+      line2: 'Line 2 · Governing digital systems', bandTitle: 'Reflect: who owns, who benefits?',
+      bandQ: 'When digital and AI systems start to shape city decisions, who holds the evidence, the data and the gains? Who is seen, and who is left out?',
+      bandChips: ['Ownership of evidence', 'Who benefits', 'Missing from the data'],
+      down: 'Questions & audits', up: 'Tools & evidence',
+      line1: 'Line 1 · Building digital systems for people',
+      people: 'Built for <em>real people</em>, not the average person.', play: 'Try it below →',
+      cards: [
+        {v: 'Understand', t: 'Behavioral patterns', d: 'How and why people move differently across places and lives.', k: ['Space-time paths', 'Heterogeneity']},
+        {v: 'Anticipate', t: 'Validating interventions', d: 'How behavior responds when a facility opens or closes.', k: ['Quasi-experimental design', 'Counterfactuals']},
+        {v: 'Support', t: 'Policy simulation', d: 'Weighing trade-offs and showing who gains before anything is built.', k: ['Sequence generation', 'Causal generation', 'Systems integration', 'Policy sandbox']},
+        {v: 'Imagine', t: 'Participatory exploration', d: 'Letting residents and visitors play the city themselves.', k: ['Serious games']}]
+    },
+    zh: {
+      eyebrow: '研究愿景', vision: '包容与可持续城市的数字化治理',
+      line2: '线索二 · 治理数字系统', bandTitle: '反思：谁拥有，谁受益？',
+      bandQ: '当数字与 AI 系统开始参与城市决策，证据、数据与收益掌握在谁手里？谁被看见，谁被落下？',
+      bandChips: ['证据归属', '受益分配', '数据中的缺席者'],
+      down: '审视与问责', up: '工具与证据',
+      line1: '线索一 · 为人构建数字系统',
+      people: '为<em>具体的人</em>而建，而不是“平均人”。', play: '在下方试玩 →',
+      cards: [
+        {v: '理解', t: '行为模式', d: '人们为何在不同地方、不同人生中移动得不一样。', k: ['时空轨迹', '异质性']},
+        {v: '预判', t: '干预验证', d: '设施开业或关闭后，人们的行为如何响应。', k: ['准实验设计', '反事实']},
+        {v: '支持', t: '政策模拟', d: '在动工之前，权衡多目标并看清谁会受益。', k: ['序列生成', '因果生成', '系统集成', '政策沙盘']},
+        {v: '想象', t: '参与式探索', d: '让居民与游客亲手推演自己的城市。', k: ['严肃游戏']}]
+    },
+    ja: {
+      eyebrow: '研究のビジョン', vision: '包摂的で持続可能な都市のためのデジタル・ガバナンス',
+      line2: '軸 2 · デジタルシステムのガバナンス', bandTitle: '問い直す：誰が持ち、誰が得をするのか？',
+      bandQ: 'デジタルや AI のシステムが都市の意思決定に関わり始めたとき、証拠・データ・便益は誰の手にあるのか？誰が見え、誰が取り残されるのか？',
+      bandChips: ['証拠の帰属', '便益の分配', 'データに現れない人'],
+      down: '問い直しと説明責任', up: 'ツールと証拠',
+      line1: '軸 1 · 人のためのデジタルシステムを作る',
+      people: '「平均的な人」ではなく、<em>具体的な人</em>のために。', play: '下で試してみる →',
+      cards: [
+        {v: '理解する', t: '行動パターン', d: '人は場所や暮らしによって、なぜ異なる動き方をするのか。', k: ['時空間パス', '異質性']},
+        {v: '予測する', t: '介入の検証', d: '施設の開業・閉鎖に、行動はどう反応するのか。', k: ['準実験デザイン', '反実仮想']},
+        {v: '支援する', t: '政策シミュレーション', d: '建てる前に、目的間のトレードオフと受益者を見通す。', k: ['系列生成', '因果的生成', 'システム統合', '政策サンドボックス']},
+        {v: '想像する', t: '参加型の探索', d: '住民や観光客が自ら街を試せるようにする。', k: ['シリアスゲーム']}]
+    }
+  };
+
+  /* ---------- text ---------- */
+  const root = document.getElementById('rf');
+  function render(lang) {
+    const T = TXT[lang] || TXT.en;
+    root.querySelectorAll('[data-rf]').forEach(e => { e.textContent = T[e.dataset.rf]; });
+    document.getElementById('rf-bandChips').innerHTML = T.bandChips.map(c => `<span>${c}</span>`).join('');
+    document.getElementById('rf-people').innerHTML = `<strong>${T.people}</strong>`;
+    document.getElementById('rf-pipe').innerHTML = T.cards.map((c, i) =>
+      `<article class="rf-card${i === 3 ? ' rf-future' : ''}${i === activeMode ? ' rf-on' : ''}" data-mode="${i}" role="button" tabindex="0" style="--c:${C[i]}"><div class="rf-top"><span class="rf-n">0${i + 1}</span><span class="rf-v">${c.v}</span></div><h4>${c.t}</h4><p>${c.d}</p><div class="rf-chips" style="--c:${C[i]}">${c.k.map(k => `<span>${k}</span>`).join('')}</div><span class="rf-play">${T.play}</span></article>`).join('');
+  }
+  // the homepage's applyLanguage() calls this when the visitor switches language
+  window.rfRender = l => render(l === 'zh-Hans' ? 'zh' : l);
+  // cards open the matching section of the playground below; the playground reports which section is open
+  const pipe = document.getElementById('rf-pipe');
+  const open = e => { const c = e.target.closest('.rf-card'); if (c && window.rfOpen) window.rfOpen(+c.dataset.mode); };
+  pipe.addEventListener('click', open);
+  pipe.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(e); } });
+  window.rfActive = i => { activeMode = i; pipe.querySelectorAll('.rf-card').forEach(c => c.classList.toggle('rf-on', +c.dataset.mode === i)); };
+  const l0 = document.documentElement.lang || 'en';
+  render(l0.startsWith('zh') ? 'zh' : l0.startsWith('ja') ? 'ja' : 'en');
+})();
+      </script>
       <!-- src is set by syncResearchPlayground() so the iframe opens in the site language -->
       <iframe id="research-playground" class="research-playground"
               title="Interactive research overview" loading="lazy"></iframe>
@@ -1160,6 +1335,10 @@ footer {
     <h1 class="page-header-title" data-i18n-html="pub.title">Writing that <em>measures</em> the city</h1>
   </div>
   <div class="pub-list">
+    <div class="pub-group" style="--c:var(--blue2)">
+      <div class="pub-group-line" data-i18n="pub.g1_line">Line 1 · Building digital systems for people</div>
+      <div class="pub-group-title"><span class="pub-group-n">01</span><span data-i18n="pub.g1_title">Understand · Behavioral patterns</span></div>
+    </div>
     <div class="pub-item reveal">
       <div class="pub-idx">01</div>
       <div>
@@ -1184,20 +1363,27 @@ footer {
         <div class="pub-venue"><span class="pub-badge pb-conf" data-i18n="pub.badge_conf">Conference</span> Netmob 2026</div>
       </div>
     </div>
-    <div class="pub-item reveal">
-      <div class="pub-idx">04</div>
-      <div>
-        <div class="pub-title">通向永恒之路：路易斯·康作品中的拱形母题来源及其设计演化</div>
-        <div class="pub-authors"><strong>田思俭</strong>, 杨涛· 2025</div>
-        <div class="pub-venue"><span class="pub-badge pb-journal" data-i18n="pub.badge_journal">Journal </span> 建筑学报</div>
-      </div>
+    <div class="pub-group" style="--c:#8b5cf6">
+      <div class="pub-group-line" data-i18n="pub.g2_line">Line 2 · Governing digital systems</div>
+      <div class="pub-group-title"><span class="pub-group-n">05</span><span data-i18n="pub.g2_title">Reflect · Who owns, who benefits?</span></div>
     </div>
     <div class="pub-item reveal">
-      <div class="pub-idx">05</div>
+      <div class="pub-idx">04</div>
       <div>
         <div class="pub-title">实体空间的终结还是新机遇？——智能手机时代下的公共空间研究动态综述</div>
         <div class="pub-authors"><strong>田思俭</strong>, 杨涛, 李鑫, 崔阳 · 2024</div>
         <div class="pub-venue"><span class="pub-badge pb-journal" data-i18n="pub.badge_journal">Journal </span> 世界建筑</div>
+      </div>
+    </div>
+    <div class="pub-group" style="--c:var(--orange)">
+      <div class="pub-group-title"><span class="pub-group-n">✦</span><span data-i18n="pub.g3_title">Socio-technical perspective</span></div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-idx">05</div>
+      <div>
+        <div class="pub-title">通向永恒之路：路易斯·康作品中的拱形母题来源及其设计演化</div>
+        <div class="pub-authors"><strong>田思俭</strong>, 杨涛· 2025</div>
+        <div class="pub-venue"><span class="pub-badge pb-journal" data-i18n="pub.badge_journal">Journal </span> 建筑学报</div>
       </div>
     </div>
   </div>
@@ -1392,6 +1578,9 @@ const STRINGS = {
     'pub.badge_conf_oral_jp': 'Conference · Oral (JP)',
     'pub.badge_conf': 'Conference',
     'pub.badge_journal': 'Journal ',
+    'pub.g1_line': 'Line 1 · Building digital systems for people', 'pub.g1_title': 'Understand · Behavioral patterns',
+    'pub.g2_line': 'Line 2 · Governing digital systems', 'pub.g2_title': 'Reflect · Who owns, who benefits?',
+    'pub.g3_title': 'Socio-technical perspective',
     'blog.eyebrow': 'Blog',
     'blog.title': '<span class="i18n-line">Notes on cities,</span><span class="i18n-line"> and <em>uncertainty</em></span>',
     'blog.tab_causal': '⌘ Causal Inference',
@@ -1483,6 +1672,9 @@ const STRINGS = {
     'pub.badge_conf_oral_jp': '学会発表（口頭・国内）',
     'pub.badge_conf': '学会発表',
     'pub.badge_journal': '論文誌 ',
+    'pub.g1_line': '軸 1 · 人のためのデジタルシステムを作る', 'pub.g1_title': '理解する · 行動パターン',
+    'pub.g2_line': '軸 2 · デジタルシステムのガバナンス', 'pub.g2_title': '問い直す · 誰が持ち、誰が得をするのか？',
+    'pub.g3_title': '社会技術的視点',
     'blog.eyebrow': 'ブログ',
     'blog.title': '<span class="i18n-line">都市と、</span><span class="i18n-line"><em>不確実性</em>について</span>',
     'blog.tab_causal': '⌘ 因果推論',
@@ -1574,6 +1766,9 @@ const STRINGS = {
     'pub.badge_conf_oral_jp': '会议 · 口头报告（日本）',
     'pub.badge_conf': '会议',
     'pub.badge_journal': '期刊 ',
+    'pub.g1_line': '线索一 · 为人构建数字系统', 'pub.g1_title': '理解 · 行为模式',
+    'pub.g2_line': '线索二 · 治理数字系统', 'pub.g2_title': '反思 · 谁拥有，谁受益？',
+    'pub.g3_title': '社会技术视角',
     'blog.eyebrow': '博客',
     'blog.title': '<span class="i18n-line">关于城市</span><span class="i18n-line">与<em>不确定性</em>的笔记</span>',
     'blog.tab_causal': '⌘ 因果推断',
@@ -1657,6 +1852,7 @@ function applyLanguage(lang) {
   });
 
   syncResearchPlayground(lang);
+  if (window.rfRender) window.rfRender(lang);
   triggerReveals();
 }
 
@@ -1668,13 +1864,24 @@ function syncResearchPlayground(lang) {
   if (!f.getAttribute('data-ready')) { f.setAttribute('src', src); return; }
   f.contentWindow.postMessage({ researchPlaygroundLang: lang }, '*');
 }
+// framework cards open the matching section of the playground
+var pendingPlaygroundMode = null;
+window.rfOpen = function (i) {
+  var f = document.getElementById('research-playground');
+  if (!f) return;
+  window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+  if (f.getAttribute('data-ready')) f.contentWindow.postMessage({ researchPlaygroundMode: i }, '*');
+  else pendingPlaygroundMode = i;
+};
 window.addEventListener('message', function (e) {
   var f = document.getElementById('research-playground');
   if (!f || e.source !== f.contentWindow || !e.data) return;
   if (e.data.researchPlaygroundHeight) {
     f.setAttribute('data-ready', '1');
     f.style.height = e.data.researchPlaygroundHeight + 'px';
+    if (pendingPlaygroundMode != null) { f.contentWindow.postMessage({ researchPlaygroundMode: pendingPlaygroundMode }, '*'); pendingPlaygroundMode = null; }
   }
+  if (e.data.researchPlaygroundModeChanged != null && window.rfActive) window.rfActive(e.data.researchPlaygroundModeChanged);
 });
 
 function setLanguage(lang) {

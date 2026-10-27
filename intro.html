@@ -117,7 +117,7 @@ try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
 const nextUrl = () => `${NEXT}?lang=${lang}&from=intro`;
 
 const TXT = {
-  en: {eyebrow: 'Urban data scientist · PhD candidate · The University of Tokyo', vision: 'Inclusive and Sustainable Cities', focus: 'Human-centered urban mobility & policy simulation',
+  en: {eyebrow: 'Urban data scientist · PhD candidate · The University of Tokyo', vision: 'Digital Governance for Inclusive and Sustainable Cities', focus: 'Human-centered urban mobility & policy simulation',
     who: 'Who moves through Tokyo', enter: 'Enter →', skip: 'Skip', cardLabel: 'Tokyo 23 wards · one weekday', moving: 'on the move',
     hint: '<b>Move</b> over the map to draw people toward you · <b>Click</b> to open a new place and see who gains access', try: 'Try it: move & click', open: 'A new place opens', here: 'here now',
     note: 'Simulated weekday. Homes follow 1 km mesh population; trips are illustrative.',
@@ -127,7 +127,7 @@ const TXT = {
     caps: {welfare: 'Older residents and caregivers live shorter, more local days. Many have no leisure place within a 10-minute walk.', worker: 'Long trips into the centre and back.', student: 'Short trips to school and cram school.', senior: 'Mostly within a few kilometres of home, during the day.', carer: 'Daycare drop-off, work or errands, pick-up: a day shaped by care.', leisure: 'Midday trips to parks, shops and sights.'},
     types: {worker: 'Commuters', student: 'Students', senior: 'Older residents', carer: 'Caregivers', leisure: 'Leisure'},
     phases: [[0, 'Night'], [6, 'Early morning'], [7, 'Morning rush into the centre'], [9.5, 'Working hours'], [12, 'Lunch & errands'], [14, 'Afternoon'], [17, 'Evening rush home'], [19.5, 'Nightlife hubs light up'], [22.5, 'Last trains home']]},
-  ja: {eyebrow: '都市データサイエンティスト · 博士課程 · 東京大学', vision: '包摂的で持続可能な都市', focus: '人間中心の都市モビリティと政策シミュレーション',
+  ja: {eyebrow: '都市データサイエンティスト · 博士課程 · 東京大学', vision: '包摂的で持続可能な都市のためのデジタル・ガバナンス', focus: '人間中心の都市モビリティと政策シミュレーション',
     who: '東京を動く人たち', enter: '入る →', skip: 'スキップ', cardLabel: '東京23区 · ある平日', moving: '移動中',
     hint: '地図の上で<b>動かす</b>と人が集まり、<b>クリック</b>で新しい場所をつくると誰が行けるようになるかが分かります', try: '動かして、クリックしてみて', open: '新しい場所ができた', here: '人がいます',
     note: '平日のシミュレーション。居住地は1kmメッシュ人口に基づき、移動は説明用です。',
@@ -137,7 +137,7 @@ const TXT = {
     caps: {welfare: '高齢の住民や子育て・介護中の人の一日は短く、近場で完結しがち。徒歩10分圏に余暇の場がない人も多い。', worker: '都心との長い往復。', student: '学校や塾への短い移動。', senior: '日中、自宅から数km以内がほとんど。', carer: '保育園の送り、仕事や用事、お迎え。ケアが一日を形づくる。', leisure: '昼間に公園や店、観光地へ。'},
     types: {worker: '通勤者', student: '学生', senior: '高齢の住民', carer: '子育て・介護中の人', leisure: '余暇'},
     phases: [[0, '深夜'], [6, '早朝'], [7, '都心へ向かう朝のラッシュ'], [9.5, '就業時間'], [12, '昼休みと用事'], [14, '午後'], [17, '帰宅ラッシュ'], [19.5, '繁華街が賑わう'], [22.5, '終電で帰宅']]},
-  zh: {eyebrow: '城市数据科学家 · 博士研究生 · 东京大学', vision: '包容与可持续的城市', focus: '以人为本的城市移动与政策模拟',
+  zh: {eyebrow: '城市数据科学家 · 博士研究生 · 东京大学', vision: '包容与可持续城市的数字化治理', focus: '以人为本的城市移动与政策模拟',
     who: '在东京流动的人们', enter: '进入 →', skip: '跳过', cardLabel: '东京 23 区 · 一个工作日', moving: '正在移动',
     hint: '在地图上<b>移动</b>鼠标，人会向你聚集 · <b>点击</b>开一个新地方，看看谁因此能走得到', try: '试试：移动并点击', open: '这里新开了一个地方', here: '人在这里',
     note: '模拟的工作日。居住地按 1 km 网格人口分布，出行为示意。',
