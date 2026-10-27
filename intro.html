@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shican Tian · Tokyo in Motion</title>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&text=%E7%94%B0%E6%80%9D%E4%BF%AD&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b1124;--card:#111a35;--line:rgba(148,163,209,.22);--text:#eef2ff;--text2:#b6c0e0;--text3:#7f8bb3;--cream:#fdf6ee;
   --font:-apple-system,BlinkMacSystemFont,'Hiragino Sans','PingFang SC','Noto Sans SC','Noto Sans JP','Segoe UI',system-ui,sans-serif;
@@ -29,6 +30,7 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:1}
 .eyebrow{font:600 11.5px/1.5 var(--font);letter-spacing:.18em;text-transform:uppercase;color:var(--text3);margin:0 0 14px}
 h1{font:700 clamp(40px,5.4vw,78px)/1 var(--display);margin:0;letter-spacing:-.01em;text-shadow:0 0 40px rgba(96,165,250,.35)}
 h1 span{color:#f9a8d4}
+h1.zh{font-family:'Ma Shan Zheng','STKaiti','KaiTi',serif;font-weight:400;letter-spacing:.06em;font-size:clamp(56px,7vw,100px)}
 .vision{font:700 clamp(17px,1.9vw,25px)/1.3 var(--display);color:#93c5fd;margin:18px 0 6px}
 .focus{font:400 clamp(13px,1.2vw,15.5px)/1.5 var(--font);color:var(--text2);margin:0}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -92,7 +94,7 @@ h1 span{color:#f9a8d4}
 </div>
 <div class="center" id="center">
   <p class="eyebrow" data-t="eyebrow"></p>
-  <h1>Shican <span>Tian</span></h1>
+  <h1 id="name">Shican <span>Tian</span></h1>
   <p class="vision" data-t="vision"></p>
   <p class="focus" data-t="focus"></p>
   <button class="enter" id="enter" data-t="enter"></button>
@@ -342,6 +344,8 @@ function applyLang() {
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
   document.querySelectorAll('[data-t]').forEach(e => e.textContent = T()[e.dataset.t]);
   $('ghostTxt').textContent = T().try;
+  $('name').innerHTML = lang === 'zh' ? '田 <span>思俭</span>' : 'Shican <span>Tian</span>';
+  $('name').classList.toggle('zh', lang === 'zh');
   document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.l === lang));
   $('skip').href = nextUrl();
   $('chips').innerHTML = `<button class="chip lb${st.pinned === 'welfare' ? ' on' : ''}" data-k="welfare"><i></i>${T().leftBehind}</button>` +

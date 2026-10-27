@@ -25,6 +25,7 @@
   } catch (e) {}
 })();
 </script>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&text=%E7%94%B0%E6%80%9D%E4%BF%AD&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -238,6 +239,9 @@ nav {
   line-height:1.06; margin-bottom:6px; letter-spacing:-0.5px;
 }
 .home-name em { font-style:italic; color:var(--orange); }
+/* Chinese pages show 田 思俭 in a brush font (only these three glyphs are downloaded) */
+html[lang="zh-Hans"] .home-name { font-family:'Ma Shan Zheng','STKaiti','KaiTi',serif; font-weight:400; letter-spacing:.08em; font-size:clamp(2.6rem, 4.4vw, 3.9rem); }
+html[lang="zh-Hans"] .home-name em { font-style:normal; }
 
 .home-role {
   font-family:var(--serif); font-style:italic;
@@ -987,7 +991,7 @@ footer {
           </div>
           <div class="home-name-stack">
             <div class="home-greeting" data-i18n="home.greeting">Urban Data Scientist · PhD Candidate</div>
-            <h1 class="home-name">Sijian<em>Tian</em></h1>
+            <h1 class="home-name" data-i18n-html="home.name">Sijian<em>Tian</em></h1>
             <div class="home-role" data-i18n="home.role">a researcher</div>
             <div class="home-stats home-stats--inline">
               <div class="home-stat">
@@ -1361,6 +1365,7 @@ const STRINGS = {
     'home.cta2': 'Get in Touch',
     'home.cta3': 'CV',
     'home.stat': 'Peace & Love',
+    'home.name': 'Sijian<em>Tian</em>',
     'home.strip1_title': 'Urban Digital Twin',
     'home.strip1_body': 'People flow & Behavior Change Simulation & Policy Simulation',
     'home.strip2_title': 'Architecture & Urban Design',
@@ -1451,6 +1456,7 @@ const STRINGS = {
     'home.cta2': '連絡する',
     'home.cta3': '履歴書',
     'home.stat': 'Peace & Love',
+    'home.name': 'Sijian<em>Tian</em>',
     'home.strip1_title': 'デジタルツイン都市',
     'home.strip1_body': '人流・行動変化シミュレーション・政策シミュレーション',
     'home.strip2_title': '建築・都市デザイン',
@@ -1541,6 +1547,7 @@ const STRINGS = {
     'home.cta2': '联系我',
     'home.cta3': '简历',
     'home.stat': 'Peace & Love',
+    'home.name': '田 <em>思俭</em>',
     'home.strip1_title': '城市数字孪生',
     'home.strip1_body': '人群流动 · 行为变化仿真 · 政策仿真',
     'home.strip2_title': '建筑与城市设计',
